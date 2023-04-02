@@ -1,0 +1,63 @@
+.button {
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border: none;
+  border-radius: 2.4rem;
+  font-family: var(--font-primary);
+  font-style: normal;
+  font-weight: 700;
+  transition: background-color 0.2s;
+}
+
+.primaryLg {
+  background: var(--color-primary);
+  font-family: var(--font-primary);
+  color: var(--color-btn-primary-label);
+  padding: 0.8rem 2rem;
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+
+  &:hover {
+    background-color: var(--color-btn-primary-bg-hover);
+  }
+}
+
+.primarySm {
+  background: var(--color-primary);
+  font-family: var(--font-primary);
+  color: var(--color-btn-primary-label);
+  padding: 0.5rem 1.6rem;
+  font-size: 1.2rem;
+  line-height: 2.3rem;
+
+  &:hover {
+    background-color: var(--color-btn-primary-bg-hover);
+  }
+}
+
+.secondary {
+  background: var(--color-btn-secondary-bg);
+  font-family: var(--font-primary);
+  color: var(--color-btn-secondary-label);
+  padding: 0.5rem 1.6rem;
+  font-size: 1.2rem;
+  line-height: 2.3rem;
+
+  &:hover {
+    background-color: var(--color-btn-secondary-bg-hover);
+  }
+}
+
+.destructive {
+  background: var(--color-destructive);
+  font-family: var(--font-primary);
+  color: var(--color-btn-primary-label);
+  padding: 0.5rem 1.6rem;
+  font-size: 1.2rem;
+  line-height: 2.3rem;
+
+  &:hover {
+    background-color: var(--color-destructive-light);
+  }
+}
