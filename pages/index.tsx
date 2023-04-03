@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "@styles/pages/Home.module.scss";
 import { Input } from "@components";
+import CheckBox from "@components/form/checkbox";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Input title="Testing" placeholder="Placeholder..." error={false} />
+        <CheckBox task="Create social media accounts" />
       </main>
     </>
   );

@@ -1,0 +1,47 @@
+.container {
+  padding: 1rem 0.8rem;
+  background: var(--color-bg-primary);
+  border-radius: 0.4rem;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 32rem;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(98, 95, 199, 0.25);
+    mix-blend-mode: normal;
+  }
+
+  .checkbox {
+    width: 1.6rem;
+    height: 1.6rem;
+    display: grid;
+    place-items: center;
+    background-color: var(--color-bg-tertiary);
+    border: 1px solid rgba(130, 143, 163, 0.248914);
+    margin-right: 1rem;
+    border-radius: 0.4rem;
+
+    min-width: 1.6rem;
+
+    &Checked {
+      background-color: var(--color-primary);
+    }
+  }
+
+  .label {
+    font-family: var(--font-primary);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    color: var(--color-text);
+
+    &Checked {
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+  }
+}
