@@ -1,0 +1,78 @@
+@mixin placeholder-properties() {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 2.3rem;
+  color: var(--color-text);
+  mix-blend-mode: normal;
+  opacity: 0.25;
+}
+
+.container {
+  width: max-content;
+
+  .title {
+    font-family: var(--font-primary);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    color: var(--color-text-tertiary);
+
+    margin-bottom: 0.6rem;
+  }
+
+  .inputContainer {
+    position: relative;
+    .input {
+      background: var(--color-bg-tertiary);
+      border: 1px solid rgba(130, 143, 163, 0.25);
+      border-radius: 4px;
+      padding: 0.8rem 1.6rem;
+      min-width: 25rem;
+
+      /* WebKit-based browsers */
+      &::-webkit-input-placeholder {
+        @include placeholder-properties();
+      }
+
+      /* Firefox 19+ */
+      &::-moz-placeholder {
+        @include placeholder-properties();
+        opacity: 1; /* Firefox requires this to make the text visible */
+      }
+
+      /* Internet Explorer 10+ */
+      &:-ms-input-placeholder {
+        @include placeholder-properties();
+      }
+
+      /* Standard syntax for modern browsers */
+      &::placeholder {
+        @include placeholder-properties();
+      }
+
+      &:focus {
+        border: 1px solid var(--color-primary);
+        outline: none;
+      }
+
+      &[data-hasError="true"] {
+        border: 1px solid var(--color-destructive);
+      }
+    }
+    .error {
+      position: absolute;
+      right: 1.6rem;
+      top: 50%;
+      translate: 0 -50%;
+
+      font-family: var(--font-primary);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1.1rem;
+      text-align: right;
+      color: var(--color-destructive);
+    }
+  }
+}

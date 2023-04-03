@@ -1,8 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@styles/pages/Home.module.scss";
-import { Heading, Text, Button } from "@components";
+import { Dropdown } from "@components";
 
 export default function Home() {
   return (
@@ -14,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        
+        <Dropdown options={["To do", "Doing", "Done"]} />
       </main>
     </>
   );

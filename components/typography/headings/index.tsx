@@ -1,5 +1,4 @@
-import React from "react";
-import { FC } from "react";
+import React, { FC } from "react";
 import { HeadingProps } from "@types";
 import styles from "./heading.module.scss";
 
