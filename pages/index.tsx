@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styles from "@styles/pages/Home.module.scss";
-import { Input } from "@components";
-import CheckBox from "@components/form/checkbox";
+import { Dropdown } from "@components";
 
 export default function Home() {
   return (
@@ -13,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <CheckBox task="Create social media accounts" />
+        <Dropdown options={["To do", "Doing", "Done"]} />
       </main>
     </>
   );

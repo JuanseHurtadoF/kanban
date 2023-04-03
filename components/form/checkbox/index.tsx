@@ -33,11 +33,15 @@ const CheckBox: FC<CheckBoxProps> = ({ task }) => {
           />
         </svg>
       </div>
-      <p className={
+      <p
+        className={
           isChecked
             ? `${styles.label} ${styles.labelChecked}`
             : `${styles.label}`
-        }>{task}</p>
+        }
+      >
+        {task}
+      </p>
     </div>
   );
 };
