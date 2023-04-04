@@ -3,7 +3,7 @@ import { DropdownProps } from "@types";
 import styles from "./dropdown.module.scss";
 import { useState } from "react";
 
-const Dropdown: FC<DropdownProps> = ({ options }) => {
+const Dropdown: FC<DropdownProps> = ({ title, options }) => {
   const [value, setValue] = useState<string>(options[0]);
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
@@ -18,6 +18,7 @@ const Dropdown: FC<DropdownProps> = ({ options }) => {
 
   return (
     <div className={styles.container}>
+      <p className={styles.title}>{title}</p>
       <div
         onClick={handleFocusChange}
         className={

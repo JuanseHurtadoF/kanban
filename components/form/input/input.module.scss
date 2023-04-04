@@ -3,7 +3,7 @@
   font-weight: 500;
   font-size: 1.3rem;
   line-height: 2.3rem;
-  color: var(--color-text);
+  color: var(--color-input-placeholder);
   mix-blend-mode: normal;
   opacity: 0.25;
 }
@@ -17,7 +17,7 @@
     font-weight: 700;
     font-size: 1.2rem;
     line-height: 1.5rem;
-    color: var(--color-text-tertiary);
+    color: var( --color-input-title);
 
     margin-bottom: 0.6rem;
   }
@@ -30,6 +30,7 @@
       border-radius: 4px;
       padding: 0.8rem 1.6rem;
       min-width: 25rem;
+      color: var(--color-input-text);
 
       /* WebKit-based browsers */
       &::-webkit-input-placeholder {

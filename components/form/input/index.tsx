@@ -12,7 +12,11 @@ const Input: FC<InputProps> = ({ title, placeholder, error, errorMessage }) => {
           data-hasError={error}
           className={styles.input}
         ></input>
-        {error && <p className={styles.error}>{errorMessage ? errorMessage : 'Error'}</p>}
+        {error && (
+          <p className={styles.error}>
+            {errorMessage ? errorMessage : "Error"}
+          </p>
+        )}
       </div>
     </div>
   );

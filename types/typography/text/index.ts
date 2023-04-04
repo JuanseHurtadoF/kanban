@@ -1,4 +1,4 @@
 export type TextProps = {
-  variant: "primary" | "secondary";
+  variant: "primary" | "secondary" | "tertiary";
   text: string;
 };

@@ -1,6 +1,49 @@
 import Head from "next/head";
 import styles from "@styles/pages/Home.module.scss";
-import { Dropdown } from "@components";
+import { CheckBox, Column, Dropdown, Heading, Input, Text } from "@components";
+
+const data = [
+  {
+    title: "Interview users",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+  {
+    title: "Make user personas",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+  {
+    title: "Define main issues to tackle",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+  {
+    title: "Make initial Figma design",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+  {
+    title: "Give project to product team",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+];
 
 export default function Home() {
   return (
@@ -12,7 +55,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Dropdown options={["To do", "Doing", "Done"]} />
+        <div className={styles.text}>
+        <Heading title="Heading 1" variant={1} />
+        <Heading title="Heading 2" variant={2} />
+        <Heading title="Heading 3" variant={3} />
+        <Heading title="Heading 4" variant={4} />
+        <Text text="Text 1" variant="primary" />
+        <Text text="Text 2" variant="secondary" />
+        <Text text="Text 3" variant="tertiary" />
+        </div>
       </main>
     </>
   );

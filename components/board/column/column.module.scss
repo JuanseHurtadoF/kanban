@@ -1,0 +1,22 @@
+.container {
+  max-width: 28rem;
+  .titleContainer {
+    margin-bottom: 2.4rem;
+    .label {
+      height: 1.4rem;
+      width: 1.4rem;
+      border-radius: 50%;
+      background-color: #49c4e5;
+      margin-right: 0.6rem;
+    }
+    display: flex;
+    align-items: center;
+  }
+
+  .cardsContainer {
+    list-style: none; /* Fallback for older browsers */
+    list-style-type: none; /* Modern browsers */
+    display: grid;
+    gap: 1.6rem;
+  }
+}
