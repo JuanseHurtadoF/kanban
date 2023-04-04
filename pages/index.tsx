@@ -1,10 +1,10 @@
 import Head from "next/head";
 import styles from "@styles/pages/Home.module.scss";
-import { Card, Column } from "@components";
+import { Column, Heading, Text } from "@components";
 
 const data = [
   {
-    title: "Make UI for client",
+    title: "Interview users",
     subtasks: [
       "Make user personas",
       "Ideate solutions",
@@ -12,7 +12,7 @@ const data = [
     ],
   },
   {
-    title: "Make UI for client",
+    title: "Make user personas",
     subtasks: [
       "Make user personas",
       "Ideate solutions",
@@ -20,7 +20,7 @@ const data = [
     ],
   },
   {
-    title: "Make UI for client",
+    title: "Define main issues to tackle",
     subtasks: [
       "Make user personas",
       "Ideate solutions",
@@ -28,7 +28,7 @@ const data = [
     ],
   },
   {
-    title: "Make UI for client",
+    title: "Make initial Figma design",
     subtasks: [
       "Make user personas",
       "Ideate solutions",
@@ -36,7 +36,7 @@ const data = [
     ],
   },
   {
-    title: "Make UI for client",
+    title: "Give project to product team",
     subtasks: [
       "Make user personas",
       "Ideate solutions",

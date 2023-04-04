@@ -1,4 +1,5 @@
 .container {
+  max-width: 28rem;
   .titleContainer {
     margin-bottom: 2.4rem;
     .label {
@@ -13,6 +14,8 @@
   }
 
   .cardsContainer {
+    list-style: none; /* Fallback for older browsers */
+    list-style-type: none; /* Modern browsers */
     display: grid;
     gap: 1.6rem;
   }

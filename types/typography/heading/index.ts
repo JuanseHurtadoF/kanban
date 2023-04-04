@@ -1,4 +1,4 @@
 export type HeadingProps = {
-  variant: "primary" | "secondary" | "tertiary" | "cuaternary";
+  variant: 1 | 2 | 3 | 4;
   title: string;
 };

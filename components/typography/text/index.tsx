@@ -3,13 +3,7 @@ import { TextProps } from "@types";
 import styles from "./text.module.scss";
 
 const Text: FC<TextProps> = ({ variant, text }) => {
-  return (
-    <>
-      {variant === "primary" && <p className={styles[variant]}>{text}</p>}
-      {variant === "secondary" && <p className={styles[variant]}>{text}</p>}
-      {variant === "tertiary" && <p className={styles[variant]}>{text}</p>}
-    </>
-  );
+  return <p className={styles[variant]}>{text}</p>;
 };
 
 export default Text;
