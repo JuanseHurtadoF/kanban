@@ -7,6 +7,7 @@ const Text: FC<TextProps> = ({ variant, text }) => {
     <>
       {variant === "primary" && <p className={styles[variant]}>{text}</p>}
       {variant === "secondary" && <p className={styles[variant]}>{text}</p>}
+      {variant === "tertiary" && <p className={styles[variant]}>{text}</p>}
     </>
   );
 };

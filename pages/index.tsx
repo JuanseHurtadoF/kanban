@@ -1,6 +1,49 @@
 import Head from "next/head";
 import styles from "@styles/pages/Home.module.scss";
-import { Dropdown } from "@components";
+import { Card, Column } from "@components";
+
+const data = [
+  {
+    title: "Make UI for client",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+  {
+    title: "Make UI for client",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+  {
+    title: "Make UI for client",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+  {
+    title: "Make UI for client",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+  {
+    title: "Make UI for client",
+    subtasks: [
+      "Make user personas",
+      "Ideate solutions",
+      "Make initial design in Figma",
+    ],
+  },
+];
 
 export default function Home() {
   return (
@@ -12,7 +55,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Dropdown options={["To do", "Doing", "Done"]} />
+        <Column name="TODO" cards={data} />
       </main>
     </>
   );
