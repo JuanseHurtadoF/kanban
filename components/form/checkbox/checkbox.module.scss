@@ -1,6 +1,6 @@
 .container {
   padding: 1rem 0.8rem;
-  background: var(--color-bg-primary);
+  background: var(--color-checkbox-bg);
   border-radius: 0.4rem;
   width: max-content;
   display: flex;
@@ -10,7 +10,7 @@
   cursor: pointer;
 
   &:hover {
-    background: rgba(98, 95, 199, 0.25);
+    background: var(--color-checkbox-bg-hover);
     mix-blend-mode: normal;
   }
 
@@ -19,15 +19,15 @@
     height: 1.6rem;
     display: grid;
     place-items: center;
-    background-color: var(--color-bg-tertiary);
-    border: 1px solid rgba(130, 143, 163, 0.248914);
+    background-color: var(--color-checkbox-bg-secondary);
+    border: 1px solid var(--color-checkbox-border);
     margin-right: 1rem;
     border-radius: 0.4rem;
 
     min-width: 1.6rem;
 
     &Checked {
-      background-color: var(--color-primary);
+      background-color: var(--color-checkbox-checked);
     }
   }
 
@@ -42,6 +42,7 @@
     &Checked {
       opacity: 0.5;
       text-decoration: line-through;
+      // color: rgba(98, 95, 199, 0.5);
     }
   }
 }

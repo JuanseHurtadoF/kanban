@@ -1,5 +1,11 @@
 .main {
   min-height: 100vh;
   padding: 12rem;
-  background-color: #F2F2F2;
+  background-color: var(--color-bg-primary);
+
+  .text {
+    display: grid;
+    gap: 1rem;
+  }
+
 }
