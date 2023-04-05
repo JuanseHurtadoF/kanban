@@ -1,5 +1,5 @@
 .container {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -12,8 +12,7 @@
   .top {
     min-height: 4rem;
     .logo {
-      margin: 2rem;
-      margin-bottom: 4rem;
+      margin: 2.4rem 2rem 4rem;
     }
     .boardsContainer {
       padding-right: 2rem;
@@ -42,8 +41,6 @@
               fill: #828fa3;
             }
           }
-          //   background-color: var(--color-primary);
-          //   border-radius: 0 500px 500px 0;
         }
       }
     }

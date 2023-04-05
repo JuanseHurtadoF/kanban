@@ -1,0 +1,15 @@
+.container {
+  overflow: scroll;
+  height: 100vh;
+
+  .board {
+    min-height: 100vh;
+
+    display: flex;
+    padding: 2rem;
+    padding-bottom: 24rem;
+    > :not(:last-child) {
+      margin-right: 1.2rem;
+    }
+  }
+}
