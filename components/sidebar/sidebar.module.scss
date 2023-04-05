@@ -48,6 +48,15 @@
 
   .bottom {
     min-height: 4rem;
-    background-color: red;
+    padding: 2rem;
+    padding-bottom: 4rem;
+
+    .close {
+      cursor: pointer;
+      display: flex;
+      width: 90%;
+      margin-inline: auto;
+      gap: 1rem;
+    }
   }
 }

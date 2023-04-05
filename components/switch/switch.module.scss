@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  background-color: #f4f7fd;
+  border-radius: 0.6rem;
+  width: 90%;
+  margin-bottom: 2.4rem;
+  margin-inline: auto;
+  cursor: pointer;
+
+  .switchContainer {
+    display: flex;
+    justify-content: flex-start;
+    background-color: var(--color-primary);
+    border-radius: 100rem;
+    min-width: 4.2rem;
+    padding: 0.35rem;
+
+    .switch {
+      height: 1.8rem;
+      width: 1.8rem;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+    &[data-isOn="true"] {
+      justify-content: flex-end;
+    }
+  }
+}

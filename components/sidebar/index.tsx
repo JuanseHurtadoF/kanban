@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import styles from "./sidebar.module.scss";
-import { Heading, Icon } from "..";
+import { Heading, Text, Icon, Switch } from "..";
 import { data } from "@data/index";
 
 const Sidebar: FC = () => {
@@ -33,7 +33,13 @@ const Sidebar: FC = () => {
           </div>
         </div>
       </div>
-      <div className={styles.bottom}></div>
+      <div className={styles.bottom}>
+        <Switch />
+        <div className={styles.close}>
+          <Icon variant="hide" />
+          <Text text="Hide sidebar" variant="tertiary" />
+        </div>
+      </div>
     </div>
   );
 };

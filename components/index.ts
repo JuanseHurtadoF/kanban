@@ -10,3 +10,4 @@ export { default as Column } from "./board/column";
 export { default as Nav } from "./nav";
 export { default as Sidebar } from "./sidebar";
 export { default as Layout } from "./layout";
+export { default as Switch } from "./switch";
