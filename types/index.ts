@@ -7,3 +7,4 @@ export { type DropdownProps } from "./form/dropdown";
 export { type CardProps } from "./board/card";
 export { type ColumnProps } from "./board/column";
 export { type IconProps } from "./icons";
+export { type SidebarProps } from "./sidebar";
