@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background: #ffffff;
+  border: 1px solid #E4EBFA;
+  border-top: none;
+  border-left: none;
+
+  .nameContainer {
+  }
+
+  .actionsContainer {
+    display: flex;
+    align-items: center;
+
+    .options {
+      margin-left: 2rem;
+      cursor: pointer;
+    }
+  }
+}

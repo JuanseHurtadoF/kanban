@@ -6,3 +6,6 @@ export { default as CheckBox } from "./form/checkbox";
 export { default as Dropdown } from "./form/dropdown";
 export { default as Card } from "./board/card";
 export { default as Column } from "./board/column";
+export { default as Nav } from "./nav";
+export { default as Sidebar } from "./sidebar";
+export { default as Layout } from "./layout";

@@ -1,0 +1,56 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25rem;
+  background: #ffffff;
+  border: 1px solid #e4ebfa;
+  border-top: none;
+  z-index: 1;
+
+  .top {
+    min-height: 4rem;
+    .logo {
+      margin: 2rem;
+      margin-bottom: 4rem;
+    }
+    .boardsContainer {
+      padding-right: 2rem;
+      .title {
+        margin-left: 2rem;
+      }
+      .boards {
+        margin-top: 2rem;
+        .board {
+          display: flex;
+          align-items: center;
+          padding: 1.2rem 2rem;
+          font-family: var(--font-primary);
+          font-style: normal;
+          font-weight: 700;
+          font-size: 1.2rem;
+          line-height: 1.5rem;
+          color: #828fa3;
+          cursor: pointer;
+
+          svg {
+            display: block;
+            margin-right: 1rem;
+            path {
+              transition: all 0.3s;
+              fill: #828fa3;
+            }
+          }
+          //   background-color: var(--color-primary);
+          //   border-radius: 0 500px 500px 0;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    min-height: 4rem;
+    background-color: red;
+  }
+}
