@@ -1,8 +1,7 @@
 .main {
-  min-height: 100vh;
-  padding: 12rem;
   background-color: var(--color-bg-primary);
-
+  height: 100vh;
+  overflow: hidden;
   .text {
     display: grid;
     gap: 1rem;

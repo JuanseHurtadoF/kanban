@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "@styles/pages/Home.module.scss";
-import { CheckBox, Column, Dropdown, Heading, Input, Text } from "@components";
+import { Layout } from "@components";
 
 const data = [
   {
@@ -55,15 +55,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.text}>
-        <Heading title="Heading 1" variant={1} />
-        <Heading title="Heading 2" variant={2} />
-        <Heading title="Heading 3" variant={3} />
-        <Heading title="Heading 4" variant={4} />
-        <Text text="Text 1" variant="primary" />
-        <Text text="Text 2" variant="secondary" />
-        <Text text="Text 3" variant="tertiary" />
-        </div>
+        <Layout />
       </main>
     </>
   );

@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  background: #ffffff;
+  border-bottom: 1px solid #E4EBFA;
+
+  .nameContainer {
+      
+  }
+
+  .actionsContainer {
+    display: flex;
+    align-items: center;
+
+    .options {
+      margin-left: 2rem;
+      cursor: pointer;
+    }
+  }
+}

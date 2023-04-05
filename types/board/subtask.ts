@@ -1,1 +1,4 @@
-export type subtask = string;
+export type subtask = {
+  title: string;
+  isCompleted: boolean;
+};
