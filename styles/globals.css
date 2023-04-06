@@ -56,47 +56,6 @@
   --color-input-text: #000112;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Text */
-    --color-text: #ffffff;
-    --color-text-secondary: #ffffff;
-
-    /* Logo */
-    --color-logo: #ffffff;
-
-    /* Background */
-    --color-bg-primary: #20212c;
-    --color-bg-secondary: #3e3f4e;
-    --color-bg-tertiary: #2b2c37;
-
-    /* Background - Nav / Sidebar */
-
-    /* Button */
-    --color-button-secondary-bg: #ffffff;
-    --color-button-secondary-bg-hover: #ffffff;
-
-    /* Form - Checkbox */
-    --color-checkbox-bg: #20212c;
-    --color-checkbox-bg-secondary: #2b2c37;
-    --color-checkbox-bg-hover: #45438b;
-
-    /* Form - Dropdown */
-    --color-dropdown-bg: #2b2c37;
-    --color-dropdown-border-focused: #635fc7;
-    --color-dropdown-text: #ffffff;
-    --color-dropdown-text-secondary-hover: #ffffff;
-    --color-dropdown-list-bg: #20212c;
-    --color-dropdown-hover: #2b2c37;
-
-    /* Form - Input */
-    --color-input-bg: #2b2c37;
-    --color-input-title: #ffffff;
-    --color-input-placeholder: #ffffff;
-    --color-input-text: #ffffff;
-  }
-}
-
 [data-theme="dark"] {
   /* Text */
   --color-text: #ffffff;

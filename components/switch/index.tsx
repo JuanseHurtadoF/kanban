@@ -13,8 +13,6 @@ const Switch = () => {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-    console.log(document.documentElement.getAttribute("data-theme"));
-
     localStorage.setItem("theme", theme);
   }, [theme]);
 
