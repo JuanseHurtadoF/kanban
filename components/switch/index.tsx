@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Icon } from "@components";
 import styles from "./switch.module.scss";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 const Switch = () => {
-  const [isDarkModeOn, setIsDarkModeOn] = useState<boolean>(false);
+  const [theme, setTheme] = useState<string>("dark");
+
+  
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme") || "light";
+    setTheme(storedTheme);
+  }, []);
+
+  useEffect(() => {
+    console.log(theme)
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const toggleSwitch = () => {
-    setIsDarkModeOn(!isDarkModeOn);
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
   return (
     <div onClick={toggleSwitch} className={styles.container}>
       <Icon variant="light" />
-      <div data-isOn={isDarkModeOn} className={styles.switchContainer}>
+      <div data-ison={theme} className={styles.switchContainer}>
         <motion.div
           transition={{ duration: 0.1, ease: "easeOut" }}
           layout
