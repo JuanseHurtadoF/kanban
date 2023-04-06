@@ -6,6 +6,9 @@
   --color-primary: #635fc7;
   --color-primary-light: #a8a4ff;
 
+  /* Logo */
+  --color-logo: #000112;
+
   /* Background Colors */
   --color-bg-primary: #f4f7fd;
   --color-bg-secondary: #e4ebfa;
@@ -54,15 +57,20 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {    
+  :root {
     /* Text */
     --color-text: #ffffff;
     --color-text-secondary: #ffffff;
 
+    /* Logo */
+    --color-logo: #ffffff;
+
     /* Background */
     --color-bg-primary: #20212c;
-    --color-bg-secondary: #2b2c37;
-    --color-bg-tertiary: #3e3f4e;
+    --color-bg-secondary: #3e3f4e;
+    --color-bg-tertiary: #2b2c37;
+
+    /* Background - Nav / Sidebar */
 
     /* Button */
     --color-button-secondary-bg: #ffffff;

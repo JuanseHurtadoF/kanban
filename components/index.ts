@@ -12,3 +12,4 @@ export { default as Sidebar } from "./sidebar";
 export { default as Layout } from "./layout";
 export { default as Switch } from "./switch";
 export { default as Board } from "./board";
+export { default as Logo } from "./logo";

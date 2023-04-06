@@ -1,8 +1,8 @@
 import React from "react";
 import { FC } from "react";
-import { IconProps } from "@types";
+import { iconProps } from "@types";
 
-const Icon: FC<IconProps> = ({ variant, fill, height, width }) => {
+const Icon: FC<iconProps> = ({ variant, fill, height, width }) => {
   return (
     <>
       {variant === "board" && (

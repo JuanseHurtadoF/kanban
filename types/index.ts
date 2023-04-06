@@ -6,5 +6,6 @@ export { type CheckBoxProps } from "./form/checkbox";
 export { type DropdownProps } from "./form/dropdown";
 export { type CardProps } from "./board/card";
 export { type ColumnProps } from "./board/column";
-export { type IconProps } from "./icons";
+export { type iconProps } from "./svg";
+export { type logoProps } from "./svg";
 export { type SidebarProps } from "./sidebar";

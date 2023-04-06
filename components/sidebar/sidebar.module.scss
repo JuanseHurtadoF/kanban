@@ -4,8 +4,8 @@
   flex-direction: column;
   justify-content: space-between;
   width: 25rem;
-  background: #ffffff;
-  border: 1px solid #e4ebfa;
+  background: var(--color-bg-tertiary);
+  border-right: 1px solid var(--color-bg-secondary);
   border-top: none;
   z-index: 1;
 
@@ -13,6 +13,9 @@
     min-height: 4rem;
     .logo {
       margin: 2.4rem 2rem 4rem;
+      svg path {
+        fill: var(--color-logo);
+      }
     }
     .boardsContainer {
       padding-right: 2rem;
