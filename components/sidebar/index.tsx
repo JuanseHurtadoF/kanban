@@ -1,20 +1,17 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import styles from "./sidebar.module.scss";
-import { Heading, Text, Icon, Switch } from "..";
+import { Heading, Text, Icon, Switch, Logo } from "@components";
 import { data } from "@data/index";
+import { SidebarProps } from "@types";
 
-const Sidebar: FC = () => {
+const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <Image
-          className={styles.logo}
-          alt="Kanban logo"
-          width={132}
-          height={21}
-          src="/brand/logo.png"
-        />
+        <div className={styles.logo}>
+          <Logo />
+        </div>
         <div className={styles.boardsContainer}>
           <div className={styles.title}>
             <Heading variant={4} title="ALL BOARDS (3)" />
@@ -35,7 +32,7 @@ const Sidebar: FC = () => {
       </div>
       <div className={styles.bottom}>
         <Switch />
-        <div className={styles.close}>
+        <div onClick={toggleSidebar} className={styles.close}>
           <Icon variant="hide" />
           <Text text="Hide sidebar" variant="tertiary" />
         </div>

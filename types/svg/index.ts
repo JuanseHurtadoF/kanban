@@ -4,8 +4,14 @@ type HEX = `#${string}`;
 
 export type Color = RGB | RGBA | HEX;
 
-export type IconProps = {
+export type iconProps = {
   variant: "board" | "light" | "dark" | "hide" | "open" | "options";
+  fill?: Color;
+  height?: number;
+  width?: number;
+};
+
+export type logoProps = {
   fill?: Color;
   height?: number;
   width?: number;

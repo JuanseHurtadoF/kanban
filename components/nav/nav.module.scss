@@ -3,12 +3,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 2rem;
-  background: #ffffff;
-  border-bottom: 1px solid #E4EBFA;
-
-  .nameContainer {
-      
-  }
+  background: var(--color-bg-tertiary);
+  border-bottom: 1px solid var(--color-bg-secondary);
 
   .actionsContainer {
     display: flex;
