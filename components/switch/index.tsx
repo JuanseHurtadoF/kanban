@@ -6,21 +6,20 @@ import { motion } from "framer-motion";
 const Switch = () => {
   const [theme, setTheme] = useState<string>("dark");
 
-  
-
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme") || "light";
     setTheme(storedTheme);
   }, []);
 
   useEffect(() => {
-    console.log(theme)
     document.documentElement.setAttribute("data-theme", theme);
+    console.log(document.documentElement.getAttribute("data-theme"));
+
     localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleSwitch = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
