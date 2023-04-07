@@ -9,9 +9,19 @@ const Board: FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.board}>
-      {columns.map(({name, tasks}) => {
-        return <Column key={name} name={name} cards={tasks} />;
-      })}
+        {columns.map(({ name, tasks }) => {
+          return <Column key={name} name={name} cards={tasks} />;
+        })}
+        <div
+          onClick={() => console.log("New column")}
+          className={styles.newColumn}
+        >
+          <p className={styles.text}>+ New Column</p>
+        </div>
+        <div
+          className={styles.empty}
+        >
+        </div>
       </div>
     </div>
   );
