@@ -5,14 +5,14 @@ import { Heading } from "@components";
 import Card from "../card";
 import { Reorder } from "framer-motion";
 
-const Column: FC<ColumnProps> = ({ name, cards }) => {
-  const [data, setData] = useState(cards);
+const Column: FC<ColumnProps> = ({ name, tasks }) => {
+  const [data, setData] = useState(tasks);
 
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <div className={styles.label}></div>
-        <Heading title={`${name} (${cards.length})`} variant={4} />
+        <Heading title={`${name} (${tasks.length})`} variant={4} />
       </div>
       <Reorder.Group
         className={styles.cardsContainer}
