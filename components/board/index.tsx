@@ -30,6 +30,8 @@ const Board: FC = () => {
       ],
     };
     dispatch(addColumn(newColumn));
+
+    
   };
 
   return (
