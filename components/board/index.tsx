@@ -1,15 +1,13 @@
 import React, { FC } from "react";
 import styles from "./board.module.scss";
-import { data } from "@data";
 import { Column } from "@components";
 import { ColumnProps } from "@types";
 import { useSelector, useDispatch } from "react-redux";
 import { addColumn } from "state";
 
 const Board: FC = () => {
-  const columns = useSelector((state: any) => state.global[0].columns);
+  const columns = useSelector((state: any) => state.global.boards[0].columns);
   const dispatch = useDispatch();
-  // const data = useSelector((state: any) => state.global);
 
   const handleNewColumn = () => {
     const newColumn = {

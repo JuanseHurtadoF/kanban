@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { Icon } from "@components";
 import styles from "./switch.module.scss";
 import { motion } from "framer-motion";
 
-const Switch = () => {
+const Switch: FC = () => {
   const [theme, setTheme] = useState<string>("dark");
 
   useEffect(() => {

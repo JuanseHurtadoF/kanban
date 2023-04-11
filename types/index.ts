@@ -9,3 +9,7 @@ export { type ColumnProps } from "./board/column";
 export { type iconProps } from "./svg";
 export { type logoProps } from "./svg";
 export { type SidebarProps } from "./sidebar";
+export { type Board } from "./board/board";
+export { type GlobalState } from "./state";
+export { type RootState } from "./state";
+export { type CardInfoProps } from "./modals";

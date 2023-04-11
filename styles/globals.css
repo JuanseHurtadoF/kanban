@@ -23,6 +23,9 @@
   --color-text-secondary: #2b2c37;
   --color-text-tertiary: #828fa3;
 
+  /* Modal */
+  --color-modal-bg: #ffffff;
+
   /*  Button Colors */
   --color-btn-primary-bg: #635fc7;
   --color-btn-primary-bg-hover: #a8a4ff;
@@ -68,6 +71,9 @@
   --color-bg-primary: #20212c;
   --color-bg-secondary: #3e3f4e;
   --color-bg-tertiary: #2b2c37;
+
+  /* Modal */
+  --color-modal-bg: #2b2c37;
 
   /* Button */
   --color-button-secondary-bg: #ffffff;

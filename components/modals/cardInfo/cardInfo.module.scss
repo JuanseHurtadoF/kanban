@@ -1,0 +1,44 @@
+.container {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-color: var(--color-modal-bg);
+    padding: 3.2rem;
+    padding-bottom: 12rem;
+
+    width: min(100% - 2rem, 40rem);
+
+
+    .textContainer {
+      display: grid;
+      gap: 1.6rem;
+      margin-bottom: 2rem;
+
+      .text {
+        font-family: var(--font-primary);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 23px;
+        color: #828FA3;
+      }
+    }
+
+    .subtasks {
+      display: grid;
+      gap: 0.6rem;
+      margin-bottom: 3rem;
+
+      &Title {
+        margin-bottom: 0.8rem;
+      }
+    }
+  }
+}
