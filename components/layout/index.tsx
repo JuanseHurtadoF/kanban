@@ -46,7 +46,7 @@ const Layout: FC = () => {
 
       <div>
         <Nav />
-        <Board />
+        <Board fullWidth={isSideBarOpen ? false : true} />
       </div>
     </div>
   );

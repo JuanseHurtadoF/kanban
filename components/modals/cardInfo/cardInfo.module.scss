@@ -15,6 +15,11 @@
 
     width: min(100% - 2rem, 40rem);
 
+    @media (max-width: 700px) {
+      padding: 2rem;
+      // width: 100%;
+    }
+
 
     .textContainer {
       display: grid;

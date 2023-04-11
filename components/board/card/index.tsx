@@ -9,8 +9,6 @@ import { setHighlightedCard } from "state";
 const Card: FC<CardProps> = ({ title, description, subtasks, status }) => {
   const dispatch = useDispatch();
 
-  console.log(description);
-
   const openCardDetails = () => {
     const card: CardProps = {
       title,
