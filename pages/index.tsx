@@ -2,49 +2,6 @@ import Head from "next/head";
 import styles from "@styles/pages/Home.module.scss";
 import { Layout } from "@components";
 
-const data = [
-  {
-    title: "Interview users",
-    subtasks: [
-      "Make user personas",
-      "Ideate solutions",
-      "Make initial design in Figma",
-    ],
-  },
-  {
-    title: "Make user personas",
-    subtasks: [
-      "Make user personas",
-      "Ideate solutions",
-      "Make initial design in Figma",
-    ],
-  },
-  {
-    title: "Define main issues to tackle",
-    subtasks: [
-      "Make user personas",
-      "Ideate solutions",
-      "Make initial design in Figma",
-    ],
-  },
-  {
-    title: "Make initial Figma design",
-    subtasks: [
-      "Make user personas",
-      "Ideate solutions",
-      "Make initial design in Figma",
-    ],
-  },
-  {
-    title: "Give project to product team",
-    subtasks: [
-      "Make user personas",
-      "Ideate solutions",
-      "Make initial design in Figma",
-    ],
-  },
-];
-
 export default function Home() {
   return (
     <>

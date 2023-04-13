@@ -1,15 +1,13 @@
 import React, { FC } from "react";
 import styles from "./board.module.scss";
-import { data } from "@data";
 import { Column } from "@components";
-import { ColumnProps } from "@types";
+import { ColumnProps, BoardProps } from "@types";
 import { useSelector, useDispatch } from "react-redux";
 import { addColumn } from "state";
 
-const Board: FC = () => {
-  const columns = useSelector((state: any) => state.global[0].columns);
+const Board: FC<BoardProps> = ({ fullWidth }) => {
+  const columns = useSelector((state: any) => state.global.boards[0].columns);
   const dispatch = useDispatch();
-  // const data = useSelector((state: any) => state.global);
 
   const handleNewColumn = () => {
     const newColumn = {
@@ -30,12 +28,10 @@ const Board: FC = () => {
       ],
     };
     dispatch(addColumn(newColumn));
-
-    
   };
 
   return (
-    <div className={styles.container}>
+    <div className={fullWidth ? `${styles.container} ${styles.containerFullWidth}` :  `${styles.container}`}>
       <div className={styles.board}>
         {columns.map(({ name, tasks }: ColumnProps) => {
           return <Column key={name} name={name} tasks={tasks} />;

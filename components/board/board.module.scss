@@ -3,6 +3,10 @@
   height: 100vh;
   width: calc(100vw - 250px);
 
+  &FullWidth {
+    width: 100vw;
+  }
+
   .board {
     min-height: 100vh;
     display: flex;

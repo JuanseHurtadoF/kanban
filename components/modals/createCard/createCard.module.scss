@@ -1,0 +1,58 @@
+.container {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-color: var(--color-modal-bg);
+    padding: 3.2rem;
+    padding-bottom: 12rem;
+    border-radius: 0.6rem;
+
+    width: min(100% - 2rem, 40rem);
+
+    @media (max-width: 700px) {
+      padding: 2rem;
+    }
+
+    .form {
+      display: grid;
+      gap: 2rem;
+      margin-top: 2.4rem;
+
+      .title {
+        font-family: var(--font-primary);
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+        color: var(--color-input-title);
+
+        margin-bottom: 0.6rem;
+      }
+
+      .addSubtask {
+        .input {
+          display: grid;
+          grid-template-columns: auto 15px;
+          align-items: center;
+          gap: 1.2rem;
+        }
+        .close {
+          cursor: pointer;
+        }
+
+        .list {
+          display: grid;
+          gap: 0.5rem;
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+}

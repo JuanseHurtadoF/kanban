@@ -23,11 +23,14 @@
   --color-text-secondary: #2b2c37;
   --color-text-tertiary: #828fa3;
 
+  /* Modal */
+  --color-modal-bg: #ffffff;
+
   /*  Button Colors */
   --color-btn-primary-bg: #635fc7;
   --color-btn-primary-bg-hover: #a8a4ff;
   --color-btn-primary-label: #ffffff;
-  --color-btn-secondary-bg: rgba(99, 95, 199, 0.1);
+  --color-button-secondary-bg: rgba(99, 95, 199, 0.1);
   --color-btn-secondary-bg-hover: rgba(99, 95, 199, 0.25);
   --color-btn-secondary-label: #635fc7;
 
@@ -69,6 +72,9 @@
   --color-bg-secondary: #3e3f4e;
   --color-bg-tertiary: #2b2c37;
 
+  /* Modal */
+  --color-modal-bg: #2b2c37;
+
   /* Button */
   --color-button-secondary-bg: #ffffff;
   --color-button-secondary-bg-hover: #ffffff;
@@ -100,4 +106,5 @@ html {
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }

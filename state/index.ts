@@ -1,24 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { data } from "@data";
+import { Board, CardProps } from "@types";
+import { GlobalState } from "@types";
 
-const initialState = {
-  ...data.boards,
+const initialState: GlobalState = {
+  boards: [...data.boards] as Board[],
+  highlightedCard: {} as CardProps,
 };
 
 export const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
-    // getData: (state) => {
-    //   state = state.boards;
-    // },
     addColumn: (state, action) => {
       const newColumn = action.payload;
-      console.log('Hey');
-      state[0].columns.push(newColumn);
+      state.boards[0].columns.push(newColumn);
+    },
+    setHighlightedCard: (state, action) => {
+      const card = action.payload;
+      state.highlightedCard = card;
     },
   },
 });
 
-export const { addColumn } = globalSlice.actions;
+export const { addColumn, setHighlightedCard } = globalSlice.actions;
 export default globalSlice.reducer;

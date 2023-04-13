@@ -14,19 +14,19 @@ const Column: FC<ColumnProps> = ({ name, tasks }) => {
         <div className={styles.label}></div>
         <Heading title={`${name} (${tasks.length})`} variant={4} />
       </div>
-      <Reorder.Group
-        className={styles.cardsContainer}
-        values={data}
-        onReorder={setData}
-      >
+      <div className={styles.cardsContainer}>
         {data.map((card: CardProps) => {
           return (
-            <Reorder.Item whileDrag={{rotate: 2}} value={card} key={card.title}>
-              <Card title={card.title} subtasks={card.subtasks} />
-            </Reorder.Item>
+            <Card
+              key={card.title}
+              title={card.title}
+              subtasks={card.subtasks}
+              description={card.description}
+              status={card.status}
+            />
           );
         })}
-      </Reorder.Group>
+      </div>
     </div>
   );
 };
