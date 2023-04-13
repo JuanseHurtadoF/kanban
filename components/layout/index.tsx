@@ -4,6 +4,7 @@ import styles from "./layout.module.scss";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { CardProps, RootState } from "@types";
+import CreateCard from "@components/modals/createCard";
 
 const Layout: FC = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
@@ -18,12 +19,20 @@ const Layout: FC = () => {
     setIsCardInfoOpen((prev: boolean) => !prev);
   }, [highlightedCard]);
 
+  useEffect(() => {
+    console.log(isTaskCreationOpen);
+  }, [isTaskCreationOpen]);
+
   const toggleSidebar = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
 
   const toggleCardInfo = () => {
     setIsCardInfoOpen(!isCardInfoOpen);
+  };
+
+  const toggleNewCard = () => {
+    setIsTaskCreationOpen(!isTaskCreationOpen);
   };
 
   return (
@@ -34,6 +43,7 @@ const Layout: FC = () => {
           : `${styles.container} ${styles.containerOnlyBoard}`
       }
     >
+      {/* Sidebar */}
       {isSideBarOpen ? (
         <Sidebar toggleSidebar={toggleSidebar} />
       ) : (
@@ -42,10 +52,13 @@ const Layout: FC = () => {
         </div>
       )}
 
+      {/* Modals */}
       {isCardInfoOpen && <CardInfo onClick={toggleCardInfo} />}
+      {isTaskCreationOpen && <CreateCard onClick={toggleNewCard} />}
 
+      {/* Board */}
       <div>
-        <Nav />
+        <Nav onClick={toggleNewCard} />
         <Board fullWidth={isSideBarOpen ? false : true} />
       </div>
     </div>

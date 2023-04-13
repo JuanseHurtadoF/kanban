@@ -1,10 +1,10 @@
-import { Board, CardProps } from "@types";
+import { BoardProps, CardProps } from "@types";
 
 export type RootState = {
   global: GlobalState;
 };
 
 export type GlobalState = {
-  boards: Board[];
+  boards: BoardProps[];
   highlightedCard: CardProps;
 };

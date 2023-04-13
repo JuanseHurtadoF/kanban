@@ -9,7 +9,7 @@
 }
 
 .container {
-  width: max-content;
+  display: block;
 
   .title {
     font-family: var(--font-primary);
@@ -29,7 +29,7 @@
       border: 1px solid rgba(130, 143, 163, 0.25);
       border-radius: 4px;
       padding: 0.8rem 1.6rem;
-      min-width: 25rem;
+      width: 100%;
       color: var(--color-input-text);
 
       /* WebKit-based browsers */
@@ -58,7 +58,7 @@
         outline: none;
       }
 
-      &[data-hasError="true"] {
+      &[data-haserror="true"] {
         border: 1px solid var(--color-destructive);
       }
     }

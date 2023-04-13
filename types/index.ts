@@ -13,3 +13,6 @@ export { type BoardProps } from "./board/board";
 export { type GlobalState } from "./state";
 export { type RootState } from "./state";
 export { type CardInfoProps } from "./modals";
+export { type CreateCardProps } from "./modals";
+export { type NavProps } from "./nav";
+export { type subtask } from "./board/subtask";

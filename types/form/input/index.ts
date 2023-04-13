@@ -1,5 +1,5 @@
 export type InputProps = {
-  title: string;
+  title?: string;
   placeholder: string;
   error: boolean;
   errorMessage?: string;
