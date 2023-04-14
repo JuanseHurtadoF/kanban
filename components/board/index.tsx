@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addColumn } from "state";
 
 const Board: FC<BoardProps> = ({ fullWidth }) => {
-  const columns = useSelector((state: any) => state.global.boards[0].columns);
+  const board = useSelector((state: any) => state.global);
   const dispatch = useDispatch();
 
   const handleNewColumn = () => {
@@ -31,9 +31,15 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
   };
 
   return (
-    <div className={fullWidth ? `${styles.container} ${styles.containerFullWidth}` :  `${styles.container}`}>
+    <div
+      className={
+        fullWidth
+          ? `${styles.container} ${styles.containerFullWidth}`
+          : `${styles.container}`
+      }
+    >
       <div className={styles.board}>
-        {columns.map(({ name, tasks }: ColumnProps) => {
+        {board.columns.map(({ name, tasks }: ColumnProps) => {
           return <Column key={name} name={name} tasks={tasks} />;
         })}
         <div onClick={handleNewColumn} className={styles.newColumn}>
