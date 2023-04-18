@@ -24,10 +24,11 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "admin",
     },
+    boards: [],
   },
   { timestamps: true }
 );
 
-const Users = mongoose.models.Users || mongoose.model("Users", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
-export default Users;
+export default User;

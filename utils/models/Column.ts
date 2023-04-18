@@ -1,7 +1,6 @@
-import mongoose from "mongoose";
-import Tasks from "./Task";
+import mongoose, { Schema } from "mongoose";
 
-const ColumnSchema = new mongoose.Schema(
+const ColumnSchema = new Schema(
   {
     name: {
       type: String,
@@ -9,17 +8,17 @@ const ColumnSchema = new mongoose.Schema(
       min: 2,
       max: 50,
     },
-    tasks: [Tasks.schema],
-    partOfBoard: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Boards",
+    board: {
+      type: Schema.Types.ObjectId,
+      ref: "Board",
       required: true,
     },
+    tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
   },
   { timestamps: true }
 );
 
-const Columns =
-  mongoose.models.Columns || mongoose.model("Columns", ColumnSchema);
+const Column =
+  mongoose.models.Column || mongoose.model("Column", ColumnSchema);
 
-export default Columns;
+export default Column;

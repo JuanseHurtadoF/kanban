@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { data } from "@data";
+import { dataTest } from "@data";
 import { CardProps } from "@types";
 import { GlobalState } from "@types";
 
 const initialState: any = {
   boardName: "Todo" as string,
-  columns: data.boards[0].columns as any,
+  activeBoard: dataTest.boards[0] as any,
+  columns: dataTest.boards[0].columns as any,
   highlightedCard: {} as CardProps,
 };
 

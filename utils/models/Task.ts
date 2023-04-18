@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const TaskSchema = new mongoose.Schema(
   {
@@ -19,19 +19,19 @@ const TaskSchema = new mongoose.Schema(
       enum: ["todo", "in-progress", "done"],
       default: "todo",
     },
+    column: {
+      type: Schema.Types.ObjectId,
+      ref: "Column",
+      required: true,
+    },
     subtasks: {
       type: Array,
       default: [],
-    },
-    partOfColumn: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Columns",
-      required: true,
     },
   },
   { timestamps: true }
 );
 
-const Tasks = mongoose.models.Tasks || mongoose.model("Tasks", TaskSchema);
+const Task = mongoose.models.Task || mongoose.model("Task", TaskSchema);
 
-export default Tasks;
+export default Task;
