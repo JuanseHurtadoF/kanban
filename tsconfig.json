@@ -28,6 +28,6 @@
       "@utils/*": ["./utils/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "data/index.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "data/index.js", "utils/connectDB.js", "utils/models/User.ts", "pages/api/users/addUser.ts", "pages/_app.tsx"],
   "exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-export const data = {
+export const dataTest = {
   boards: [
     {
       name: "Platform Launch",

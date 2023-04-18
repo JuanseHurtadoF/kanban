@@ -1,10 +1,11 @@
 import React, { FC, useEffect } from "react";
-import { Sidebar, Nav, Board, Icon, CardInfo } from "@components";
+import { Sidebar, Nav, Board, Icon, CardInfo, Button } from "@components";
 import styles from "./layout.module.scss";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { CardProps, RootState } from "@types";
 import CreateCard from "@components/modals/createCard";
+import axios from "axios";
 
 const Layout: FC = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
@@ -19,10 +20,6 @@ const Layout: FC = () => {
     setIsCardInfoOpen((prev: boolean) => !prev);
   }, [highlightedCard]);
 
-  useEffect(() => {
-    console.log(isTaskCreationOpen);
-  }, [isTaskCreationOpen]);
-
   const toggleSidebar = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
@@ -34,7 +31,7 @@ const Layout: FC = () => {
   const toggleNewCard = () => {
     setIsTaskCreationOpen(!isTaskCreationOpen);
   };
-
+  
   return (
     <div
       className={

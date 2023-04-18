@@ -1,6 +1,5 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./createCard.module.scss";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { CreateCardProps } from "@types";
 import Heading from "@components/typography/headings";
 import { Button, Icon, Input } from "@components";
@@ -13,17 +12,17 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
 
   const handleChange = (event: any) => {
     event.preventDefault();
-    setSubtaskArray
+    setSubtaskArray;
   };
 
-  function removeSubtask(index: number) {
+  const removeSubtask = (index: number) => {
     const newArray: subtask[] = [...subtaskArray];
 
     if (index === 0) newArray.shift();
     else if (index === newArray.length - 1) newArray.pop();
 
     setSubtaskArray(newArray);
-  }
+  };
 
   const addSubtask = (event: any) => {
     event.preventDefault();
