@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "@utils/connectDB.js";
-import Board from "@utils/models/Board";
 import User from "@utils/models/User";
+import Board from "@utils/models/Board";
 
 type Data = any;
 
@@ -12,23 +12,31 @@ export default async function handler(
   await connectDB(process.env.MONGODB_URL);
 
   try {
-    const { name, userId, columns } = req.body;
+    const { boardId } = req.body;
 
-    console.log({ name, userId, columns });
+    const board = await Board.findById(boardId);
 
-    // Create board
-    const board = new Board({ name, columns, user: userId });
-    const result = await board.save();
+    console.log(board);
 
-    // Add board to user
+    if (!board) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Board not found" });
+    }
+
+    // Remove board reference from user
     const user = await User.findByIdAndUpdate(
-      userId,
-      { $push: { boards: board._id } },
+      board.user,
+      { $pull: { boards: board._id } },
       { new: true }
     );
 
+    // Remove board
+    const removedBoard = await Board.findByIdAndDelete(boardId);
+
     return res.status(200).json({
       success: true,
+      message: "Board deleted",
       board: {
         _id: board._id,
         name: board.name,
@@ -36,8 +44,7 @@ export default async function handler(
         columns: board.columns,
       },
     });
-  } catch (error: any) {
-    console.error("Error in handler:", error);
-    return res.status(500).json({ success: false, message: error.message });
+  } catch {
+    return res.status(500).json({ success: false, message: "Server error" });
   }
 }

@@ -11,7 +11,17 @@ const BoardSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    columns: [],
+    columns: [
+      {
+        name: String,
+        tasks: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Task",
+          },
+        ],
+      },
+    ],
   },
   { timestamps: true }
 );

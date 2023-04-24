@@ -16,12 +16,16 @@ const TaskSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["todo", "in-progress", "done"],
-      default: "todo",
+      required: true,
     },
-    column: {
+    board: {
       type: Schema.Types.ObjectId,
-      ref: "Column",
+      ref: "Board",
+      required: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     subtasks: {

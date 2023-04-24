@@ -6,11 +6,26 @@ export const api = createApi({
   tagTypes: ["Board"],
   endpoints: (build) => ({
     getBoards: build.query({
-      query: () => "board/getBoards",
+      query: () => "boards/getBoards",
       providesTags: ["Board"],
     }),
+    addBoard: build.mutation({
+      query: ({ name, userId, columns }) => ({
+        url: "boards/addBoard",
+        method: "POST",
+        body: { name, userId },
+      }),
+      invalidatesTags: ["Board"],
+    }),
+    removeBoard: build.mutation({
+      query: ({ boardId }) => ({
+        url: "boards/removeBoard",
+        method: "POST",
+        body: { boardId },
+      }),
+      invalidatesTags: ["Board"],
+    }),
   }),
-  
 });
 
-export const { useGetBoardsQuery } = api;
+export const { useGetBoardsQuery, useAddBoardMutation, useRemoveBoardMutation } = api;

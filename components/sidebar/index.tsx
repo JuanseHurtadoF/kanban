@@ -1,18 +1,46 @@
-import React, { FC } from "react";
-import Image from "next/image";
+import React, { FC, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styles from "./sidebar.module.scss";
 import { Heading, Text, Icon, Switch, Logo } from "@components";
-import { dataTest } from "@data/index";
 import { SidebarProps } from "@types";
-import { useGetBoardsQuery } from "state/api";
+import {
+  useAddBoardMutation,
+  useGetBoardsQuery,
+  useRemoveBoardMutation,
+} from "state/api";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
+  const [newBoard, setNewBoard] = useState({
+    name: "Testing",
+    userId: "643da62416b35292cc2fee3d",
+    columns: [],
+  });
 
-  // const { data, isLoading, error } = useGetBoardsQuery("boards");
+  const dispatch = useDispatch();
+  const [addBoard] = useAddBoardMutation();
+  const [removeBoard] = useRemoveBoardMutation();
 
-  const addBoard = async () => {
-    useGetBoardsQuery;
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    try {
+      await addBoard(newBoard);
+      setNewBoard({ name: "", userId: "", columns: [] });
+    } catch (error) {
+      console.error("Error adding board:", error);
+    }
   };
+
+  const handleRemove = async (event: any) => {
+    event.preventDefault();
+    try {
+      await removeBoard({ boardId: "6446a9aa850f3117d277a19f" });
+      setNewBoard({ name: "", userId: "", columns: [] });
+    } catch (error) {
+      console.error("Error removing board:", error);
+    }
+  };
+
+  const { data } = useGetBoardsQuery("Board");
 
   return (
     <div className={styles.container}>
@@ -22,11 +50,14 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
         </div>
         <div className={styles.boardsContainer}>
           <div className={styles.title}>
-            <Heading variant={4} title="ALL BOARDS (3)" />
+            <Heading
+              variant={4}
+              title={`ALL BOARDS (${!data ? "0" : data?.boards.length})`}
+            />
           </div>
 
           <div className={styles.boards}>
-            {dataTest?.boards.map(({ name }: any) => {
+            {data?.boards.map(({ name }: any) => {
               return (
                 <div className={styles.board} key={name}>
                   <Icon variant="board" />
@@ -34,7 +65,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
                 </div>
               );
             })}
-            <div onClick={addBoard} className={styles.board}>
+            <div onClick={handleSubmit} className={styles.board}>
               + Create New Board
             </div>
           </div>
