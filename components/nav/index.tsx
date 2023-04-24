@@ -7,9 +7,9 @@ import axios from "axios";
 const Nav: FC<NavProps> = ({ onClick }) => {
   const addBoard = async () => {
     const board = await axios.post("/api/boards/addBoard", {
-      name: "New Board 2",
+      name: "Marketing Plan",
       columns: [],
-      userId: "643d9f7c16b35292cc2fee30",
+      userId: "643da62416b35292cc2fee3d",
     });
   };
 
