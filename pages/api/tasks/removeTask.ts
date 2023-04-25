@@ -10,27 +10,16 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   await connectDB(process.env.MONGODB_URL);
-
   try {
-    const { title, description, subtasks, board, column, user } = req.body;
-
-    const task = new Task({
-      title,
-      description,
-      subtasks,
-      board,
-      column,
-      user,
-    });
-    const result = await task.save();
-
-    const currentColumn = await Column.findByIdAndUpdate(
-      column,
-      { $push: { tasks: task._id } },
+    const { taskId, columnId } = req.body;
+    
+    const task = await Task.findByIdAndDelete(taskId);
+    const column = await Column.findByIdAndUpdate(
+      columnId,
+      { $pull: { columns: columnId } },
       { new: true }
     );
-
-    res.status(200).json({ message: "test" });
+    res.status(200).json({ message: `Column successfully deleted` });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

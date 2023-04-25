@@ -8,7 +8,7 @@ const ColumnSchema = new Schema(
       min: 2,
       max: 50,
     },
-    board: {
+    boardId: {
       type: Schema.Types.ObjectId,
       ref: "Board",
       required: true,
