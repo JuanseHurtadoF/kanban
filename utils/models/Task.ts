@@ -14,13 +14,14 @@ const TaskSchema = new mongoose.Schema(
       min: 2,
       max: 100,
     },
-    status: {
-      type: String,
-      required: true,
-    },
     board: {
       type: Schema.Types.ObjectId,
       ref: "Board",
+      required: true,
+    },
+    column: {
+      type: Schema.Types.ObjectId,
+      ref: "Column",
       required: true,
     },
     user: {

@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { dataTest } from "@data";
 import { CardProps } from "@types";
-import { GlobalState } from "@types";
-import { useGetBoardsQuery } from "./api";
 
 const initialState: any = {
   allBoards: [],
