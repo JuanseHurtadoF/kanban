@@ -1,107 +1,49 @@
 import React, { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./sidebar.module.scss";
 import { Heading, Text, Icon, Switch, Logo } from "@components";
 import { SidebarProps } from "@types";
-import {
-  useAddBoardMutation,
-  useGetBoardsQuery,
-  useRemoveBoardMutation,
-  useAddColumnMutation,
-  useRemoveColumnMutation,
-  useAddTaskMutation,
-  useRemoveTaskMutation,
-} from "state/api";
+import { setBoards, addBoardLocal, removeBoardLocal } from "state";
+import { useAddBoardMutation, useGetBoardsQuery } from "state/api";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
-  const [newBoard, setNewBoard] = useState({
-    name: "Platform Launch",
-    userId: "643da62416b35292cc2fee3d",
-    columns: [],
-  });
+  // const [newBoard, setNewBoard] = useState({
+  //   name: "Testing",
+  //   userId: "643da62416b35292cc2fee3d",
+  //   columns: [],
+  // });
 
   const dispatch = useDispatch();
   const [addBoard] = useAddBoardMutation();
-  const [removeBoard] = useRemoveBoardMutation();
-  const [addColumn] = useAddColumnMutation();
-  const [removeColumn] = useRemoveColumnMutation();
-  const [addTask] = useAddTaskMutation();
-  const [removeTask] = useRemoveTaskMutation();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
+    const id = `newBoard-${Date.now()}`;
+    const newBoard = {
+      name: "Testing Hello",
+      userId: "643da62416b35292cc2fee3d",
+      columns: [],
+      id,
+    };
+
+    dispatch(addBoardLocal(newBoard));
     try {
-      await addBoard(newBoard);
-      setNewBoard({ name: "", userId: "", columns: [] });
+      const result = await addBoard(newBoard);
+      dispatch(removeBoardLocal(id));
+      // dispatch(addBoardLocal(result));
     } catch (error) {
       console.error("Error adding board:", error);
     }
   };
 
-  const handleRemove = async (event: any) => {
-    event.preventDefault();
-    try {
-      await removeBoard({ boardId: "644069afee7daffb5b16713f" });
-      setNewBoard({ name: "", userId: "", columns: [] });
-    } catch (error) {
-      console.error("Error removing board:", error);
-    }
-  };
-
-  const handleNewColumn = async (event: any) => {
-    event.preventDefault();
-    try {
-      await addColumn({
-        name: "Done",
-        boardId: "64482c16850f3117d277a3d7",
-        tasks: [],
-      });
-    } catch (error: any) {
-      console.error("Error adding column:", error.message);
-    }
-  };
-
-  const handleRemoveColumn = async (event: any) => {
-    event.preventDefault();
-    try {
-      await removeColumn({
-        columnId: "6447fac8850f3117d277a1e8",
-        boardId: "6447f4d1850f3117d277a1bc",
-      });
-    } catch (error: any) {
-      console.error("Error adding task:", error.message);
-    }
-  };
-
-  const handleNewTask = async (event: any) => {
-    event.preventDefault();
-    try {
-      await addTask({
-        title: "Build UI for onboarding flow",
-        description: "Consult with design team for any doubts.",
-        subtasks: [],
-        user: "643da62416b35292cc2fee3d",
-        column: "6447fa79850f3117d277a1d8",
-        board: "6447f4d1850f3117d277a1bc",
-      });
-    } catch (error: any) {
-      console.error("Error adding task:", error.message);
-    }
-  };
-
-  const handleRemoveTask = async (event: any) => {
-    event.preventDefault();
-    try {
-      await removeTask({
-        columnId: "6447fa79850f3117d277a1d8",
-        taskId: "644800d1850f3117d277a2f1",
-      });
-    } catch (error: any) {
-      console.error("Error adding task:", error.message);
-    }
-  };
-
   const { data } = useGetBoardsQuery("Board");
+
+  const allBoards = useSelector((state: any) => state.global.allBoards);
+
+  useEffect(() => {
+    dispatch(setBoards(data?.boards));
+  }, [data]);
 
   return (
     <div className={styles.container}>
@@ -118,15 +60,19 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
           </div>
 
           <div className={styles.boards}>
-            {data?.boards.map(({ name }: any) => {
+            {allBoards?.map(({ name, _id }: any) => {
               return (
-                <div className={styles.board} key={name}>
+                <div
+                  onClick={() => console.log(_id)}
+                  className={styles.board}
+                  key={name}
+                >
                   <Icon variant="board" />
                   <p>{name}</p>
                 </div>
               );
             })}
-            <div onClick={handleNewColumn} className={styles.board}>
+            <div onClick={handleSubmit} className={styles.board}>
               + Create New Board
             </div>
           </div>
