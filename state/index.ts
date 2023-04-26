@@ -13,13 +13,24 @@ export const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
-    addBoard: (state, action) => {
+    setBoards: (state, action) => {
+      const boards = action.payload;
+      state.allBoards = boards;
+    },
+    addBoardLocal: (state, action) => {
+      console.log("here");
       const newBoard = action.payload;
-      state.boards.push(newBoard);
+      state.allBoards.push(newBoard);
+    },
+    removeBoardLocal: (state, action) => {
+      const boardId = action.payload;
+      state.allBoards = state.allBoards.filter(
+        (board: any) => board._id !== boardId
+      );
     },
     addColumn: (state, action) => {
       const newColumn = action.payload;
-      state.columns.push(newColumn);
+      state.allBoards = [...state.allBoards, newColumn];
     },
     setHighlightedCard: (state, action) => {
       const card = action.payload;
@@ -28,5 +39,6 @@ export const globalSlice = createSlice({
   },
 });
 
-export const { addColumn, setHighlightedCard } = globalSlice.actions;
+export const { setBoards, addBoardLocal, removeBoardLocal, addColumn, setHighlightedCard } =
+  globalSlice.actions;
 export default globalSlice.reducer;
