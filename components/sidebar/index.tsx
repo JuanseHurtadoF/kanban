@@ -1,35 +1,68 @@
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./sidebar.module.scss";
-import { Heading, Text, Icon, Switch, Logo } from "@components";
+import { Heading, Text, Icon, Switch, Logo, Input, Board } from "@components";
 import { SidebarProps } from "@types";
 import { setBoards, addBoardLocal, removeBoardLocal } from "state";
 import { useAddBoardMutation, useGetBoardsQuery } from "state/api";
+import axios from "axios";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
+  // States for data
   const { data } = useGetBoardsQuery("Board");
   const allBoards = useSelector((state: any) => state.global.allBoards);
   const userId = useSelector((state: any) => state.global.currentUser);
 
+  // States for adding board
+  const [boardName, setBoardName] = useState("");
+  const [error, setError] = useState(false);
+  const [isBoardBeingAdded, setIsBoardBeingAdded] = useState(false);
+
+  // State management configuration
   const dispatch = useDispatch();
   const [addBoard] = useAddBoardMutation();
 
+  // Set boards in global state
   useEffect(() => {
     dispatch(setBoards(data?.boards));
   }, [data]);
 
-  const handleSubmit = async (event: any) => {
+  // Functionality for adding a board
+  const handleChange = (event: any) => {
+    event.preventDefault();
+    setBoardName(event.target.value);
+    handleError(event)
+  };
+
+  const handleError = (event: any) => {
+    event.preventDefault();
+    if (event.target.value === "") {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  };
+
+  const handleStopCreatingBoard = (event: any) => {
+    event.preventDefault();
+    setIsBoardBeingAdded(false);
+    setBoardName("");
+    setError(false)
+  };
+
+  const handleNewBoard = async (event: any) => {
     event.preventDefault();
 
     const id = `newBoard-${Date.now()}`;
     const newBoard = {
-      name: "Platform Launch",
-      userId: "643da62416b35292cc2fee3d",
+      name: boardName,
+      userId: userId,
       columns: [],
       id,
     };
-
     dispatch(addBoardLocal(newBoard));
+    setIsBoardBeingAdded(false);
+    handleStopCreatingBoard(event);
     try {
       const result = await addBoard(newBoard);
       dispatch(removeBoardLocal(id));
@@ -48,7 +81,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
           <div className={styles.title}>
             <Heading
               variant={4}
-              title={`ALL BOARDS (${!data ? "0" : data?.boards.length})`}
+              title={`ALL BOARDS (${!data ? "0" : allBoards?.length})`}
             />
           </div>
 
@@ -65,7 +98,29 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
                 </div>
               );
             })}
-            <div onClick={handleSubmit} className={styles.board}>
+            {isBoardBeingAdded && (
+              <div className={styles.createBoardInput}>
+                <form onSubmit={handleNewBoard}>
+                  <Input
+                    onChange={handleChange}
+                    value={boardName}
+                    placeholder="Name"
+                    error={error}
+                    errorMessage="Can't be empty"
+                  />
+                </form>
+                <div
+                  onClick={handleStopCreatingBoard}
+                  className={styles.delete}
+                >
+                  <Icon variant="delete" height={20} width={20} />
+                </div>
+              </div>
+            )}
+            <div
+              onClick={() => setIsBoardBeingAdded(true)}
+              className={styles.board}
+            >
               + Create New Board
             </div>
           </div>

@@ -4,7 +4,7 @@ import { CardProps } from "@types";
 
 const initialState: any = {
   allBoards: [],
-  currentUser: "",
+  currentUser: "64494cb5850f3117d277a749",
   activeBoard: dataTest.boards[0] as any,
   columns: dataTest.boards[0].columns as any,
   highlightedCard: {} as CardProps,
@@ -40,6 +40,11 @@ export const globalSlice = createSlice({
   },
 });
 
-export const { setBoards, addBoardLocal, removeBoardLocal, addColumn, setHighlightedCard } =
-  globalSlice.actions;
+export const {
+  setBoards,
+  addBoardLocal,
+  removeBoardLocal,
+  addColumn,
+  setHighlightedCard,
+} = globalSlice.actions;
 export default globalSlice.reducer;
