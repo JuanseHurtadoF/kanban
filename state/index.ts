@@ -4,6 +4,7 @@ import { CardProps } from "@types";
 
 const initialState: any = {
   allBoards: [],
+  currentUser: "",
   activeBoard: dataTest.boards[0] as any,
   columns: dataTest.boards[0].columns as any,
   highlightedCard: {} as CardProps,

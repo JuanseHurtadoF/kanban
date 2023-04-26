@@ -7,21 +7,23 @@ import { setBoards, addBoardLocal, removeBoardLocal } from "state";
 import { useAddBoardMutation, useGetBoardsQuery } from "state/api";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
-  // const [newBoard, setNewBoard] = useState({
-  //   name: "Testing",
-  //   userId: "643da62416b35292cc2fee3d",
-  //   columns: [],
-  // });
+  const { data } = useGetBoardsQuery("Board");
+  const allBoards = useSelector((state: any) => state.global.allBoards);
+  const userId = useSelector((state: any) => state.global.currentUser);
 
   const dispatch = useDispatch();
   const [addBoard] = useAddBoardMutation();
+
+  useEffect(() => {
+    dispatch(setBoards(data?.boards));
+  }, [data]);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
     const id = `newBoard-${Date.now()}`;
     const newBoard = {
-      name: "Testing Hello",
+      name: "Platform Launch",
       userId: "643da62416b35292cc2fee3d",
       columns: [],
       id,
@@ -31,19 +33,10 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
     try {
       const result = await addBoard(newBoard);
       dispatch(removeBoardLocal(id));
-      // dispatch(addBoardLocal(result));
     } catch (error) {
       console.error("Error adding board:", error);
     }
   };
-
-  const { data } = useGetBoardsQuery("Board");
-
-  const allBoards = useSelector((state: any) => state.global.allBoards);
-
-  useEffect(() => {
-    dispatch(setBoards(data?.boards));
-  }, [data]);
 
   return (
     <div className={styles.container}>
