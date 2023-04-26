@@ -27,16 +27,12 @@
     min-height: 80vh;
     max-width: 28rem;
     min-width: 25rem;
-    background: linear-gradient(
-      180deg,
-      rgba(43, 44, 55, 0.25) 0%,
-      rgba(43, 44, 55, 0.125) 100%
-    );
+    background: var(--color-bg-gradient);
     max-width: 28rem;
     border-radius: 8px;
 
     &:hover {
-      background-color: var(--color-bg-tertiary);
+      background: var(--color-bg-gradient-hover);
     }
     .text {
       font-family: var(--font-primary);

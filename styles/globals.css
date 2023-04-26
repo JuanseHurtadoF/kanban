@@ -13,6 +13,8 @@
   --color-bg-primary: #f4f7fd;
   --color-bg-secondary: #e4ebfa;
   --color-bg-tertiary: #ffffff;
+  --color-bg-gradient: linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.5) 100%);
+  --color-bg-gradient-hover: linear-gradient(180deg, #e4ebfa 0%, rgba(233, 239, 250, 0.7) 100%);
 
   /* Destructive Colors */
   --color-destructive: #ea5555;
@@ -71,6 +73,9 @@
   --color-bg-primary: #20212c;
   --color-bg-secondary: #3e3f4e;
   --color-bg-tertiary: #2b2c37;
+  --color-bg-gradient: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%);
+  --color-bg-gradient-hover: linear-gradient(180deg, rgba(43, 44, 55, 0.45) 0%, rgba(43, 44, 55, 0.225) 100%);
+
 
   /* Modal */
   --color-modal-bg: #2b2c37;
