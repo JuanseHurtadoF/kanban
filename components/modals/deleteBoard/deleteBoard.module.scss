@@ -1,0 +1,39 @@
+.container {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background-color: var(--color-modal-bg);
+    padding: 3.2rem;
+    border-radius: 0.6rem;
+
+    width: min(100% - 2rem, 40rem);
+
+    display: grid;
+    gap: 1rem;
+
+    .text {
+      font-family: var(--font-primary);
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1.2rem;
+      line-height: 2rem;
+      color: var(--color-text-tertiary);
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        place-items: center;
+        gap: 1.2rem;
+
+        margin-top: 2rem;
+    }
+  }
+}

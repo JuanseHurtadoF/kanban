@@ -3,15 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./sidebar.module.scss";
 import { Heading, Text, Icon, Switch, Logo, Input, Board } from "@components";
 import { SidebarProps } from "@types";
-import { setBoards, addBoardLocal, removeBoardLocal } from "state";
+import {
+  setBoards,
+  setActiveBoard,
+  addBoardLocal,
+  removeBoardLocal,
+} from "state";
 import { useAddBoardMutation, useGetBoardsQuery } from "state/api";
 import axios from "axios";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   // States for data
   const { data } = useGetBoardsQuery("Board");
-  const allBoards = useSelector((state: any) => state.global.allBoards);
-  const userId = useSelector((state: any) => state.global.currentUser);
+  const { allBoards, userId, activeBoard } = useSelector(
+    (state: any) => state.global
+  );
 
   // States for adding board
   const [boardName, setBoardName] = useState("");
@@ -24,6 +30,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
 
   // Set boards in global state
   useEffect(() => {
+    if (!data) return;
     dispatch(setBoards(data?.boards));
   }, [data]);
 
@@ -31,7 +38,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   const handleChange = (event: any) => {
     event.preventDefault();
     setBoardName(event.target.value);
-    handleError(event)
+    handleError(event);
   };
 
   const handleError = (event: any) => {
@@ -47,7 +54,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
     event.preventDefault();
     setIsBoardBeingAdded(false);
     setBoardName("");
-    setError(false)
+    setError(false);
   };
 
   const handleNewBoard = async (event: any) => {
@@ -71,6 +78,14 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
     }
   };
 
+  const changeActiveBoard = (id: string) => {
+    dispatch(setActiveBoard(id));
+  };
+
+  useEffect(() => {
+    console.log(activeBoard);
+  }, [activeBoard]);
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -89,7 +104,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
             {allBoards?.map(({ name, _id }: any) => {
               return (
                 <div
-                  onClick={() => console.log(_id)}
+                  onClick={() => changeActiveBoard(_id)}
                   className={styles.board}
                   key={name}
                 >

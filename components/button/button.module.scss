@@ -46,7 +46,7 @@
   width: 100%;
 
   &:hover {
-    background-color: var(--color-btn-secondary-bg-hover);
+    // background-color: var(--color-btn-secondary-bg-hover);
   }
 }
 
@@ -57,6 +57,7 @@
   padding: 0.5rem 1.6rem;
   font-size: 1.2rem;
   line-height: 2.3rem;
+  width: 100%;
 
   &:hover {
     background-color: var(--color-destructive-light);

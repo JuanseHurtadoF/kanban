@@ -1,47 +1,38 @@
 import React, { FC } from "react";
-import { Heading, Button, Icon } from "@components";
+import { Heading, Button, Icon, Text } from "@components";
 import styles from "./nav.module.scss";
 import { NavProps } from "@types";
-import axios from "axios";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
-const Nav: FC<NavProps> = ({ onClick }) => {
-  const addBoard = async () => {
-    const board = await axios.post("/api/boards/addBoard", {
-      name: "Marketing Plan",
-      columns: [],
-      userId: "643da62416b35292cc2fee3d",
-    });
-  };
+const Nav: FC<NavProps> = ({ toggleNewCard, toggleDeleteModal }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const { activeBoard } = useSelector((state: any) => state.global);
 
-  const addUser = async () => {
-    const user = await axios.post("/api/users/addUser", {
-      name: "Tito",
-      email: "tito@gmail.com",
-      password: "1234",
-      boards: [],
-      role: "admin",
-    });
-  };
-
-  const addTask = async () => {
-    const task = await axios.post("/api/tasks/addTask", {
-      title: "THIS IS A TASK",
-      description: "THIS IS A TASK",
-      status: "todo",
-      column: "643da95616b35292cc2fee45",
-      subtasks: [],
-    });
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
-    <div className={styles.container}>
+    <div onMouseLeave={() => setTimeout(() => setIsMenuOpen(false), 500)} className={styles.container}>
       <div className={styles.nameContainer}>
-        <Heading title="Platform Launch" variant={1} />
+        <Heading title={activeBoard.name} variant={1} />
       </div>
       <div className={styles.actionsContainer}>
-        <Button label="+ Add New Task" variant="primarySm" onClick={addBoard} />
-        <div className={styles.options}>
+        <Button
+          label="+ Add New Task"
+          variant="primarySm"
+          onClick={toggleNewCard}
+        />
+        <div onClick={toggleMenu} className={styles.options}>
           <Icon variant="options" />
+          {isMenuOpen && (
+            <div className={styles.menu}>
+              <div onClick={toggleDeleteModal} className={styles.delete}>
+                <Text variant="destructive" text="Delete Board" />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -14,3 +14,5 @@ export { default as Switch } from "./switch";
 export { default as Board } from "./board";
 export { default as Logo } from "./logo";
 export { default as CardInfo } from "./modals/cardInfo";
+export { default as CreateCard } from "./modals/createCard";
+export { default as DeleteBoard } from "./modals/deleteBoard";
