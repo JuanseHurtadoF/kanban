@@ -15,7 +15,7 @@ import axios from "axios";
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   // States for data
   const { data } = useGetBoardsQuery("Board");
-  const { allBoards, userId, activeBoard } = useSelector(
+  const { allBoards, user, activeBoard } = useSelector(
     (state: any) => state.global
   );
 
@@ -63,16 +63,16 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
     const id = `newBoard-${Date.now()}`;
     const newBoard = {
       name: boardName,
-      userId: userId,
+      userId: user,
       columns: [],
-      id,
+      _id: id,
     };
     dispatch(addBoardLocal(newBoard));
     setIsBoardBeingAdded(false);
     handleStopCreatingBoard(event);
     try {
       const result = await addBoard(newBoard);
-      dispatch(removeBoardLocal(id));
+      if (result.error?.status === 500) dispatch(removeBoardLocal(id));
     } catch (error) {
       console.error("Error adding board:", error);
     }
@@ -83,8 +83,8 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   };
 
   useEffect(() => {
-    console.log(activeBoard);
-  }, [activeBoard]);
+    console.log(allBoards);
+  }, [allBoards]);
 
   return (
     <div className={styles.container}>

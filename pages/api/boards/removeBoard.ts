@@ -14,13 +14,12 @@ export default async function handler(
   try {
     const { boardId } = req.body;
 
-    const board = await Board.findById(boardId);
 
-    console.log(board);
+    const board = await Board.findById(boardId);
 
     if (!board) {
       return res
-        .status(404)
+        .status(400)
         .json({ success: false, message: "Board not found" });
     }
 

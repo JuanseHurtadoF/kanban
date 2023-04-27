@@ -28,7 +28,7 @@ const Card: FC<CardProps> = ({ title, description, subtasks, status }) => {
       <div className={styles.titleContainer}>
         <Heading title={title} variant={3} />
       </div>
-      <Text text={`0 of ${subtasks.length} subtasks`} variant="tertiary" />
+      <Text text={`0 of ${subtasks?.length} subtasks`} variant="tertiary" />
     </motion.div>
   );
 };

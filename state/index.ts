@@ -4,7 +4,7 @@ import { CardProps } from "@types";
 
 const initialState: any = {
   allBoards: [],
-  currentUser: "64494cb5850f3117d277a749",
+  user: "64494cb5850f3117d277a749",
   activeBoard: {},
   columns: dataTest.boards[0].columns as any,
   highlightedCard: {} as CardProps,
@@ -26,7 +26,6 @@ export const globalSlice = createSlice({
       );
     },
     addBoardLocal: (state, action) => {
-      console.log("here");
       const newBoard = action.payload;
       state.allBoards.push(newBoard);
     },
@@ -35,6 +34,7 @@ export const globalSlice = createSlice({
       state.allBoards = state.allBoards.filter(
         (board: any) => board._id !== boardId
       );
+      state.activeBoard = state.allBoards[0];
     },
     addColumn: (state, action) => {
       const newColumn = action.payload;

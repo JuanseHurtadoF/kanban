@@ -14,8 +14,6 @@ export default async function handler(
   try {
     const { name, userId, columns } = req.body;
 
-    console.log({ name, userId, columns });
-
     // Create board
     const board = new Board({ name, columns, user: userId });
     const result = await board.save();
