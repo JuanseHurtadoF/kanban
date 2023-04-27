@@ -9,6 +9,7 @@ const connectDB = async (url) => {
     console.error("Error: MongoDB URL is missing");
     return;
   }
+  console.log('here')
   try {
     await mongoose.connect(url, {
       useUnifiedTopology: true,

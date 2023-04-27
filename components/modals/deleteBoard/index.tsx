@@ -14,16 +14,16 @@ const DeleteBoard: FC<DeleteBoardProps> = ({ onClick }) => {
   const dispatch = useDispatch();
 
   const deleteBoard = async (event: any) => {
-    // event.stopPropagation();
-    // event.preventDefault();
+    event.preventDefault();
 
     const removingBoard = currentBoard;
 
     dispatch(removeBoardLocal(currentBoard._id));
+    onClick();
     try {
       const result = await removeBoard({ boardId: currentBoard._id });
     } catch (error) {
-      // dispatch(addBoardLocal(removingBoard));
+      dispatch(addBoardLocal(removingBoard));
       console.error("Error deleting board:", error);
     }
   };

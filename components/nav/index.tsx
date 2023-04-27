@@ -16,7 +16,7 @@ const Nav: FC<NavProps> = ({ toggleNewCard, toggleDeleteModal }) => {
   return (
     <div onMouseLeave={() => setTimeout(() => setIsMenuOpen(false), 500)} className={styles.container}>
       <div className={styles.nameContainer}>
-        <Heading title={activeBoard.name} variant={1} />
+        <Heading title={activeBoard?.name} variant={1} />
       </div>
       <div className={styles.actionsContainer}>
         <Button
