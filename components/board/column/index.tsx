@@ -12,10 +12,10 @@ const Column: FC<ColumnProps> = ({ name, tasks }) => {
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <div className={styles.label}></div>
-        <Heading title={`${name} (${tasks.length})`} variant={4} />
+        <Heading title={`${name} (${tasks?.length})`} variant={4} />
       </div>
       <div className={styles.cardsContainer}>
-        {data.map((card: CardProps) => {
+        {data?.map((card: CardProps) => {
           return (
             <Card
               key={card.title}

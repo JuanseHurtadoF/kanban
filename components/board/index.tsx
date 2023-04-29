@@ -1,33 +1,43 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "./board.module.scss";
 import { Column } from "@components";
 import { ColumnProps, BoardProps } from "@types";
 import { useSelector, useDispatch } from "react-redux";
 import { useAddColumnMutation, useAddTaskMutation } from "state/api";
+import { addColumnLocal, removeColumnLocal } from "state";
 
 const Board: FC<BoardProps> = ({ fullWidth }) => {
-  const { activeBoard, user } = useSelector((state: any) => state.global);
+  const { allBoards, activeBoard, user } = useSelector(
+    (state: any) => state.global
+  );
   const dispatch = useDispatch();
 
   const [addColumn] = useAddColumnMutation();
-  const [addTask] = useAddTaskMutation();
 
   const handleNewColumn = async () => {
-    const result = await addColumn({
-      boardId: activeBoard._id,
-      name: "New Column",
+    const boardId = activeBoard._id;
+    const id = `newBoard-${Date.now()}`;
+
+    const newColumn = {
+      name: "Done",
       tasks: [],
-    });
-  };
-  const handleNewTask = () => {
-    addTask({
-      title: "New Task",
-      description: "New Task Description",
-      board: activeBoard?._id,
-      column: "644a9e3f850f3117d277aa43",
-      user,
-      subtasks: [],
-    });
+      _id: id,
+    };
+
+    dispatch(addColumnLocal({ column: newColumn, boardId }));
+
+    try {
+      const result = await addColumn({
+        name: newColumn.name,
+        boardId,
+      });
+      if (result.error?.status === 500) {
+        dispatch(removeColumnLocal({ boardId, columnId: id }));
+      }
+    } catch (error: any) {
+      // dispatch(removeColumnLocal({ boardId, columnId: id }));
+      console.log(error);
+    }
   };
 
   return (

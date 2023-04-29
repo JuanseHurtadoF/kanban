@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { dataTest } from "@data";
 import { CardProps } from "@types";
 
@@ -6,7 +6,6 @@ const initialState: any = {
   allBoards: [],
   user: "64494cb5850f3117d277a749",
   activeBoard: {},
-  columns: dataTest.boards[0].columns as any,
   highlightedCard: {} as CardProps,
 };
 
@@ -36,9 +35,29 @@ export const globalSlice = createSlice({
       );
       state.activeBoard = state.allBoards[0];
     },
-    addColumn: (state, action) => {
-      const newColumn = action.payload;
-      state.allBoards = [...state.allBoards, newColumn];
+    addColumnLocal: (state, action) => {
+      const { boardId, column } = action.payload;
+      const board = state.allBoards.find((board: any) => board._id === boardId);
+      board.columns.push(column);
+      state.activeBoard = board;
+    },
+    removeColumnLocal: (state, action) => {
+      const { boardId, columnId } = action.payload;
+      const board = state.allBoards.find((board: any) => board._id === boardId);
+
+      board.columns = board.columns.filter(
+        (column: any) => column._id !== columnId
+      );
+
+      state.allBoards = state.allBoards.map((currentBoard: any) => {
+        if (currentBoard._id === boardId) {
+          return board;
+        } else {
+          return currentBoard;
+        }
+      });
+
+      state.activeBoard = board;
     },
     setHighlightedCard: (state, action) => {
       const card = action.payload;
@@ -51,8 +70,9 @@ export const {
   setBoards,
   setActiveBoard,
   addBoardLocal,
+  removeColumnLocal,
   removeBoardLocal,
-  addColumn,
+  addColumnLocal,
   setHighlightedCard,
 } = globalSlice.actions;
 export default globalSlice.reducer;

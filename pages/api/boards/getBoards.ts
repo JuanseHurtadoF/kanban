@@ -12,15 +12,20 @@ export default async function handler(
   await connectDB(process.env.MONGODB_URL);
 
   try {
-    const boards = await Board.find();
+    const apiResponse = await Board.find();
 
-    boards.forEach((board) => {
-      board.columns.forEach(async (column: any) => {
-        // console.log(column._id.toString());
-        const newCol = await Column.findById("644a9290850f3117d277a99b");
-        // console.log(newCol);
-      });
-    });
+    const boards = await Promise.all(
+      apiResponse?.map(async (board) => {
+        const updatedColumns = await Promise.all(
+          board.columns.map(async (column: any) => {
+            const newCol = await Column.findById(column._id);
+            return newCol;
+          })
+        );
+        board.columns = updatedColumns;
+        return board;
+      })
+    );
 
     return res.status(200).json({ boards });
   } catch (error: any) {

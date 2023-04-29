@@ -82,10 +82,6 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
     dispatch(setActiveBoard(id));
   };
 
-  useEffect(() => {
-    console.log(allBoards);
-  }, [allBoards]);
-
   return (
     <div className={styles.container}>
       <div className={styles.top}>

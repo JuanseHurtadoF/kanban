@@ -19,19 +19,20 @@ export default async function handler(
     const { name, boardId } = req.body;
 
     // Create column
-    const newColumn = new Column({ name, boardId });
-    const saved = await newColumn.save();
 
-    console.log(newColumn._id)
+      const newColumn = new Column({ name, boardId });
+      const saved = await newColumn.save();
 
     // Push column to columns array in Board
     const currentBoard = await Board.findOne({ _id: boardId });
     if (!currentBoard) {
-      return res.status(404).json({ success: false, message: "Board not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Board not found" });
     }
 
     currentBoard.columns.push(newColumn._id);
-    currentBoard.markModified('columns'); // Mark columns array as modified
+    currentBoard.markModified("columns"); // Mark columns array as modified
     await currentBoard.save();
 
     return res.status(200).json({
@@ -47,4 +48,3 @@ export default async function handler(
     return res.status(500).json({ success: false, message: error.message });
   }
 }
-
