@@ -30,7 +30,7 @@ const CheckBox: FC<CheckBoxProps> = ({ task }) => {
             <path
               d="M1.27588 3.06593L4.03234 5.82239L9.03234 0.822388"
               stroke="white"
-              stroke-width="2"
+              strokeWidth="2"
             />
           </svg>
         )}

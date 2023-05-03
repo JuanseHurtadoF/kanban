@@ -4,5 +4,6 @@ export type InputProps = {
   error: boolean;
   errorMessage?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  value: string;
+  value?: string | undefined;
+  name?: string;
 };

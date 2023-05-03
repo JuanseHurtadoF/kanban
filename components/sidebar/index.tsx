@@ -72,7 +72,12 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
     handleStopCreatingBoard(event);
     try {
       const result = await addBoard(newBoard);
-      if (result.error?.status === 500) dispatch(removeBoardLocal(id));
+      if (result.error?.status === 500) {
+        dispatch(removeBoardLocal(id));
+        alert(
+          "Something went wrong while adding a board, please try again later."
+        );
+      }
     } catch (error) {
       console.error("Error adding board:", error);
     }

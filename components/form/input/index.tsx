@@ -9,6 +9,7 @@ const Input: FC<InputProps> = ({
   errorMessage,
   onChange,
   value,
+  name
 }) => {
   return (
     <div className={styles.container}>
@@ -16,10 +17,11 @@ const Input: FC<InputProps> = ({
       <div className={styles.inputContainer}>
         <input
           onChange={onChange}
-          value={value}
           placeholder={placeholder}
           data-haserror={error}
           className={styles.input}
+          value={value}
+          name={name}
         ></input>
         {error && (
           <p className={styles.error}>

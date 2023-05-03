@@ -33,9 +33,11 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
       });
       if (result.error?.status === 500) {
         dispatch(removeColumnLocal({ boardId, columnId: id }));
+        alert(
+          "Something went wrong while adding a column, please try again later."
+        );
       }
     } catch (error: any) {
-      // dispatch(removeColumnLocal({ boardId, columnId: id }));
       console.log(error);
     }
   };
