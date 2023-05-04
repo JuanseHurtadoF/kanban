@@ -6,12 +6,14 @@ import { useSelector } from "react-redux";
 import { CardProps, RootState } from "@types";
 import { CreateCard, DeleteBoard } from "@components";
 import axios from "axios";
+import EditBoard from "@components/modals/editBoard";
 
 const Layout: FC = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
   const [isCardInfoOpen, setIsCardInfoOpen] = useState<boolean>(false);
   const [isTaskCreationOpen, setIsTaskCreationOpen] = useState<boolean>(false);
   const [isDeleteBoardOpen, setIsDeleteBoardOpen] = useState<boolean>(false);
+  const [isEditBoardOpen, setIsEditBoardOpen] = useState<boolean>(false);
 
   const highlightedCard: CardProps = useSelector(
     (state: RootState) => state.global.highlightedCard
@@ -37,6 +39,10 @@ const Layout: FC = () => {
     setIsDeleteBoardOpen(!isDeleteBoardOpen);
   };
 
+  const toggleEditBoard = () => {
+    setIsEditBoardOpen(!isEditBoardOpen);
+  };
+
   return (
     <div
       className={
@@ -58,10 +64,14 @@ const Layout: FC = () => {
       {isCardInfoOpen && <CardInfo onClick={toggleCardInfo} />}
       {isTaskCreationOpen && <CreateCard onClick={toggleNewCard} />}
       {isDeleteBoardOpen && <DeleteBoard onClick={toggleDeleteModal} />}
+      <EditBoard onClick={toggleEditBoard} />
 
       {/* Board */}
       <div>
-        <Nav toggleDeleteModal={toggleDeleteModal} toggleNewCard={toggleNewCard} />
+        <Nav
+          toggleDeleteModal={toggleDeleteModal}
+          toggleNewCard={toggleNewCard}
+        />
         <Board fullWidth={isSideBarOpen ? false : true} />
       </div>
     </div>

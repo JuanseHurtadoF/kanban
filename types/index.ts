@@ -17,3 +17,4 @@ export { type CreateCardProps } from "./modals";
 export { type NavProps } from "./nav";
 export { type subtask } from "./board/subtask";
 export { type DeleteBoardProps } from "./modals";
+export { type EditBoardProps } from "./modals";

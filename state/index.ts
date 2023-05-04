@@ -35,6 +35,13 @@ export const globalSlice = createSlice({
       );
       state.activeBoard = state.allBoards[0];
     },
+    changeBoardNameLocal: (state, action) => {
+      console.log('Here')
+      const { boardId, name } = action.payload;
+      const board = state.allBoards.find((board: any) => board._id === boardId);
+      board.name = name;
+      state.activeBoard = board;
+    },
     addColumnLocal: (state, action) => {
       const { boardId, column } = action.payload;
       const board = state.allBoards.find((board: any) => board._id === boardId);
@@ -59,6 +66,35 @@ export const globalSlice = createSlice({
 
       state.activeBoard = board;
     },
+    addTaskLocal: (state, action) => {
+      const task = action.payload;
+      const { board, column } = task;
+
+      const activeBoard = (state.activeBoard = state.allBoards.find(
+        (item: any) => item._id === board
+      ));
+      const activeColumn = activeBoard.columns.find(
+        (item: any) => item._id === column
+      );
+      activeColumn.tasks.push(task);
+    },
+    removeTaskLocal: (state, action) => {
+      const { boardId, columnId, taskId } = action.payload;
+      const board = state.allBoards.find((board: any) => board._id === boardId);
+      const column = board.columns.find(
+        (column: any) => column._id === columnId
+      );
+      column.tasks = column.tasks.filter((task: any) => task._id !== taskId);
+      state.activeBoard = board;
+
+      state.allBoards = state.allBoards.map((currentBoard: any) => {
+        if (currentBoard._id === boardId) {
+          return board;
+        } else {
+          return currentBoard;
+        }
+      });
+    },
     setHighlightedCard: (state, action) => {
       const card = action.payload;
       state.highlightedCard = card;
@@ -72,7 +108,10 @@ export const {
   addBoardLocal,
   removeColumnLocal,
   removeBoardLocal,
+  changeBoardNameLocal,
   addColumnLocal,
   setHighlightedCard,
+  addTaskLocal,
+  removeTaskLocal,
 } = globalSlice.actions;
 export default globalSlice.reducer;

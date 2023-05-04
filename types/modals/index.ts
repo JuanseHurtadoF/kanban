@@ -11,3 +11,7 @@ export type CreateCardProps = {
 export type DeleteBoardProps = {
   onClick: () => void;
 };
+
+export type EditBoardProps = {
+  onClick: () => void;
+};

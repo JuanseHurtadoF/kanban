@@ -6,6 +6,8 @@ import { Button, Dropdown, Icon, Input } from "@components";
 import { subtask } from "@types";
 import { useAddTaskMutation } from "state/api";
 import { useSelector } from "react-redux";
+import { addTaskLocal, removeTaskLocal } from "state";
+import { useDispatch } from "react-redux";
 
 const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
   // Get user and board info from global state
@@ -26,6 +28,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
 
   // Import mutations
   const [addTask] = useAddTaskMutation();
+  const dispatch = useDispatch();
 
   const handleChange = (event: any) => {
     event.preventDefault();
@@ -75,7 +78,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
     });
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
 
     // Check if title is empty
@@ -91,23 +94,36 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
     const newArray: subtask[] = [...subtaskArray];
     const filteredArray = newArray.filter((subtask) => subtask.title !== "");
 
+    const id = `newBoard-${Date.now()}`;
+
     // create new task object
     const newTask = {
       title: form.title,
       description: form.description,
       board: boardId,
       column: form.columnId,
+      _id: id,
       user: user,
       subtasks: filteredArray,
     };
 
-    // add task to database
-    addTask(newTask);
-  };
+    dispatch(addTaskLocal({ ...newTask }));
+    onClick(event);
+    try {
+      const result = await addTask(newTask);
 
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
+      if (result.error?.status === 500) {
+        dispatch(
+          removeTaskLocal({ boardId, columnId: form.columnId, taskId: id })
+        );
+        alert(
+          "Something went wrong while adding a Task, please try again later."
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div onClick={onClick} className={styles.container}>

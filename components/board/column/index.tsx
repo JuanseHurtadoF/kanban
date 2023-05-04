@@ -17,7 +17,7 @@ const Column: FC<ColumnProps> = ({ name, tasks }) => {
         {tasks?.map((card: any) => {
           return (
             <Card
-              key={card}
+              key={card._id}
               title={card.title}
               subtasks={card.subtasks}
               description={card.description}
