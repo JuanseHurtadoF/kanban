@@ -17,10 +17,12 @@ export default function App({ Component, pageProps }: AppProps) {
   });
   setupListeners(store.dispatch);
 
+ 
+
   return (
     <>
       <Provider store={store}>
-        <Component {...pageProps} />
+          <Component {...pageProps} />
       </Provider>
     </>
   );
