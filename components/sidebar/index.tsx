@@ -103,13 +103,18 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
 
           <div className={styles.boards}>
             {allBoards?.map(({ name, _id }: any) => {
+              const isActive = _id === activeBoard._id
               return (
                 <div
                   onClick={() => changeActiveBoard(_id)}
-                  className={styles.board}
+                  className={
+                    isActive
+                      ? `${styles.board} ${styles.boardActive}`
+                      : `${styles.board}`
+                  }
                   key={name}
                 >
-                  <Icon variant="board" />
+                  <Icon variant="board" fill={isActive ? `#fff` : `#000`} />
                   <p>{name}</p>
                 </div>
               );

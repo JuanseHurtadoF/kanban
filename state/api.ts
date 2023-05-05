@@ -73,7 +73,6 @@ export const api: any = createApi({
         method: "POST",
         body: { boardId, source, destination },
       }),
-      // invalidatesTags: ["Board", "Task"],
     }),
   }),
 });
