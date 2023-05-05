@@ -17,10 +17,6 @@ const Dropdown: FC<DropdownProps> = ({ title, options, onChange }) => {
     handleFocusChange();
   };
 
-  useEffect(() => {
-    console.log(selected);
-  }, [selected]);
-
   return (
     <div className={styles.container}>
       <p className={styles.title}>{title}</p>

@@ -29,7 +29,6 @@ export default function Home() {
     if (type === "cards") {
       reorderTasks(destination, source, draggableId);
     }
-    console.log("dnd event: ", result);
   };
 
   const reorderTasks = async (destination, source, draggableId) => {
@@ -48,7 +47,7 @@ export default function Home() {
         source,
         destination,
       });
-      if (result.error.status === 500) {
+      if (result?.error?.status === 500) {
         dispatch(
           moveTaskLocal({
             boardId: _id,
@@ -59,7 +58,7 @@ export default function Home() {
           })
         );
         alert(
-          "Something went wrong while reordering tasks. Please try again later."
+          "Something went wrong while reordering tasks. Your changes might not be saved."
         );
       }
     } catch (error) {

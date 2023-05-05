@@ -35,7 +35,6 @@ export const globalSlice = createSlice({
       state.activeBoard = state.allBoards[0];
     },
     changeBoardNameLocal: (state, action) => {
-      console.log("Here");
       const { boardId, name } = action.payload;
       const board = state.allBoards.find((board: any) => board._id === boardId);
       board.name = name;

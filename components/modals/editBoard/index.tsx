@@ -70,7 +70,6 @@ const EditBoard: FC<EditBoardProps> = ({ onClick }) => {
         name: boardName,
         boardId: _id,
       });
-      console.log(result);
       if (result.error?.status === 500) {
         dispatch(changeBoardNameLocal({ name: prevName, boardId: _id }));
         alert(
