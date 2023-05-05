@@ -4,9 +4,11 @@ import { Layout } from "@components";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { moveTaskLocal } from "state";
+import { useReorderTaskMutation } from "state/api";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const [reorderTask] = useReorderTaskMutation({});
   const { _id } = useSelector((state: any) => state.global.activeBoard);
 
   const onDragEnd = (result: any) => {
@@ -25,17 +27,44 @@ export default function Home() {
 
     // If user drops the draggable in a different droppable area
     if (type === "cards") {
-      dispatch(
-        moveTaskLocal({
-          boardId: _id,
-          columnId: source.droppableId,
-          taskId: draggableId,
-          destination,
-          source,
-        })
-      );
+      reorderTasks(destination, source, draggableId);
     }
     console.log("dnd event: ", result);
+  };
+
+  const reorderTasks = async (destination, source, draggableId) => {
+    dispatch(
+      moveTaskLocal({
+        boardId: _id,
+        columnId: source.droppableId,
+        taskId: draggableId,
+        destination,
+        source,
+      })
+    );
+    try {
+      const result = await reorderTask({
+        boardId: _id,
+        source,
+        destination,
+      });
+      if (result.error.status === 500) {
+        dispatch(
+          moveTaskLocal({
+            boardId: _id,
+            columnId: destination.droppableId,
+            taskId: draggableId,
+            destination: source,
+            source: destination,
+          })
+        );
+        alert(
+          "Something went wrong while reordering tasks. Please try again later."
+        );
+      }
+    } catch (error) {
+      console.log("error: ", error);
+    }
   };
 
   return (

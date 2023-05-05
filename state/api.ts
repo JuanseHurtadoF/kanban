@@ -65,6 +65,16 @@ export const api: any = createApi({
       }),
       invalidatesTags: ["Board", "Task"],
     }),
+
+    // drag and drop
+    reorderTask: build.mutation({
+      query: ({ boardId, source, destination }) => ({
+        url: "tasks/reorderTask",
+        method: "POST",
+        body: { boardId, source, destination },
+      }),
+      invalidatesTags: ["Board", "Task"],
+    }),
   }),
 });
 
@@ -77,4 +87,5 @@ export const {
   useRemoveColumnMutation,
   useAddTaskMutation,
   useRemoveTaskMutation,
+  useReorderTaskMutation,
 } = api;

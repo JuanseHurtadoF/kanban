@@ -24,8 +24,8 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
                 return (
                   <Draggable
                     index={index}
-                    draggableId={card._id}
-                    key={card._id}
+                    draggableId={card?._id}
+                    key={card?._id}
                   >
                     {(provided) => {
                       return (
@@ -35,10 +35,10 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
                           ref={provided.innerRef}
                         >
                           <Card
-                            title={card.title}
-                            subtasks={card.subtasks}
-                            description={card.description}
-                            status={card.status}
+                            title={card?.title}
+                            subtasks={card?.subtasks}
+                            description={card?.description}
+                            status={card?.status}
                           />
                         </div>
                       );
