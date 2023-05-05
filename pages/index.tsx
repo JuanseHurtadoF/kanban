@@ -58,7 +58,7 @@ export default function Home() {
           })
         );
         alert(
-          "Something went wrong while reordering tasks. Please try again later."
+          "Something went wrong while reordering tasks. Your changes might not be saved."
         );
       }
     } catch (error) {
