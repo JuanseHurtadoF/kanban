@@ -13,8 +13,8 @@ import { useAddBoardMutation, useGetBoardsQuery } from "state/api";
 import axios from "axios";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
-  // States for data
-  const { data } = useGetBoardsQuery("Board");
+  const { data } = useGetBoardsQuery();
+
   const { allBoards, user, activeBoard } = useSelector(
     (state: any) => state.global
   );
@@ -103,7 +103,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
 
           <div className={styles.boards}>
             {allBoards?.map(({ name, _id }: any) => {
-              const isActive = _id === activeBoard._id
+              const isActive = _id === activeBoard._id;
               return (
                 <div
                   onClick={() => changeActiveBoard(_id)}

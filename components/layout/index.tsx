@@ -4,7 +4,7 @@ import styles from "./layout.module.scss";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { CardProps, RootState } from "@types";
-import { CreateCard, DeleteBoard } from "@components";
+import { CreateCard, DeleteBoard, Loading } from "@components";
 import axios from "axios";
 import EditBoard from "@components/modals/editBoard";
 
