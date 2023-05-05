@@ -40,8 +40,29 @@
             display: block;
             margin-right: 1rem;
             path {
-              transition: all 0.3s;
               fill: #828fa3;
+            }
+          }
+
+          border-radius: 0 500px 500px 0;
+
+          &:hover {
+            background-color: var(--color-bg-secondary);
+            // color: var(--color-primary);
+            svg path {
+              // fill: var(--color-primary);
+            }
+          }
+
+          &Active {
+            background-color: var(--color-primary);
+            color: #fff;
+            svg path {
+              fill: #fff;
+            }
+            &:hover {
+              background-color: var(--color-primary);
+              color: #fff;
             }
           }
         }
