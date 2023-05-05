@@ -1,20 +1,51 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from "./editBoard.module.scss";
-import { Heading, Button, Input } from "@components";
+import { Heading, Button, Input, Icon } from "@components";
 import { EditBoardProps } from "@types";
 import { useSelector } from "react-redux";
-import { useChangeBoardNameMutation } from "state/api";
+import { useChangeBoardNameMutation, useAddColumnMutation } from "state/api";
 import { useDispatch } from "react-redux";
-import { changeBoardNameLocal } from "state";
-import { on } from "events";
+import { changeBoardNameLocal, addColumnLocal, removeColumnLocal } from "state";
 
 const EditBoard: FC<EditBoardProps> = ({ onClick }) => {
-  const { name, _id } = useSelector((state: any) => state.global.activeBoard);
+  const { name, _id, columns } = useSelector(
+    (state: any) => state.global.activeBoard
+  );
   const [boardName, setBoardName] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
 
   const [changeBoardName] = useChangeBoardNameMutation();
+  const [addColumn] = useAddColumnMutation();
+
   const dispatch = useDispatch();
+
+  const handleNewColumn = async () => {
+    const boardId = _id;
+    const id = `newBoard-${Date.now()}`;
+
+    const newColumn = {
+      name: "Done",
+      tasks: [],
+      _id: id,
+    };
+
+    dispatch(addColumnLocal({ column: newColumn, boardId }));
+
+    try {
+      const result = await addColumn({
+        name: newColumn.name,
+        boardId,
+      });
+      if (result.error?.status === 500) {
+        dispatch(removeColumnLocal({ boardId, columnId: id }));
+        alert(
+          "Something went wrong while adding a column, please try again later."
+        );
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
 
   const handleChange = (event: any) => {
     event.preventDefault();
@@ -81,6 +112,32 @@ const EditBoard: FC<EditBoardProps> = ({ onClick }) => {
             error={error}
             errorMessage="Can't be empty"
           />
+          <div className={styles.list}>
+            <p className={styles.title}>Columns</p>
+            {columns?.map((column: any, index: number) => {
+              return (
+                <div key={index} className={styles.input}>
+                  <Input
+                    placeholder="e.g. Make coffee"
+                    error={false}
+                    value={column?.name}
+                    onChange={(event) => console.log("close")}
+                  />
+                  <div
+                    // onClick={() => removeSubtask(index)}
+                    className={styles.close}
+                  >
+                    <Icon variant="close" />
+                  </div>
+                </div>
+              );
+            })}
+            <Button
+              variant="secondary"
+              label="Add column"
+              onClick={() => console.log("add column")}
+            />
+          </div>
         </form>
         <div className={styles.buttons}>
           <Button

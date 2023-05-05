@@ -64,7 +64,7 @@ const Layout: FC = () => {
       {isCardInfoOpen && <CardInfo onClick={toggleCardInfo} />}
       {isTaskCreationOpen && <CreateCard onClick={toggleNewCard} />}
       {isDeleteBoardOpen && <DeleteBoard onClick={toggleDeleteModal} />}
-      <EditBoard onClick={toggleEditBoard} />
+      {isEditBoardOpen && <EditBoard onClick={toggleEditBoard} />}
 
       {/* Board */}
       <div>
@@ -72,7 +72,10 @@ const Layout: FC = () => {
           toggleDeleteModal={toggleDeleteModal}
           toggleNewCard={toggleNewCard}
         />
-        <Board fullWidth={isSideBarOpen ? false : true} />
+        <Board
+          toggleEditBoard={toggleEditBoard}
+          fullWidth={isSideBarOpen ? false : true}
+        />
       </div>
     </div>
   );

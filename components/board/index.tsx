@@ -6,41 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useAddColumnMutation, useAddTaskMutation } from "state/api";
 import { addColumnLocal, removeColumnLocal } from "state";
 
-const Board: FC<BoardProps> = ({ fullWidth }) => {
+const Board: FC<BoardProps> = ({ fullWidth, toggleEditBoard }) => {
   const { allBoards, activeBoard, user } = useSelector(
     (state: any) => state.global
   );
-  const dispatch = useDispatch();
-
-  const [addColumn] = useAddColumnMutation();
-
-  const handleNewColumn = async () => {
-    const boardId = activeBoard._id;
-    const id = `newBoard-${Date.now()}`;
-
-    const newColumn = {
-      name: "Done",
-      tasks: [],
-      _id: id,
-    };
-
-    dispatch(addColumnLocal({ column: newColumn, boardId }));
-
-    try {
-      const result = await addColumn({
-        name: newColumn.name,
-        boardId,
-      });
-      if (result.error?.status === 500) {
-        dispatch(removeColumnLocal({ boardId, columnId: id }));
-        alert(
-          "Something went wrong while adding a column, please try again later."
-        );
-      }
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
 
   return (
     <div
@@ -54,7 +23,7 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
         {activeBoard?.columns?.map(({ name, tasks, _id }: ColumnProps) => {
           return <Column _id={_id} key={_id} name={name} tasks={tasks} />;
         })}
-        <div onClick={handleNewColumn} className={styles.newColumn}>
+        <div onClick={toggleEditBoard} className={styles.newColumn}>
           <p className={styles.text}>+ New Column</p>
         </div>
         <div className={styles.empty}></div>

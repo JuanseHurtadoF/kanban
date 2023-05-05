@@ -19,7 +19,38 @@
     gap: 1rem;
 
     .form {
-        margin-top: 2rem;
+      margin-top: 2rem;
+      margin-bottom: 2.4rem;
+
+      .list {
+        margin-top: 3.2rem;
+        display: grid;
+        gap: 1rem;
+        .title {
+          font-family: var(--font-primary);
+          font-style: normal;
+          font-weight: 700;
+          font-size: 1.2rem;
+          line-height: 1.5rem;
+          color: var(--color-input-title);
+          margin-bottom: -0.2rem;
+        } 
+        .input {
+          display: grid;
+          grid-template-columns: auto 15px;
+          align-items: center;
+          gap: 1.2rem;
+        }
+        .close {
+          cursor: pointer;
+        }
+
+        .list {
+          display: grid;
+          gap: 0.5rem;
+          margin-bottom: 1rem;
+        }
+      }
     }
   }
 }
