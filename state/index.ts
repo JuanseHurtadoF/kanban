@@ -1,5 +1,4 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { dataTest } from "@data";
 import { CardProps } from "@types";
 
 const initialState: any = {
@@ -36,7 +35,7 @@ export const globalSlice = createSlice({
       state.activeBoard = state.allBoards[0];
     },
     changeBoardNameLocal: (state, action) => {
-      console.log('Here')
+      console.log("Here");
       const { boardId, name } = action.payload;
       const board = state.allBoards.find((board: any) => board._id === boardId);
       board.name = name;
@@ -51,11 +50,9 @@ export const globalSlice = createSlice({
     removeColumnLocal: (state, action) => {
       const { boardId, columnId } = action.payload;
       const board = state.allBoards.find((board: any) => board._id === boardId);
-
       board.columns = board.columns.filter(
         (column: any) => column._id !== columnId
       );
-
       state.allBoards = state.allBoards.map((currentBoard: any) => {
         if (currentBoard._id === boardId) {
           return board;
@@ -63,7 +60,6 @@ export const globalSlice = createSlice({
           return currentBoard;
         }
       });
-
       state.activeBoard = board;
     },
     addTaskLocal: (state, action) => {
@@ -99,6 +95,33 @@ export const globalSlice = createSlice({
       const card = action.payload;
       state.highlightedCard = card;
     },
+
+    // Drag and Drop
+    moveTaskLocal: (state, action) => {
+      const { boardId, columnId, taskId, source, destination } = action.payload;
+      const board = state.allBoards.find((board: any) => board._id === boardId);
+      const column = board.columns.find(
+        (column: any) => column._id === columnId
+      );
+      const task = column.tasks.find((task: any) => task._id === taskId);
+
+      column.tasks = column.tasks.filter((task: any) => task._id !== taskId);
+      
+      const newColumn = board.columns.find(
+        (column: any) => column._id === destination.droppableId
+      );
+      
+      newColumn.tasks.splice(destination.index, 0, task);
+      state.activeBoard = board;
+
+      state.allBoards = state.allBoards.map((currentBoard: any) => {
+        if (currentBoard._id === boardId) {
+          return board;
+        } else {
+          return currentBoard;
+        }
+      });
+    },
   },
 });
 
@@ -113,5 +136,6 @@ export const {
   setHighlightedCard,
   addTaskLocal,
   removeTaskLocal,
+  moveTaskLocal,
 } = globalSlice.actions;
 export default globalSlice.reducer;

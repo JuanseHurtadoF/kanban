@@ -18,6 +18,10 @@
     list-style: none; /* Fallback for older browsers */
     list-style-type: none; /* Modern browsers */
     display: grid;
-    gap: 1.6rem;
+    min-height: 8rem;
+
+    > * {
+      margin-bottom: 1.6rem;
+    }
   }
 }
