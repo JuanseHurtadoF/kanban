@@ -1,21 +1,26 @@
 import mongoose from "mongoose";
 
+let cachedConnection = null;
+
 const connectDB = async (url) => {
-  if (mongoose.connection.readyState >= 1) {
-    // If the connection is ready, return without reconnecting
+  if (cachedConnection && cachedConnection.readyState >= 1) {
+    // If the cached connection is ready, return without reconnecting
     return;
   }
+
   if (!url) {
     console.error("Error: MongoDB URL is missing");
     return;
   }
-  console.log('here')
   try {
-    await mongoose.connect(url, {
+    const connection = await mongoose.connect(url, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
+      maxPoolSize: 10,
     });
     console.log(`MongoDB Connected: ${mongoose.connection.host}`);
+
+    cachedConnection = connection;
   } catch (error) {
     console.error(`Error: ${error.message}`);
   }
