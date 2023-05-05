@@ -6,19 +6,18 @@ import Card from "../card";
 import { Reorder } from "framer-motion";
 
 const Column: FC<ColumnProps> = ({ name, tasks }) => {
-  const [data, setData] = useState(tasks);
 
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <div className={styles.label}></div>
-        <Heading title={`${name} (${tasks.length})`} variant={4} />
+        <Heading title={`${name} (${tasks?.length})`} variant={4} />
       </div>
       <div className={styles.cardsContainer}>
-        {data.map((card: CardProps) => {
+        {tasks?.map((card: any) => {
           return (
             <Card
-              key={card.title}
+              key={card._id}
               title={card.title}
               subtasks={card.subtasks}
               description={card.description}

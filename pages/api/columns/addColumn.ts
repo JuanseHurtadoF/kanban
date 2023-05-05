@@ -18,24 +18,22 @@ export default async function handler(
   try {
     const { name, boardId } = req.body;
 
-    // Handle missing information
-    if (!name || !boardId) {
-      return res.status(400).json({
-        success: false,
-        message: "Name and boardId are required fields",
-      });
-    }
-
     // Create column
-    const newColumn = new Column({ name, boardId, tasks: [] });
-    const saved = await newColumn.save();
+
+      const newColumn = new Column({ name, boardId });
+      const saved = await newColumn.save();
 
     // Push column to columns array in Board
-    const currentBoard = await Board.findByIdAndUpdate(
-      boardId,
-      { $push: { columns: newColumn._id._id } },
-      { new: true }
-    );
+    const currentBoard = await Board.findOne({ _id: boardId });
+    if (!currentBoard) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Board not found" });
+    }
+
+    currentBoard.columns.push(newColumn._id);
+    currentBoard.markModified("columns"); // Mark columns array as modified
+    await currentBoard.save();
 
     return res.status(200).json({
       success: true,

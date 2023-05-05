@@ -25,6 +25,14 @@ export const api: any = createApi({
       }),
       invalidatesTags: ["Board"],
     }),
+    changeBoardName: build.mutation({
+      query: ({ name, boardId }) => ({
+        url: "boards/changeBoardName",
+        method: "POST",
+        body: { name, boardId },
+      }),
+      invalidatesTags: ["Board"],
+    }),
     addColumn: build.mutation({
       query: ({ name, boardId }) => ({
         url: "columns/addColumn",
@@ -64,6 +72,7 @@ export const {
   useGetBoardsQuery,
   useAddBoardMutation,
   useRemoveBoardMutation,
+  useChangeBoardNameMutation,
   useAddColumnMutation,
   useRemoveColumnMutation,
   useAddTaskMutation,

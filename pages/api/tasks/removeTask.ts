@@ -12,14 +12,14 @@ export default async function handler(
   await connectDB(process.env.MONGODB_URL);
   try {
     const { taskId, columnId } = req.body;
-    
+
     const task = await Task.findByIdAndDelete(taskId);
     const column = await Column.findByIdAndUpdate(
       columnId,
       { $pull: { columns: columnId } },
       { new: true }
     );
-    res.status(200).json({ message: `Column successfully deleted` });
+    res.status(200).json({ message: `Task successfully deleted` });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

@@ -1,20 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { DropdownProps } from "@types";
 import styles from "./dropdown.module.scss";
 import { useState } from "react";
 
-const Dropdown: FC<DropdownProps> = ({ title, options }) => {
-  const [value, setValue] = useState<string>(options[0]);
+const Dropdown: FC<DropdownProps> = ({ title, options, onChange }) => {
+  const [selected, setSelected] = useState<any>(options[0]);
   const [isSelected, setIsSelected] = useState<boolean>(false);
 
   const handleFocusChange = () => {
     setIsSelected(!isSelected);
   };
 
-  const handleValueChange = (value: string) => {
-    setValue(value);
+  const handleValueChange = (value: any) => {
+    setSelected(value);
+    onChange(value.id);
     handleFocusChange();
   };
+
+  useEffect(() => {
+    console.log(selected);
+  }, [selected]);
 
   return (
     <div className={styles.container}>
@@ -27,7 +32,7 @@ const Dropdown: FC<DropdownProps> = ({ title, options }) => {
             : `${styles.labelContainer}`
         }
       >
-        <p className={styles.label}>{value}</p>
+        <p className={styles.label}>{selected.name}</p>
         <div className={styles.arrow}>
           <svg
             width="11"
@@ -39,21 +44,21 @@ const Dropdown: FC<DropdownProps> = ({ title, options }) => {
             <path
               d="M0.79834 1.54858L5.49682 6.24707L10.1953 1.54858"
               stroke="#635FC7"
-              stroke-width="2"
+              strokeWidth="2"
             />
           </svg>
         </div>
       </div>
       {isSelected && (
         <div className={styles.list}>
-          {options.map((option: string) => {
+          {options.map(({ name, id }) => {
             return (
               <p
-                onClick={() => handleValueChange(option)}
+                onClick={() => handleValueChange({ name, id })}
                 className={styles.option}
-                key={option}
+                key={id}
               >
-                {option}
+                {name}
               </p>
             );
           })}

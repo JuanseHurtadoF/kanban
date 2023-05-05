@@ -1,18 +1,50 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "@utils/connectDB.js";
 import Board from "@utils/models/Board";
+import Column from "@utils/models/Column";
+import Task from "@utils/models/Task";
 
 type Data = any;
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  await connectDB(process.env.MONGODB_URL);
+const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+  const { method } = req;
+
+  // Check for missing environment variables or wrong request method
+  if (!process.env.MONGODB_URL) {
+    return res
+      .status(500)
+      .json({ message: "Missing MONGODB_URL environment variable" });
+  }
+  if (method !== "GET") {
+    return res.status(405).json({ message: "Method not allowed" });
+  }
+
+  // Connect to the database
   try {
-    const boards = await Board.find();
+    await connectDB(process.env.MONGODB_URL);
+  } catch (error: any) {
+    return res
+      .status(500)
+      .json({ message: `Failed to connect to the database: ${error.message}` });
+  }
+
+  // Get all boards and their columns and tasks
+  try {
+    const boards = await Board.find()
+      .populate({
+        path: "columns",
+        model: Column,
+        populate: {
+          path: "tasks",
+          model: Task,
+        },
+      })
+      .lean();
+
     return res.status(200).json({ boards });
   } catch (error: any) {
     return res.status(500).json({ message: error.message });
   }
-}
+};
+
+export default handler;

@@ -45,6 +45,19 @@
             }
           }
         }
+        .createBoardInput {
+          margin-left: 2rem;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          .delete {
+            cursor: pointer;
+            &:hover svg path {
+              fill: #5f656e;
+            }
+          }
+        }
       }
     }
   }

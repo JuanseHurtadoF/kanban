@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
-const ColumnSchema = new Schema(
+const ColumnSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -9,16 +9,15 @@ const ColumnSchema = new Schema(
       max: 50,
     },
     boardId: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Board",
       required: true,
     },
-    tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
+    tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
   },
   { timestamps: true }
 );
 
-const Column =
-  mongoose.models.Column || mongoose.model("Column", ColumnSchema);
+const Column = mongoose.models.Column || mongoose.model("Column", ColumnSchema);
 
 export default Column;

@@ -3,4 +3,7 @@ export type InputProps = {
   placeholder: string;
   error: boolean;
   errorMessage?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string | undefined;
+  name?: string;
 };

@@ -1,5 +1,6 @@
 import { MouseEventHandler } from "react";
 
 export type NavProps = {
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  toggleNewCard: MouseEventHandler<HTMLButtonElement>;
+  toggleDeleteModal: MouseEventHandler<HTMLDivElement>;
 };

@@ -21,10 +21,10 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
           <div className={styles.subtasksTitle}>
             <Text
               variant="secondary"
-              text={`Subtasks (0 of ${subtasks.length})`}
+              text={`Subtasks (0 of ${subtasks?.length})`}
             />
           </div>
-          {subtasks.map((item) => {
+          {subtasks?.map((item) => {
             return <CheckBox task={item.title} key={item.title} />;
           })}
         </div>
