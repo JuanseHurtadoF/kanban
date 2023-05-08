@@ -1,25 +1,28 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { CardProps, ColumnProps } from "@types";
 import styles from "./column.module.scss";
 import { Heading } from "@components";
 import Card from "../card";
 import { Draggable, Droppable } from "react-beautiful-dnd";
+import { useSelector } from "react-redux";
 
 const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
+  const isCardDragging = useSelector((state: any) => state.dragAndDrop.isCardDragging);
+
   return (
-    <div className={styles.container}>
-      <div className={styles.titleContainer}>
-        <div className={styles.label}></div>
-        <Heading title={`${name} (${tasks?.length})`} variant={4} />
-      </div>
-      <Droppable droppableId={_id} type="cards">
-        {(provided) => {
-          return (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className={styles.cardsContainer}
-            >
+    <Droppable droppableId={_id} type="cards">
+      {(provided) => {
+        return (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={styles.container}
+          >
+            <div className={styles.titleContainer}>
+              <div className={styles.label}></div>
+              <Heading title={`${name} (${tasks?.length})`} variant={4} />
+            </div>
+            <div className={isCardDragging ? `${styles.cardsContainer} ${styles.cardsContainerDragging}` : `${styles.cardsContainer}`}>
               {tasks?.map((card: any, index) => {
                 return (
                   <Draggable
@@ -48,10 +51,10 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
               })}
               {provided.placeholder}
             </div>
-          );
-        }}
-      </Droppable>
-    </div>
+          </div>
+        );
+      }}
+    </Droppable>
   );
 };
 

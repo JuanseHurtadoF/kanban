@@ -1,6 +1,9 @@
 .container {
   max-width: 28rem;
   min-width: 25rem;
+  padding-bottom: 8rem;
+  // background-color: red;
+
   .titleContainer {
     margin-bottom: 2.4rem;
     .label {
@@ -20,8 +23,19 @@
     display: grid;
     min-height: 8rem;
 
+    border-radius: 8px;
+    padding: 0.4rem;
+    padding-bottom: 0;
+
+    transition: all 0.1s ease-in;
+
+    &Dragging {
+      transition: all 0.1s ease-in;
+      background-color: var(--color-bg-secondary);
+    }
+
     > * {
-      margin-bottom: 1.6rem;
+      margin-bottom: 0.4rem;
     }
   }
 }

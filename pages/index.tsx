@@ -5,28 +5,38 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { moveTaskLocal } from "state";
 import { useReorderTaskMutation } from "state/api";
+import { isCardDragging } from "state/dragAndDrop";
 
 export default function Home() {
   const dispatch = useDispatch();
   const [reorderTask] = useReorderTaskMutation({});
   const { _id } = useSelector((state: any) => state.global.activeBoard);
 
+  const onDragStart = () => {
+    dispatch(isCardDragging(true));
+  };
+
   const onDragEnd = (result: any) => {
     const { destination, source, draggableId, type } = result;
 
     // If user drops the draggable outside of a droppable area
-    if (!destination) return;
+    if (!destination) {
+      dispatch(isCardDragging(false));
+      return;
+    }
 
     // If user drops the draggable in the same place
     if (
       source.droppableId === destination.droppableId &&
       source.index === destination.index
     ) {
+      dispatch(isCardDragging(false));
       return;
     }
 
     // If user drops the draggable in a different droppable area
     if (type === "cards") {
+      dispatch(isCardDragging(false));
       reorderTasks(destination, source, draggableId);
     }
   };
@@ -75,7 +85,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
           <Layout />
         </DragDropContext>
       </main>
