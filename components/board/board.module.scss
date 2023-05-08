@@ -2,7 +2,6 @@
   overflow: scroll;
   height: 100vh;
   width: calc(100vw - 250px);
-  display: flex;
 
   &FullWidth {
     width: 100vw;
@@ -12,9 +11,7 @@
     position: relative;
     min-height: 100vh;
     display: flex;
-    align-items: flex-start;
     padding: 2rem;
-    padding-right: 0;
     padding-bottom: 24rem;
     > div {
       margin-right: 1.2rem;

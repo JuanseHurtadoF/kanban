@@ -23,13 +23,11 @@
     display: grid;
     min-height: 8rem;
 
+    background-color: var(--color-bg-secondary);
     border-radius: 8px;
     padding: 0.4rem;
     padding-bottom: 0;
-    transition: all 0.1s ease-in-out;
-    &Drag {
-      background-color: var(--color-bg-secondary);
-    }
+
 
     > * {
       margin-bottom: 0.4rem;

@@ -4,13 +4,8 @@ import styles from "./column.module.scss";
 import { Heading } from "@components";
 import Card from "../card";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import { useSelector } from "react-redux";
 
 const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
-  const isCardDragging = useSelector(
-    (state: any) => state.dragAndDrop.isCardDragging
-  );
-
   return (
     <Droppable droppableId={_id} type="cards">
       {(provided) => {
@@ -24,7 +19,7 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
               <div className={styles.label}></div>
               <Heading title={`${name} (${tasks?.length})`} variant={4} />
             </div>
-            <div className={isCardDragging ? `${styles.cardsContainer} ${styles.cardsContainerDrag}` : `${styles.cardsContainer}`}>
+            <div className={styles.cardsContainer}>
               {tasks?.map((card: any, index) => {
                 return (
                   <Draggable
