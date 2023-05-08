@@ -3,14 +3,10 @@ import styles from "./board.module.scss";
 import { Column, Loading } from "@components";
 import { ColumnProps, BoardProps } from "@types";
 import { useSelector, useDispatch } from "react-redux";
-import { useAddColumnMutation, useAddTaskMutation } from "state/api";
-import { addColumnLocal, removeColumnLocal } from "state";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const Board: FC<BoardProps> = ({ fullWidth, toggleEditBoard }) => {
-  const { allBoards, activeBoard, user } = useSelector(
-    (state: any) => state.global
-  );
-
+  const { allBoards, activeBoard } = useSelector((state: any) => state.global);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -25,21 +21,38 @@ const Board: FC<BoardProps> = ({ fullWidth, toggleEditBoard }) => {
           : `${styles.container}`
       }
     >
-      {isLoading ? (
-        <div className={styles.board}>
-          <Loading />
-        </div>
-      ) : (
-        <div className={styles.board}>
-          {activeBoard?.columns?.map(({ name, tasks, _id }: ColumnProps) => {
-            return <Column _id={_id} key={_id} name={name} tasks={tasks} />;
-          })}
-          <div onClick={toggleEditBoard} className={styles.newColumn}>
-            <p className={styles.text}>+ New Column</p>
+      <Droppable direction="horizontal" droppableId="board" type="columns">
+        {(provided) => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={styles.board}
+          >
+            {activeBoard?.columns?.map(
+              ({ name, tasks, _id }: ColumnProps, index: number) => {
+                return (
+                  <Draggable draggableId={_id} index={index} key={_id}>
+                    {(provided) => (
+                      <div
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        ref={provided.innerRef}
+                      >
+                        <Column _id={_id} name={name} tasks={tasks} />
+                      </div>
+                    )}
+                  </Draggable>
+                );
+              }
+            )}
+            {provided.placeholder}
           </div>
-          <div className={styles.empty}></div>
-        </div>
-      )}
+        )}
+      </Droppable>
+      <div onClick={toggleEditBoard} className={styles.newColumn}>
+        <p className={styles.text}>+ New Column</p>
+      </div>
+      <div className={styles.empty}></div>
     </div>
   );
 };

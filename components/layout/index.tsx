@@ -5,15 +5,27 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { CardProps, RootState } from "@types";
 import { CreateCard, DeleteBoard, Loading } from "@components";
-import axios from "axios";
 import EditBoard from "@components/modals/editBoard";
+import dynamic from "next/dynamic";
 
 const Layout: FC = () => {
+  const DynamicBoard = dynamic(() => import("@components/board"), {
+    ssr: false,
+  });
+
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
   const [isCardInfoOpen, setIsCardInfoOpen] = useState<boolean>(false);
   const [isTaskCreationOpen, setIsTaskCreationOpen] = useState<boolean>(false);
   const [isDeleteBoardOpen, setIsDeleteBoardOpen] = useState<boolean>(false);
   const [isEditBoardOpen, setIsEditBoardOpen] = useState<boolean>(false);
+
+  const isCardDragging: boolean = useSelector(
+    (state: any) => state.dragAndDrop.isCardDragging
+  );
+
+  useEffect(() => {
+    console.log(isCardDragging);
+  }, [isCardDragging]);
 
   const highlightedCard: CardProps = useSelector(
     (state: RootState) => state.global.highlightedCard
@@ -72,7 +84,7 @@ const Layout: FC = () => {
           toggleDeleteModal={toggleDeleteModal}
           toggleNewCard={toggleNewCard}
         />
-        <Board
+        <DynamicBoard
           toggleEditBoard={toggleEditBoard}
           fullWidth={isSideBarOpen ? false : true}
         />
