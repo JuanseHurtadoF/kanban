@@ -5,11 +5,13 @@ import globalReducer from "state";
 import { Provider } from "react-redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { api } from "state/api";
+import dragAndDropReducer from "state/dragAndDrop";
 
 export default function App({ Component, pageProps }: AppProps) {
   const store = configureStore({
     reducer: {
       global: globalReducer,
+      dragAndDrop: dragAndDropReducer,
       [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware: any) =>
@@ -17,12 +19,10 @@ export default function App({ Component, pageProps }: AppProps) {
   });
   setupListeners(store.dispatch);
 
- 
-
   return (
     <>
       <Provider store={store}>
-          <Component {...pageProps} />
+        <Component {...pageProps} />
       </Provider>
     </>
   );
