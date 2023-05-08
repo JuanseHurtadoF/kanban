@@ -14,20 +14,20 @@ const Board: FC<BoardProps> = ({ fullWidth, toggleEditBoard }) => {
   }, [allBoards]);
 
   return (
-    <div
-      className={
-        fullWidth
-          ? `${styles.container} ${styles.containerFullWidth}`
-          : `${styles.container}`
-      }
-    >
-      <Droppable direction="horizontal" droppableId="board" type="columns">
-        {(provided) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className={styles.board}
-          >
+    <Droppable direction="horizontal" droppableId="board" type="columns">
+      {(provided) => (
+        <div
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+          className={
+            fullWidth
+              ? `${styles.container} ${styles.containerFullWidth}`
+              : `${styles.container}`
+          }
+        >
+          {/* <Droppable direction="horizontal" droppableId="board" type="columns">
+        {(provided) => ( */}
+          <div className={styles.board}>
             {activeBoard?.columns?.map(
               ({ name, tasks, _id }: ColumnProps, index: number) => {
                 return (
@@ -45,15 +45,18 @@ const Board: FC<BoardProps> = ({ fullWidth, toggleEditBoard }) => {
                 );
               }
             )}
-            {provided.placeholder}
           </div>
-        )}
-      </Droppable>
-      <div onClick={toggleEditBoard} className={styles.newColumn}>
-        <p className={styles.text}>+ New Column</p>
-      </div>
-      <div className={styles.empty}></div>
-    </div>
+          {provided.placeholder}
+
+          {/* )} */}
+          {/* </Droppable> */}
+          <div onClick={toggleEditBoard} className={styles.newColumn}>
+            <p className={styles.text}>+ New Column</p>
+          </div>
+          <div className={styles.empty}></div>
+        </div>
+      )}
+    </Droppable>
   );
 };
 
