@@ -33,6 +33,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
             <Dropdown
               title="Current Status"
               options={["ToDo", "Doing", "Done"]}
+              onChange={() => console.log("")}
             />
           </div>
         </div>
