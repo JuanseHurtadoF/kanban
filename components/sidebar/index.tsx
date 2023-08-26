@@ -134,7 +134,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
                   onClick={handleStopCreatingBoard}
                   className={styles.delete}
                 >
-                  <Icon variant="delete" height={20} width={20} />
+                  <Icon variant="close" height={14} width={14} />
                 </div>
               </div>
             )}
