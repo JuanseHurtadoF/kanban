@@ -20,3 +20,5 @@ export { type subtask } from "./board/subtask";
 export { type DeleteBoardProps } from "./modals";
 export { type EditBoardProps } from "./modals";
 export { type Error } from "./error";
+export { type TaskData } from "./board/task";
+export { type ColumnData } from "./board/column";

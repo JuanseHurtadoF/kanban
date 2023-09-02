@@ -30,6 +30,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
   // Get all boards and their columns and tasks
   try {
+    // @ts-ignore
     const boards = await Board.find()
       .populate({
         path: "columns",

@@ -19,6 +19,7 @@ export default async function handler(
     const result = await board.save();
 
     // Add board to user
+    // @ts-ignore
     const user = await User.findByIdAndUpdate(
       userId,
       { $push: { boards: board._id } },

@@ -14,7 +14,7 @@ export default async function handler(
   try {
     const { boardId } = req.body;
 
-
+  // @ts-ignore
     const board = await Board.findById(boardId);
 
     if (!board) {
@@ -24,6 +24,7 @@ export default async function handler(
     }
 
     // Remove board reference from user
+    // @ts-ignore
     const user = await User.findByIdAndUpdate(
       board.user,
       { $pull: { boards: board._id } },

@@ -20,6 +20,7 @@ export default async function handler(
 
     // Check if source is the same as destination
     if (source.droppableId === destination.droppableId) {
+      // @ts-ignore
       const column = await Column.findOne({ _id: source.droppableId });
       if (!column) {
         throw new Error("Column not found");
@@ -30,7 +31,9 @@ export default async function handler(
       tasks.splice(destination.index, 0, removed);
       const saved = await column.save();
     } else {
+      // @ts-ignore
       const sourceColumn = await Column.findOne({ _id: source.droppableId });
+      // @ts-ignore
       const destinationColumn = await Column.findOne({
         _id: destination.droppableId,
       });

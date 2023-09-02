@@ -2,8 +2,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "@utils/connectDB.js";
 import Task from "@utils/models/Task";
 import Column from "@utils/models/Column";
+import { TaskData, Error, ColumnData } from "@types";
 
-type Data = any;
+type Data = TaskData | Error;
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,13 +25,14 @@ export default async function handler(
     });
     const result = await task.save();
 
+    // @ts-ignore
     const currentColumn = await Column.findByIdAndUpdate(
       column,
       { $push: { tasks: task._id } },
       { new: true }
-    );
+    )
 
-    res.status(200).json({ message: "test" });
+    res.status(200).json({ ...task });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
