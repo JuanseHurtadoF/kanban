@@ -10,7 +10,6 @@ import {
   removeBoardLocal,
 } from "state";
 import { useAddBoardMutation, useGetBoardsQuery } from "state/api";
-import axios from "axios";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   const { data } = useGetBoardsQuery();
