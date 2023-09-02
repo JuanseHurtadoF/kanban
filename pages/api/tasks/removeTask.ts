@@ -14,6 +14,7 @@ export default async function handler(
     const { taskId, columnId } = req.body;
 
     const task = await Task.findByIdAndDelete(taskId);
+    // @ts-ignore
     const column = await Column.findByIdAndUpdate(
       columnId,
       { $pull: { columns: columnId } },

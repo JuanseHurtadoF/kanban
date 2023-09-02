@@ -28,6 +28,7 @@ export default async function handler(
 
     // Delete column
     const column = await Column.findByIdAndDelete(columnId);
+    // @ts-ignore
     const board = await Board.findByIdAndUpdate(
       boardId,
       { $pull: { boards: boardId } },

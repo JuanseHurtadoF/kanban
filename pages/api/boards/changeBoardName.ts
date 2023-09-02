@@ -27,6 +27,7 @@ export default async function handler(
       return res.status(500).json({ success: false });
     }
 
+    // @ts-ignore
     const result = await Board.findByIdAndUpdate(
       boardId,
       { name },

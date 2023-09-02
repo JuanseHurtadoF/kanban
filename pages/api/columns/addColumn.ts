@@ -28,6 +28,7 @@ export default async function handler(
     const saved = await newColumn.save();
 
     // Push column to columns array in Board
+    // @ts-ignore
     const currentBoard = await Board.findOne({ _id: boardId });
     if (!currentBoard) {
       return res
