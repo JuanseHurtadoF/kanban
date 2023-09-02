@@ -18,10 +18,14 @@ export default async function handler(
   try {
     const { name, boardId } = req.body;
 
+    if (!name || !boardId) {
+      return res.status(500).json({ success: false });
+    }
+
     // Create column
 
-      const newColumn = new Column({ name, boardId });
-      const saved = await newColumn.save();
+    const newColumn = new Column({ name, boardId });
+    const saved = await newColumn.save();
 
     // Push column to columns array in Board
     const currentBoard = await Board.findOne({ _id: boardId });

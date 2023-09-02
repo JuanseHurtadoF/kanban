@@ -15,7 +15,10 @@ export const globalSlice = createSlice({
     setBoards: (state, action) => {
       const boards = action.payload;
       state.allBoards = boards;
-      state.activeBoard = boards[0];
+      state.activeBoard =
+        Object.keys(state.activeBoard).length <= 0
+          ? boards[0]
+          : state.activeBoard;
     },
     setActiveBoard: (state, action) => {
       const boardId = action.payload;
@@ -41,6 +44,7 @@ export const globalSlice = createSlice({
       state.activeBoard = board;
     },
     addColumnLocal: (state, action) => {
+      console.log("add column state");
       const { boardId, column } = action.payload;
       const board = state.allBoards.find((board: any) => board._id === boardId);
       board.columns.push(column);
@@ -105,11 +109,11 @@ export const globalSlice = createSlice({
       const task = column.tasks.find((task: any) => task._id === taskId);
 
       column.tasks = column.tasks.filter((task: any) => task._id !== taskId);
-      
+
       const newColumn = board.columns.find(
         (column: any) => column._id === destination.droppableId
       );
-      
+
       newColumn.tasks.splice(destination.index, 0, task);
       state.activeBoard = board;
 

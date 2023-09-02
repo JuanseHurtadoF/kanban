@@ -45,6 +45,24 @@
       color: #828fa3;
     }
   }
+
+  .createColumnInputContainer {
+    display: flex;
+    align-items: flex-start;
+    max-width: 28rem;
+    min-width: 25rem;
+    .createColumnInput {
+      display: grid;
+      grid-template-columns: auto 16px;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .delete {
+      cursor: pointer;
+    }
+  }
   .empty {
     min-height: 80vh;
     max-width: 20rem;

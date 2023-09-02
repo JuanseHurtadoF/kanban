@@ -10,7 +10,6 @@ import {
   removeBoardLocal,
 } from "state";
 import { useAddBoardMutation, useGetBoardsQuery } from "state/api";
-import axios from "axios";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   const { data } = useGetBoardsQuery();
@@ -128,13 +127,14 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
                     placeholder="Name"
                     error={error}
                     errorMessage="Can't be empty"
+                    focused
                   />
                 </form>
                 <div
                   onClick={handleStopCreatingBoard}
                   className={styles.delete}
                 >
-                  <Icon variant="delete" height={20} width={20} />
+                  <Icon variant="close" height={14} width={14} />
                 </div>
               </div>
             )}
