@@ -1,3 +1,4 @@
+export { type UserType } from "./user";
 export { type ButtonProps } from "./button";
 export { type HeadingProps } from "./typography/heading";
 export { type TextProps } from "./typography/text";
@@ -18,3 +19,4 @@ export { type NavProps } from "./nav";
 export { type subtask } from "./board/subtask";
 export { type DeleteBoardProps } from "./modals";
 export { type EditBoardProps } from "./modals";
+export { type Error } from "./error";
