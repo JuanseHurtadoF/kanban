@@ -128,6 +128,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
                     placeholder="Name"
                     error={error}
                     errorMessage="Can't be empty"
+                    focused
                   />
                 </form>
                 <div

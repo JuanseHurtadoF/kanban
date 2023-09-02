@@ -6,5 +6,5 @@ export type InputProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string | undefined;
   name?: string;
-  inputRef?: React.Ref<HTMLInputElement>;
+  focused?: boolean;
 };

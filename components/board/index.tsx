@@ -18,17 +18,6 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
   const [columnName, setColumnName] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
 
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    console.log("here1");
-
-    if (inputRef && inputRef.current) {
-      console.log("here2");
-      inputRef.current.focus();
-    }
-  }, [inputRef]);
-
   const toggleAddColumn = () => {
     setIsColumnBeingAdded(true);
   };
@@ -111,10 +100,10 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
               <div className={styles.createColumnInput}>
                 <form onSubmit={(e) => handleColumnSubmit(e)}>
                   <Input
-                    inputRef={inputRef}
                     placeholder="Column Name"
                     onChange={handleChange}
                     error={error}
+                    focused={true}
                   />
                 </form>
                 <div
