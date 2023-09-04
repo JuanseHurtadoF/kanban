@@ -19,9 +19,9 @@ const Layout: FC = () => {
   );
 
   useEffect(() => {
-    if (highlightedCard !== null) {
-      setIsCardInfoOpen((prev: boolean) => !prev);
-    }
+    // If there's no card in local state return, else toggle modal. 
+    if (Object.keys(highlightedCard).length <= 0) return;
+    toggleCardInfo();
   }, [highlightedCard]);
 
   const toggleSidebar = () => {
