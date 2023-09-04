@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { CardProps, RootState } from "@types";
 import { CreateCard, DeleteBoard, Loading } from "@components";
-import axios from "axios";
 import EditBoard from "@components/modals/editBoard";
 
 const Layout: FC = () => {
@@ -19,9 +18,11 @@ const Layout: FC = () => {
     (state: RootState) => state.global.highlightedCard
   );
 
-  // useEffect(() => {
-  //   setIsCardInfoOpen((prev: boolean) => !prev);
-  // }, [highlightedCard]);
+  useEffect(() => {
+    if (highlightedCard !== null) {
+      setIsCardInfoOpen((prev: boolean) => !prev);
+    }
+  }, [highlightedCard]);
 
   const toggleSidebar = () => {
     setIsSideBarOpen(!isSideBarOpen);
