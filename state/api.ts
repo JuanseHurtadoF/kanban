@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api: any = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://kanban-teal.vercel.app//api",
+    baseUrl: "/api",
   }),
   tagTypes: ["Board", "Task"],
   endpoints: (build) => ({
