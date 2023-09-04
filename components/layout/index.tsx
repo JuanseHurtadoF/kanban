@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { CardProps, RootState } from "@types";
 import { CreateCard, DeleteBoard, Loading } from "@components";
-import axios from "axios";
 import EditBoard from "@components/modals/editBoard";
 
 const Layout: FC = () => {
@@ -20,7 +19,9 @@ const Layout: FC = () => {
   );
 
   useEffect(() => {
-    setIsCardInfoOpen((prev: boolean) => !prev);
+    // If there's no card in local state return, else toggle modal. 
+    if (Object.keys(highlightedCard).length <= 0) return;
+    toggleCardInfo();
   }, [highlightedCard]);
 
   const toggleSidebar = () => {
