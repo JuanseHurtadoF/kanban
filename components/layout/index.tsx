@@ -19,9 +19,9 @@ const Layout: FC = () => {
     (state: RootState) => state.global.highlightedCard
   );
 
-  useEffect(() => {
-    setIsCardInfoOpen((prev: boolean) => !prev);
-  }, [highlightedCard]);
+  // useEffect(() => {
+  //   setIsCardInfoOpen((prev: boolean) => !prev);
+  // }, [highlightedCard]);
 
   const toggleSidebar = () => {
     setIsSideBarOpen(!isSideBarOpen);
