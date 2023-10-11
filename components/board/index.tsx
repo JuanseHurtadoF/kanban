@@ -75,7 +75,8 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
   };
 
   useEffect(() => {
-    if (allBoards.length > 0) setIsLoading(false);
+    // Assuming that allBoards is always an array (either empty or with items)
+    setIsLoading(false);
   }, [allBoards]);
 
   return (

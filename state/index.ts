@@ -15,10 +15,9 @@ export const globalSlice = createSlice({
     setBoards: (state, action) => {
       const boards = action.payload;
       state.allBoards = boards;
-      state.activeBoard =
-        Object.keys(state.activeBoard).length <= 0
-          ? boards[0]
-          : state.activeBoard;
+      if (!state.activeBoard || Object.keys(state.activeBoard).length <= 0) {
+        state.activeBoard = boards[0];
+      }
     },
     setActiveBoard: (state, action) => {
       const boardId = action.payload;

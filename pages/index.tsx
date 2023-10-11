@@ -10,7 +10,7 @@ import { isCardDragging } from "state/dragAndDrop";
 export default function Home() {
   const dispatch = useDispatch();
   const [reorderTask] = useReorderTaskMutation({});
-  const { _id } = useSelector((state: any) => state.global.activeBoard);
+  const { _id } = useSelector((state: any) => state.global.activeBoard) || {};
 
   const onDragStart = () => {
     dispatch(isCardDragging(true));
