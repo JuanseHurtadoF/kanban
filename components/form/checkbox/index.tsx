@@ -1,13 +1,11 @@
 import React, { FC } from "react";
 import styles from "./checkbox.module.scss";
 import { CheckBoxProps } from "@types";
-import { useState } from "react";
 
-const CheckBox: FC<CheckBoxProps> = ({ task }) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
+const CheckBox: FC<CheckBoxProps> = ({ task, isChecked }) => {
+  
   const handleCheck = () => {
-    setIsChecked(!isChecked);
+    console.log("Checking");
   };
 
   return (

@@ -1,5 +1,4 @@
-
-
 export type CheckBoxProps = {
-    task: string,
-}
+  task: string;
+  isChecked: boolean;
+};

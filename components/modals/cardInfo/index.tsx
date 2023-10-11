@@ -25,7 +25,13 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
             />
           </div>
           {subtasks?.map((item) => {
-            return <CheckBox task={item.title} key={item.title} />;
+            return (
+              <CheckBox
+                task={item.title}
+                key={item.title}
+                isChecked={item.isCompleted}
+              />
+            );
           })}
         </div>
         <div className={styles.status}>
