@@ -28,10 +28,12 @@ const TaskSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    subtasks: {
-      type: Array,
-      default: [],
-    },
+    subtasks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Subtask",
+      },
+    ],
   },
   { timestamps: true }
 );
