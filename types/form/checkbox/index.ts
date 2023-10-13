@@ -1,4 +1,7 @@
+import { MouseEventHandler } from "react";
+
 export type CheckBoxProps = {
-  task: string;
+  title: string;
   isChecked: boolean;
+  onClick: MouseEventHandler<HTMLDivElement>;
 };
