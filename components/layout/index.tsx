@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { CardProps, RootState } from "@types";
 import { CreateCard, DeleteBoard, Loading } from "@components";
 import EditBoard from "@components/modals/editBoard";
+import { useRouter } from "next/router";
 
 const Layout: FC = () => {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
@@ -13,13 +14,16 @@ const Layout: FC = () => {
   const [isTaskCreationOpen, setIsTaskCreationOpen] = useState<boolean>(false);
   const [isDeleteBoardOpen, setIsDeleteBoardOpen] = useState<boolean>(false);
   const [isEditBoardOpen, setIsEditBoardOpen] = useState<boolean>(false);
+  const router = useRouter();
+
+  const { subtaskId } = router.query;
 
   const highlightedCard: CardProps = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
 
   useEffect(() => {
-    // If there's no card in local state return, else toggle modal. 
+    // If there's no card in local state return, else toggle modal.
     if (Object.keys(highlightedCard).length <= 0) return;
     toggleCardInfo();
   }, [highlightedCard]);

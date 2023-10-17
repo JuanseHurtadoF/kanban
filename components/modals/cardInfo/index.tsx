@@ -5,14 +5,32 @@ import styles from "./cardInfo.module.scss";
 import { CardInfoProps, subtask } from "@types";
 import { CheckBox, Dropdown, Heading, Text } from "@components";
 import { useToggleSubtaskMutation } from "state/api";
+import { toggleSubtaskLocal } from "state";
+import { useDispatch } from "react-redux";
 
 const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const { title, description, subtasks, status } = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
+
+  const dispatch = useDispatch();
+
+  const highlightedCard = useSelector(
+    (state: RootState) => state.global.highlightedCard
+  );
+
+  const currentBoardId = useSelector(
+    (state: any) => state.global.activeBoard._id
+  );
+
   const [toggleSubtask] = useToggleSubtaskMutation();
 
   const handleSubtaskToggle = (item: subtask) => {
+    dispatch(
+      toggleSubtaskLocal({
+        subtaskId: item._id,
+      })
+    );
     toggleSubtask({
       subtaskId: item._id,
     });

@@ -1,5 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { CardProps } from "@types";
+import { CardProps, subtask } from "@types";
 
 const initialState: any = {
   allBoards: [],
@@ -98,6 +98,26 @@ export const globalSlice = createSlice({
       state.highlightedCard = card;
     },
 
+    // Subtasks
+    toggleSubtaskLocal: (state, action) => {
+      const { subtaskId } = action.payload;
+
+      const subtasks = current(state.highlightedCard.subtasks);
+      console.log(subtasks);
+      const updatedSubtasks = subtasks.map((st: subtask) => {
+        if (subtaskId === st._id)
+          return { ...st, isCompleted: !st.isCompleted };
+        else return st;
+      });
+
+      state.highlightedCard = {
+        ...state.highlightedCard,
+        subtasks: updatedSubtasks,
+      };
+
+      console.log(updatedSubtasks);
+    },
+
     // Drag and Drop
     moveTaskLocal: (state, action) => {
       const { boardId, columnId, taskId, source, destination } = action.payload;
@@ -139,5 +159,6 @@ export const {
   addTaskLocal,
   removeTaskLocal,
   moveTaskLocal,
+  toggleSubtaskLocal,
 } = globalSlice.actions;
 export default globalSlice.reducer;
