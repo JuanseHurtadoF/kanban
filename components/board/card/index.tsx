@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { CardProps } from "@types";
 import styles from "./card.module.scss";
 import { Heading, Text } from "@components";
@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setHighlightedCard } from "state";
 import { toggleCardInfoModal } from "state/modals";
 
-const Card: FC<CardProps> = ({ title, description, subtasks, status }) => {
+const Card: FC<CardProps> = ({ title, description, subtasks, status, _id, columnId }) => {
   const dispatch = useDispatch();
 
   const openCardDetails = () => {
@@ -15,6 +15,8 @@ const Card: FC<CardProps> = ({ title, description, subtasks, status }) => {
       description,
       subtasks,
       status,
+      _id,
+      columnId,
     };
     dispatch(setHighlightedCard(card));
     dispatch(toggleCardInfoModal(true));

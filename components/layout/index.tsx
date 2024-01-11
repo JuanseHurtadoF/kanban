@@ -17,10 +17,7 @@ const Layout: FC = () => {
     (state: any) => state.modals.isCardInfoOpen
   );
 
-  console.log(isCardInfoOpen);
-
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
-  // const [isCardInfoOpen, setIsCardInfoOpen] = useState<boolean>(false);
   const [isTaskCreationOpen, setIsTaskCreationOpen] = useState<boolean>(false);
   const [isDeleteBoardOpen, setIsDeleteBoardOpen] = useState<boolean>(false);
   const [isEditBoardOpen, setIsEditBoardOpen] = useState<boolean>(false);
