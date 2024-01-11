@@ -7,10 +7,20 @@ import { CardProps, RootState } from "@types";
 import { CreateCard, DeleteBoard, Loading } from "@components";
 import EditBoard from "@components/modals/editBoard";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { toggleCardInfoModal } from "state/modals";
 
 const Layout: FC = () => {
+  const dispatch = useDispatch();
+
+  const isCardInfoOpen = useSelector(
+    (state: any) => state.modals.isCardInfoOpen
+  );
+
+  console.log(isCardInfoOpen);
+
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
-  const [isCardInfoOpen, setIsCardInfoOpen] = useState<boolean>(false);
+  // const [isCardInfoOpen, setIsCardInfoOpen] = useState<boolean>(false);
   const [isTaskCreationOpen, setIsTaskCreationOpen] = useState<boolean>(false);
   const [isDeleteBoardOpen, setIsDeleteBoardOpen] = useState<boolean>(false);
   const [isEditBoardOpen, setIsEditBoardOpen] = useState<boolean>(false);
@@ -22,18 +32,12 @@ const Layout: FC = () => {
     (state: RootState) => state.global.highlightedCard
   );
 
-  useEffect(() => {
-    // If there's no card in local state return, else toggle modal.
-    if (Object.keys(highlightedCard).length <= 0) return;
-    toggleCardInfo();
-  }, [highlightedCard]);
-
   const toggleSidebar = () => {
     setIsSideBarOpen(!isSideBarOpen);
   };
 
-  const toggleCardInfo = () => {
-    setIsCardInfoOpen(!isCardInfoOpen);
+  const toggleCardInfo: any = () => {
+    dispatch(toggleCardInfoModal(false));
   };
 
   const toggleNewCard = () => {
