@@ -100,31 +100,37 @@ export const globalSlice = createSlice({
 
     // Subtasks
     toggleSubtaskLocal: (state, action) => {
-      const { subtaskId } = action.payload;
+      const { subtaskId, cardId } = action.payload;
+
+      console.log(cardId);
 
       const subtasks = current(state.highlightedCard.subtasks);
-      console.log(subtasks);
       const updatedSubtasks = subtasks.map((st: subtask) => {
         if (subtaskId === st._id)
           return { ...st, isCompleted: !st.isCompleted };
         else return st;
       });
 
-      // update highlightedCard state
+      // Update subtasks of highlighted card
       state.highlightedCard.subtasks = updatedSubtasks;
 
-      // update allBoards state
-      const board = state.allBoards.find(
-        (board: any) => board._id === state.activeBoard._id
-      );
+      // Get active board
+      const board = state.activeBoard;
 
-      //console.log board id
-      console.log(board._id);
-
-      // update active board
+      // Find the column that matches with columnId of the highlighted card
       const column = board.columns.find(
-        (column: any) => column._id === state.highlightedCard.column
+        (column: any) => column._id === state.highlightedCard.columnId
       );
+
+      // Find the task that matches the id of the highlighted card
+      const task = column.tasks.find(
+        (task: any) => task._id === state.highlightedCard._id
+      );
+
+      // Update the subtasks of the task
+      task.subtasks = updatedSubtasks;
+
+      console.log(current(state.activeBoard));
     },
 
     // Drag and Drop

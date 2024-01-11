@@ -9,7 +9,7 @@ import { toggleSubtaskLocal } from "state";
 import { useDispatch } from "react-redux";
 
 const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
-  const { title, description, subtasks, status } = useSelector(
+  const { title, description, subtasks, _id } = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
 
@@ -29,6 +29,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
     dispatch(
       toggleSubtaskLocal({
         subtaskId: item._id,
+        cardId: highlightedCard._id,
       })
     );
     toggleSubtask({
