@@ -3,6 +3,7 @@ import connectDB from "@utils/connectDB.js";
 import { TaskData, Error, subtask } from "@types";
 import Task from "@utils/models/Task";
 import { ObjectId } from "mongodb"; // Import ObjectId
+import Subtask from "@utils/models/Subtask";
 
 type Data = TaskData | Error;
 
@@ -12,36 +13,26 @@ export default async function handler(
 ) {
   await connectDB(process.env.MONGODB_URL);
 
-  const { taskId, subtaskId } = req.body;
+  const { subtaskId } = req.body;
 
-  if (!taskId || !subtaskId) {
+  if (!subtaskId) {
     return res.status(500).json({ error: "No task ID or subtask ID" });
   }
 
   try {
     // @ts-ignore
-    const task = await Task.findOne({ _id: taskId });
-
-    if (!task) {
-      return res.status(500).json({ error: "Task not found" });
-    }
-
-    const subtask = task.subtasks.find((sub) =>
-      sub._id.equals(new ObjectId(subtaskId))
+    const prevSubtask = await Subtask.findById(subtaskId);
+    const changeTo = !prevSubtask.isCompleted;
+    // @ts-ignore
+    const subtask = await Subtask.findByIdAndUpdate(
+      subtaskId,
+      { $set: { isCompleted: changeTo } },
+      { new: true }
     );
 
-    if (!subtask) {
-      return res.status(500).json({ error: "Subtask not found" });
-    }
-
-    subtask.isCompleted = !subtask.isCompleted; // Toggle isCompleted
-
-    await task.save();
-
-    console.log(task);
-
-    return res.status(200).json({ ...task });
+    return res.status(200).json({ ...subtask });
   } catch (error: any) {
+    console.log(error.message);
     return res.status(500).json({ error: error.message });
   }
 }

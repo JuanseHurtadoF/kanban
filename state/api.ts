@@ -5,7 +5,7 @@ export const api: any = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
   }),
-  tagTypes: ["Board", "Task"],
+  tagTypes: ["Board", "Task", "Subtask"],
   endpoints: (build) => ({
     getBoards: build.query({
       query: () => "boards/getBoards",
@@ -68,6 +68,16 @@ export const api: any = createApi({
       invalidatesTags: ["Board", "Task"],
     }),
 
+    // Subtasks
+    toggleSubtask: build.mutation({
+      query: ({ subtaskId }) => ({
+        url: "subtasks/toggleSubtask",
+        method: "POST",
+        body: { subtaskId },
+      }),
+      invalidatesTags: ["Board", "Task", "Subtask"],
+    }),
+
     // drag and drop
     reorderTask: build.mutation({
       query: ({ boardId, source, destination }) => ({
@@ -87,6 +97,7 @@ export const {
   useAddColumnMutation,
   useRemoveColumnMutation,
   useAddTaskMutation,
+  useToggleSubtaskMutation,
   useRemoveTaskMutation,
   useReorderTaskMutation,
 } = api;

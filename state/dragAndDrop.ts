@@ -1,5 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
-import { CardProps } from "@types";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: any = {
   isCardDragging: false,

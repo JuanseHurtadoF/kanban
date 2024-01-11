@@ -1,13 +1,11 @@
 import React, { FC } from "react";
 import styles from "./checkbox.module.scss";
 import { CheckBoxProps } from "@types";
-import { useState } from "react";
 
-const CheckBox: FC<CheckBoxProps> = ({ task }) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
-  const handleCheck = () => {
-    setIsChecked(!isChecked);
+const CheckBox: FC<CheckBoxProps> = ({ title, isChecked, onClick }) => {
+  const handleCheck = (e: any) => {
+    e.preventDefault();
+    onClick(e);
   };
 
   return (
@@ -42,7 +40,7 @@ const CheckBox: FC<CheckBoxProps> = ({ task }) => {
             : `${styles.label}`
         }
       >
-        {task}
+        {title}
       </p>
     </div>
   );

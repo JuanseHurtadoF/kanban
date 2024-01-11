@@ -3,6 +3,7 @@ import connectDB from "@utils/connectDB.js";
 import Board from "@utils/models/Board";
 import Column from "@utils/models/Column";
 import Task from "@utils/models/Task";
+import Subtask from "@utils/models/Subtask";
 
 type Data = any;
 
@@ -38,6 +39,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         populate: {
           path: "tasks",
           model: Task,
+          populate: {
+            path: "subtasks",
+            model: Subtask,
+          },
         },
       })
       .lean();

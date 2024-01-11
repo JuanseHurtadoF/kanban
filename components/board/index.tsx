@@ -63,7 +63,6 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
       });
 
       if (result.error?.status === 500) {
-        console.log(id);
         dispatch(removeColumnLocal({ boardId: activeBoard._id, columnId: id }));
         alert(
           "Something went wrong while adding a column, please try again later."

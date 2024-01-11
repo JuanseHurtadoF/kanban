@@ -1,5 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { CardProps } from "@types";
+import { CardProps, subtask } from "@types";
 
 const initialState: any = {
   allBoards: [],
@@ -98,6 +98,41 @@ export const globalSlice = createSlice({
       state.highlightedCard = card;
     },
 
+    // Subtasks
+    toggleSubtaskLocal: (state, action) => {
+      const { subtaskId, cardId } = action.payload;
+
+      console.log(cardId);
+
+      const subtasks = current(state.highlightedCard.subtasks);
+      const updatedSubtasks = subtasks.map((st: subtask) => {
+        if (subtaskId === st._id)
+          return { ...st, isCompleted: !st.isCompleted };
+        else return st;
+      });
+
+      // Update subtasks of highlighted card
+      state.highlightedCard.subtasks = updatedSubtasks;
+
+      // Get active board
+      const board = state.activeBoard;
+
+      // Find the column that matches with columnId of the highlighted card
+      const column = board.columns.find(
+        (column: any) => column._id === state.highlightedCard.columnId
+      );
+
+      // Find the task that matches the id of the highlighted card
+      const task = column.tasks.find(
+        (task: any) => task._id === state.highlightedCard._id
+      );
+
+      // Update the subtasks of the task
+      task.subtasks = updatedSubtasks;
+
+      console.log(current(state.activeBoard));
+    },
+
     // Drag and Drop
     moveTaskLocal: (state, action) => {
       const { boardId, columnId, taskId, source, destination } = action.payload;
@@ -139,5 +174,6 @@ export const {
   addTaskLocal,
   removeTaskLocal,
   moveTaskLocal,
+  toggleSubtaskLocal,
 } = globalSlice.actions;
 export default globalSlice.reducer;
