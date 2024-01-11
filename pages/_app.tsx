@@ -6,12 +6,14 @@ import { Provider } from "react-redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { api } from "state/api";
 import dragAndDropReducer from "state/dragAndDrop";
+import modalsReducer from "state/modals";
 
 export default function App({ Component, pageProps }: AppProps) {
   const store = configureStore({
     reducer: {
       global: globalReducer,
       dragAndDrop: dragAndDropReducer,
+      modals: modalsReducer,
       [api.reducerPath]: api.reducer,
     },
     middleware: (getDefaultMiddleware: any) =>

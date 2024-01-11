@@ -110,12 +110,21 @@ export const globalSlice = createSlice({
         else return st;
       });
 
-      state.highlightedCard = {
-        ...state.highlightedCard,
-        subtasks: updatedSubtasks,
-      };
+      // update highlightedCard state
+      state.highlightedCard.subtasks = updatedSubtasks;
 
-      console.log(updatedSubtasks);
+      // update allBoards state
+      const board = state.allBoards.find(
+        (board: any) => board._id === state.activeBoard._id
+      );
+
+      //console.log board id
+      console.log(board._id);
+
+      // update active board
+      const column = board.columns.find(
+        (column: any) => column._id === state.highlightedCard.column
+      );
     },
 
     // Drag and Drop

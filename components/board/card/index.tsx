@@ -4,6 +4,7 @@ import styles from "./card.module.scss";
 import { Heading, Text } from "@components";
 import { useDispatch } from "react-redux";
 import { setHighlightedCard } from "state";
+import { toggleCardInfoModal } from "state/modals";
 
 const Card: FC<CardProps> = ({ title, description, subtasks, status }) => {
   const dispatch = useDispatch();
@@ -16,14 +17,11 @@ const Card: FC<CardProps> = ({ title, description, subtasks, status }) => {
       status,
     };
     dispatch(setHighlightedCard(card));
+    dispatch(toggleCardInfoModal(true));
   };
 
   return (
-    
-    <div
-      onClick={openCardDetails}
-      className={styles.container}
-    >
+    <div onClick={openCardDetails} className={styles.container}>
       <div className={styles.titleContainer}>
         <Heading title={title} variant={3} />
       </div>
