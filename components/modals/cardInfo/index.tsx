@@ -13,6 +13,8 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
     (state: RootState) => state.global.highlightedCard
   );
 
+  const { activeBoard } = useSelector((state: any) => state.global);
+
   const dispatch = useDispatch();
 
   const highlightedCard = useSelector(
@@ -65,9 +67,14 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
         <div className={styles.status}>
           <div className={styles.statusTitle}>
             <Dropdown
-              title="Current Status"
-              options={["ToDo", "Doing", "Done"]}
-              onChange={() => console.log("")}
+              title="Status"
+              options={activeBoard?.columns?.map((column: any) => {
+                return {
+                  name: column.name,
+                  id: column._id,
+                };
+              })}
+              onChange={(e) => console.log("Changing")}
             />
           </div>
         </div>
