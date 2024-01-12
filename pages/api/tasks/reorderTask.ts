@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "@utils/connectDB.js";
-import Task from "@utils/models/Task";
 import Column from "@utils/models/Column";
 
 type Data = any;
@@ -13,6 +12,8 @@ export default async function handler(
 
   try {
     const { boardId, source, destination } = req.body;
+
+    console.log(source, destination);
 
     if (!boardId || !source || !destination) {
       return res.status(500).json({ error: "Missing body parameters" });
