@@ -161,6 +161,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
                       placeholder="e.g. Make coffee"
                       error={false}
                       onChange={(event) => handleSubtaskChange(event, index)}
+                      focused
                     />
                     <div
                       onClick={() => removeSubtask(index)}

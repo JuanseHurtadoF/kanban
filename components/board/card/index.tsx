@@ -33,13 +33,15 @@ const Card: FC<CardProps> = ({
 
   return (
     <div onClick={openCardDetails} className={styles.container}>
-      <div className={styles.titleContainer}>
-        <Heading title={title} variant={3} />
-      </div>
-      <Text
-        text={`${completedSubtasks.length} of ${subtasks?.length} subtasks`}
-        variant="tertiary"
-      />
+      <Heading title={title} variant={3} />
+      {subtasks?.length > 0 && (
+        <div className={styles.subtaskContainer}>
+          <Text
+            text={`${completedSubtasks.length} of ${subtasks?.length} subtasks`}
+            variant="tertiary"
+          />
+        </div>
+      )}
     </div>
   );
 };
