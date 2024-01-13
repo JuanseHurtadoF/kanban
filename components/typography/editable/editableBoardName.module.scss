@@ -1,0 +1,85 @@
+.container {
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+
+  padding: 0.2rem;
+  padding-left: 1rem;
+  margin-left: -0.2rem;
+
+  border-radius: 0.6rem;
+
+  width: max-content;
+
+  //prevent cursor to editing cursor;
+  cursor: default;
+
+  &:hover {
+    background-color: var(--color-bg-primary);
+  }
+
+  .input {
+    font-family: var(--font-primary);
+    color: var(--color-text);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 3rem;
+    background-color: inherit;
+    border: none;
+
+    width: 100%;
+    box-sizing: border-box;
+    // select when focused
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .optionsContainer {
+    display: flex;
+    align-items: center;
+
+    padding: 0.2rem;
+    border-radius: 0.6rem;
+
+    margin-left: 2.4rem;
+    cursor: pointer;
+
+    .options {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  &[data-isediting="true"] {
+    background-color: var(--color-bg-secondary);
+  }
+
+  .iconContainer {
+    display: flex;
+    align-items: center;
+
+    padding: 0.2rem;
+    border-radius: 0.6rem;
+    background-color: var(--color-bg-secondary);
+    transition: all 0.2s;
+
+    opacity: 0;
+    // pointer-events: none;
+
+    &:hover {
+      opacity: 1;
+      // pointer-events: all;
+      scale: 1.05;
+    }
+  }
+
+  &:hover {
+    .iconContainer {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}

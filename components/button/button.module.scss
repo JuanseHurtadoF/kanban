@@ -51,6 +51,29 @@
   }
 }
 
+.secondarySm {
+  background: var(--color-button-secondary-bg);
+  font-family: var(--font-primary);
+  color: var(--color-btn-secondary-label);
+  padding: 0.2rem 1.2rem;
+  font-size: 1rem;
+  line-height: 2.3rem;
+}
+
+.tertiary {
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  background-color: transparent;
+  font-size: 1rem;
+  line-height: 2.3rem;
+  width: 100%;
+  border-radius: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .destructive {
   background: var(--color-destructive);
   font-family: var(--font-primary);
