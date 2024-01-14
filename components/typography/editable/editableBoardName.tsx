@@ -1,48 +1,61 @@
-import React, { FC, useEffect, useState, useRef } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Button, Heading, Icon } from "@components";
 import styles from "./editableBoardName.module.scss";
-import editBoardName from "@utils/lib/board/editBoardName";
+import useEditBoardName from "hooks/useEditBoardName";
+import { changeBoardNameLocal } from "state";
 
 const EditableBoardName: FC = () => {
-  const boardName = useSelector((state: any) => state.global.activeBoard.name);
-  const boardId = useSelector((state: any) => state.global.activeBoard._id);
+  const { boardName, boardId } = useSelector((state: any) => ({
+    boardName: state.global.activeBoard.name,
+    boardId: state.global.activeBoard._id,
+  }));
+
+  const dispatch = useDispatch();
 
   const [newBoardName, setNewBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const ignoreBlurRef = useRef(false);
+
+  const { updateBoardName, error } = useEditBoardName();
+
+  useEffect(() => {
+    if (error === 500) {
+      setNewBoardName(boardName);
+    }
+  }, [error]);
 
   const handleChange = (e: any) => {
     setNewBoardName(e.target.value);
   };
 
-  const toggleIsEditing = (e: any) => {
-    setIsEditing(!isEditing);
+  const toggleIsEditing = (e: any, action?: "cancel") => {
+    setIsEditing(false);
+    if (action === "cancel") {
+      setNewBoardName(boardName);
+      console.log("cancel");
+    }
   };
 
-  const handleCancelEdit = (e: any) => {
+  const handleSaveEdit = async (e: any) => {
+    // If name hasn't changed or is empty, don't make API call
+    if (newBoardName === boardName || newBoardName === "") {
+      setIsEditing(false);
+      return;
+    }
+
+    // Make API call
     setIsEditing(false);
-    setNewBoardName(boardName);
-    ignoreBlurRef.current = true;
+    const response = await updateBoardName({
+      boardId,
+      name: newBoardName,
+      prevName: boardName,
+    });
   };
 
   useEffect(() => {
     setNewBoardName(boardName);
   }, [boardName]);
-
-  useEffect(() => {
-    console.log(`Editing State: ${isEditing}`);
-  }, [isEditing]);
-
-  const editBoardNameHandler = async () => {
-    const res = await editBoardName({
-      name: newBoardName,
-      boardId,
-    });
-    if (res) {
-      setIsEditing(false);
-    }
-  };
 
   return (
     <div
@@ -67,12 +80,12 @@ const EditableBoardName: FC = () => {
               <Button
                 variant="tertiary"
                 label="Cancel"
-                onClick={handleCancelEdit}
+                onClick={(e: any) => toggleIsEditing(e, "cancel")}
               />
               <Button
                 variant="secondarySm"
                 label="Save"
-                onClick={editBoardNameHandler}
+                onClick={handleSaveEdit}
               />
             </div>
           ) : (

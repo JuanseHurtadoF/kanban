@@ -1,4 +1,5 @@
 import { EditBoardNameProps } from "@types";
+import { useChangeBoardNameMutation } from "state/api";
 
 const editBoardName = async ({ boardId, name }: EditBoardNameProps) => {
   const response = await fetch("/api/boards/changeBoardName", {
