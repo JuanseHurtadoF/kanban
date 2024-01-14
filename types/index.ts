@@ -22,3 +22,6 @@ export { type EditBoardProps } from "./modals";
 export { type Error } from "./error";
 export { type TaskData } from "./board/task";
 export { type ColumnData } from "./board/column";
+
+// lib
+export {type EditBoardNameProps} from "./lib/editBoard";

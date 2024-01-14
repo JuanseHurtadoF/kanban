@@ -1,28 +1,29 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Button, Heading, Icon } from "@components";
 import styles from "./editableBoardName.module.scss";
+import editBoardName from "@utils/lib/board/editBoardName";
 
 const EditableBoardName: FC = () => {
   const boardName = useSelector((state: any) => state.global.activeBoard.name);
+  const boardId = useSelector((state: any) => state.global.activeBoard._id);
 
   const [newBoardName, setNewBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const ignoreBlurRef = useRef(false);
 
   const handleChange = (e: any) => {
     setNewBoardName(e.target.value);
   };
 
-  const handleBlur = (e: any) => {
-    setIsEditing(false);
-  };
-
-  const toggleIsEditing = () => {
+  const toggleIsEditing = (e: any) => {
     setIsEditing(!isEditing);
   };
 
   const handleCancelEdit = (e: any) => {
-    console.log("cancel");
+    setIsEditing(false);
+    setNewBoardName(boardName);
+    ignoreBlurRef.current = true;
   };
 
   useEffect(() => {
@@ -30,8 +31,18 @@ const EditableBoardName: FC = () => {
   }, [boardName]);
 
   useEffect(() => {
-    console.log(newBoardName);
-  }, [newBoardName]);
+    console.log(`Editing State: ${isEditing}`);
+  }, [isEditing]);
+
+  const editBoardNameHandler = async () => {
+    const res = await editBoardName({
+      name: newBoardName,
+      boardId,
+    });
+    if (res) {
+      setIsEditing(false);
+    }
+  };
 
   return (
     <div
@@ -47,11 +58,10 @@ const EditableBoardName: FC = () => {
           onChange={handleChange}
           className={styles.input}
           autoFocus
-          onBlur={handleBlur}
         ></input>
       )}
       {boardName && (
-        <div className={styles.optionsContainer} onClick={toggleIsEditing}>
+        <div className={styles.optionsContainer}>
           {isEditing ? (
             <div className={styles.options}>
               <Button
@@ -62,11 +72,11 @@ const EditableBoardName: FC = () => {
               <Button
                 variant="secondarySm"
                 label="Save"
-                onClick={() => console.log("click")}
+                onClick={editBoardNameHandler}
               />
             </div>
           ) : (
-            <div className={styles.iconContainer}>
+            <div onClick={toggleIsEditing} className={styles.iconContainer}>
               <Icon variant="edit" height={20} width={20} />
             </div>
           )}
