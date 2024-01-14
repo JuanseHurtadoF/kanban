@@ -1,10 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Button, Heading, Icon } from "@components";
 import styles from "./editableBoardName.module.scss";
 import useEditBoardName from "hooks/useEditBoardName";
-import { changeBoardNameLocal } from "state";
 
 const EditableBoardName: FC = () => {
   const { boardName, boardId } = useSelector((state: any) => ({
@@ -12,18 +10,14 @@ const EditableBoardName: FC = () => {
     boardId: state.global.activeBoard._id,
   }));
 
-  const dispatch = useDispatch();
-
   const [newBoardName, setNewBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
   const { updateBoardName, error } = useEditBoardName();
 
   useEffect(() => {
-    if (error === 500) {
-      setNewBoardName(boardName);
-    }
-  }, [error]);
+    setNewBoardName(boardName);
+  }, [boardName]);
 
   const handleChange = (e: any) => {
     setNewBoardName(e.target.value);
@@ -44,7 +38,7 @@ const EditableBoardName: FC = () => {
       return;
     }
 
-    // Make API call
+    // Update board name
     setIsEditing(false);
     const response = await updateBoardName({
       boardId,
@@ -52,10 +46,6 @@ const EditableBoardName: FC = () => {
       prevName: boardName,
     });
   };
-
-  useEffect(() => {
-    setNewBoardName(boardName);
-  }, [boardName]);
 
   return (
     <div

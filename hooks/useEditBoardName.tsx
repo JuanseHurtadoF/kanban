@@ -22,7 +22,7 @@ const useEditBoardName = () => {
     setError(null);
 
     dispatch(changeBoardNameLocal({ boardId, name, prevName }));
-    const response = await changeBoardName({ name });
+    const response = await changeBoardName({ boardId, name });
     setResult(response);
 
     // Handle error
