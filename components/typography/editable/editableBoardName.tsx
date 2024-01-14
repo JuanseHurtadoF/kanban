@@ -13,7 +13,7 @@ const EditableBoardName: FC = () => {
   const [newBoardName, setNewBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const { updateBoardName, error } = useEditBoardName();
+  const { updateBoardName } = useEditBoardName();
 
   useEffect(() => {
     setNewBoardName(boardName);
