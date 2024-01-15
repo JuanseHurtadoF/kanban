@@ -46,7 +46,7 @@ export const api: any = createApi({
     removeColumn: build.mutation({
       query: ({ columnId, boardId }) => ({
         url: "columns/removeColumn",
-        method: "POST",
+        method: "DELETE",
         body: { columnId, boardId },
       }),
       invalidatesTags: ["Board"],

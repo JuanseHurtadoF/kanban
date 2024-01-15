@@ -4,7 +4,7 @@ import { Column, Loading, Icon, Input } from "@components";
 import { ColumnProps, BoardProps } from "@types";
 import { useSelector, useDispatch } from "react-redux";
 import { useAddColumnMutation, useAddTaskMutation } from "state/api";
-import { addColumnLocal, removeColumnLocal } from "state";
+import { addColumnLocal, removeColumnLocal, replaceColumnLocal } from "state";
 
 const Board: FC<BoardProps> = ({ fullWidth }) => {
   const { allBoards, activeBoard, user } = useSelector(
@@ -67,7 +67,16 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
         alert(
           "Something went wrong while adding a column, please try again later."
         );
+        return;
       }
+      // replace local column with column from db
+      dispatch(
+        replaceColumnLocal({
+          boardId: activeBoard._id,
+          column: result,
+          prevColumn: newColumn,
+        })
+      );
     } catch (error) {
       console.error("Error adding board:", error);
     }

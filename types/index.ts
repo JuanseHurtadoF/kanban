@@ -23,5 +23,6 @@ export { type Error } from "./error";
 export { type TaskData } from "./board/task";
 export { type ColumnData } from "./board/column";
 
-// lib
-export {type EditBoardNameProps} from "./lib/editBoard";
+// hooks
+export {type EditBoardNameProps} from "./hooks/editBoard";
+export {type RemoveColumnProps } from "./hooks/removeColumn";

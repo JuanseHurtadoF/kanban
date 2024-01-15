@@ -43,7 +43,6 @@ export const globalSlice = createSlice({
       state.activeBoard = board;
     },
     addColumnLocal: (state, action) => {
-      console.log("add column state");
       const { boardId, column } = action.payload;
       const board = state.allBoards.find((board: any) => board._id === boardId);
       board.columns.push(column);
@@ -63,6 +62,29 @@ export const globalSlice = createSlice({
         }
       });
       state.activeBoard = board;
+    },
+    replaceColumnLocal: (state, action) => {
+      const { boardId, column, prevColumn } = action.payload;
+      const newColumn = column?.data?.column;
+      const prevColumnId = prevColumn.column._id;
+
+      // Get active board
+      const board = state.activeBoard;
+      // find column with prevColumnId
+      const columnToReplace = board.columns.find(
+        (column: any) => column._id === prevColumnId
+      )._id;
+
+      const newColumns = state.activeBoard.columns.map((col: any) => {
+        if (col._id === columnToReplace) {
+          const columnWithNewId = { ...col, _id: newColumn._id };
+          return columnWithNewId;
+        } else {
+          return col;
+        }
+      });
+
+      state.activeBoard.columns = newColumns;
     },
     addTaskLocal: (state, action) => {
       const task = action.payload;
@@ -168,6 +190,7 @@ export const {
   addBoardLocal,
   removeColumnLocal,
   removeBoardLocal,
+  replaceColumnLocal,
   changeBoardNameLocal,
   addColumnLocal,
   setHighlightedCard,
