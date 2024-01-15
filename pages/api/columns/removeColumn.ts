@@ -18,10 +18,10 @@ export default async function handler(
 
   try {
     const { columnId, boardId } = req.body;
-
     // Handle missing information
     if (!columnId || !boardId) {
-      return res.status(400).json({
+      console.log("error is here");
+      return res.status(500).json({
         success: false,
         message: "columnId and boardId are required fields",
       });
@@ -31,6 +31,7 @@ export default async function handler(
     // @ts-ignore
     const column = await Column.findById(columnId);
     if (!column) {
+      console.log("HERE");
       return res
         .status(404)
         .json({ success: false, message: "Column not found" });
@@ -56,6 +57,8 @@ export default async function handler(
       .status(200)
       .json({ success: true, message: `Column ${columnId} deleted` });
   } catch (error: any) {
+    console.log(error.message);
+
     return res.status(500).json({ success: false, message: error.message });
   }
 }

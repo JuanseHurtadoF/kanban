@@ -6,7 +6,6 @@ import { changeBoardNameLocal } from "state";
 import { useChangeBoardNameMutation } from "state/api";
 
 const useEditBoardName = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
@@ -18,7 +17,6 @@ const useEditBoardName = () => {
     name,
     prevName,
   }: EditBoardNameProps) => {
-    setIsLoading(true);
     setError(null);
 
     dispatch(changeBoardNameLocal({ boardId, name, prevName }));
@@ -29,16 +27,14 @@ const useEditBoardName = () => {
     if (response.error?.status === 500) {
       dispatch(changeBoardNameLocal({ boardId, name: prevName }));
       setError(response.error.status);
-      setIsLoading(false);
       alert(
         "Something went wrong while updating your board name, please try again later."
       );
       return;
     }
-    setIsLoading(false);
   };
 
-  return { updateBoardName, isLoading, error, result };
+  return { updateBoardName, error, result };
 };
 
 export default useEditBoardName;

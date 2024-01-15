@@ -5,9 +5,23 @@ import { Heading } from "@components";
 import Card from "../card";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { useSelector } from "react-redux";
+import useRemoveColumn from "hooks/useRemoveColumn";
+import { RemoveColumnProps } from "@types";
 
 const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
-  const isCardDragging = useSelector((state: any) => state.dragAndDrop.isCardDragging);
+  const isCardDragging = useSelector(
+    (state: any) => state.dragAndDrop.isCardDragging
+  );
+  const boardId = useSelector((state: any) => state.global.activeBoard._id);
+
+  const { deleteColumn } = useRemoveColumn();
+
+  const handleDeleteColumn: any = ({
+    boardId,
+    columnId,
+  }: RemoveColumnProps) => {
+    deleteColumn({ boardId, columnId });
+  };
 
   return (
     <Droppable droppableId={_id} type="cards">
@@ -19,10 +33,19 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
             className={styles.container}
           >
             <div className={styles.titleContainer}>
-              <div className={styles.label}></div>
+              <div
+                onClick={() => handleDeleteColumn({ boardId, columnId: _id })}
+                className={styles.label}
+              ></div>
               <Heading title={`${name} (${tasks?.length})`} variant={4} />
             </div>
-            <div className={isCardDragging ? `${styles.cardsContainer} ${styles.cardsContainerDragging}` : `${styles.cardsContainer}`}>
+            <div
+              className={
+                isCardDragging
+                  ? `${styles.cardsContainer} ${styles.cardsContainerDragging}`
+                  : `${styles.cardsContainer}`
+              }
+            >
               {tasks?.map((card: any, index) => {
                 return (
                   <Draggable
