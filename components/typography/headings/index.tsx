@@ -7,7 +7,9 @@ const Heading: FC<HeadingProps> = ({ variant, title }) => {
 
   return React.createElement(
     TagName,
-    { className: styles[`h${variant}`] },
+    {
+      className: styles[`h${variant}`],
+    },
     title
   );
 };

@@ -20,7 +20,7 @@ export default async function handler(
     const { name, boardId } = req.body;
 
     if (req.method !== "POST") {
-      return res.status(400).json({ success: false });
+      return res.status(400).json({ success: "false" });
     }
 
     if (!name || !boardId) {

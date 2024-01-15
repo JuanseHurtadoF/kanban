@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Heading, Button, Icon, Text } from "@components";
+import { Heading, Button, Icon, Text, EditableBoardName } from "@components";
 import styles from "./nav.module.scss";
 import { NavProps } from "@types";
 import { useSelector } from "react-redux";
@@ -14,9 +14,12 @@ const Nav: FC<NavProps> = ({ toggleNewCard, toggleDeleteModal }) => {
   };
 
   return (
-    <div onMouseLeave={() => setTimeout(() => setIsMenuOpen(false), 500)} className={styles.container}>
+    <div
+      onMouseLeave={() => setTimeout(() => setIsMenuOpen(false), 500)}
+      className={styles.container}
+    >
       <div className={styles.nameContainer}>
-        <Heading title={activeBoard?.name} variant={1} />
+        <EditableBoardName />
       </div>
       <div className={styles.actionsContainer}>
         <Button
