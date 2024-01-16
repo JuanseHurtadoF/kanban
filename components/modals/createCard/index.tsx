@@ -45,6 +45,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
 
   const handleSubtaskChange = (event: any, index: number) => {
     event.preventDefault();
+
     const newArray: subtask[] = [...subtaskArray];
     newArray[index].title = event.target.value;
     setSubtaskArray(newArray);
@@ -61,6 +62,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
 
   const addSubtask = (event: any) => {
     event.preventDefault();
+
     event.stopPropagation();
     setSubtaskArray([...subtaskArray, { title: "", isCompleted: false }]);
   };
@@ -101,7 +103,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
 
     // Close modal
     onClick(event);
-    
+
     // Use hook
     const response = await addNewTask({
       boardId,
@@ -117,7 +119,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
         className={styles.modal}
       >
         <Heading variant={2} title="Add new task" />
-        <form className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form}>
           <Input
             title="Title"
             placeholder="e.g. Take coffee break"
@@ -126,6 +128,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
             onChange={handleChange}
             value={form.title}
             name={"title"}
+            focused
           />
           <Input
             title="Description"
@@ -146,7 +149,8 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
                       placeholder="e.g. Make coffee"
                       error={false}
                       onChange={(event) => handleSubtaskChange(event, index)}
-                      focused
+                      onKeyUp={(event) => handleSubtaskChange(event, index)}
+                      focused={index ? true : false}
                     />
                     <div
                       onClick={() => removeSubtask(index)}
@@ -159,6 +163,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
               })}
             </div>
             <Button
+              type="button"
               onClick={addSubtask}
               variant="secondary"
               label="+ Add New Subtask"
@@ -175,6 +180,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
             onChange={changeColumn}
           />
           <Button
+            type="submit"
             onClick={handleSubmit}
             variant="primaryLg"
             label="+ Add Task"

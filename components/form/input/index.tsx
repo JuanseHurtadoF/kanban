@@ -8,6 +8,7 @@ const Input: FC<InputProps> = ({
   error,
   errorMessage,
   onChange,
+  onKeyUp,
   value,
   name,
   focused,
@@ -25,6 +26,7 @@ const Input: FC<InputProps> = ({
         <input
           ref={inputRef}
           onChange={onChange}
+          onKeyUp={onKeyUp}
           placeholder={placeholder}
           data-haserror={error}
           className={styles.input}

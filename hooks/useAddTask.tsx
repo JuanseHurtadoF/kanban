@@ -15,7 +15,6 @@ const useAddTask = () => {
     // Add in local state
     dispatch(addTaskLocal({ task, columnId }));
 
-    // Add in DB
     const response = await addTask({ ...task });
     if (response?.error?.status === 500) {
       setError(response.error.status);
