@@ -13,7 +13,7 @@ const useAddTask = () => {
 
   const addNewTask = async ({ boardId, columnId, task }) => {
     // Add in local state
-    dispatch(addTaskLocal({ task }));
+    dispatch(addTaskLocal({ task, columnId }));
 
     // Add in DB
     const response = await addTask({ ...task });

@@ -87,16 +87,13 @@ export const globalSlice = createSlice({
       state.activeBoard.columns = newColumns;
     },
     addTaskLocal: (state, action) => {
-      const { task } = action.payload;
-      const { columnId } = task;
+      const { task, columnId } = action.payload;
 
       const activeBoard = state.activeBoard;
 
       const activeColumn = activeBoard.columns.find(
         (col) => col._id === columnId
       );
-
-      console.log(current(activeColumn));
 
       activeColumn.tasks.push(task);
     },

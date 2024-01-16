@@ -18,13 +18,13 @@ const useRemoveTask = () => {
     dispatch(removeTaskLocal({ boardId, columnId, taskId }));
 
     // remove task from DB
-    const response = await removeTask({ columnId });
+    const response = await removeTask({ taskId, columnId });
 
     // // Handle error
     if (response.error?.status === 500) {
       console.log({ task: prevTask, columnId });
       dispatch(
-        addTaskLocal({ task: prevTask, board: boardId, column: columnId })
+        addTaskLocal({ task: prevTask, columnId })
       );
       alert(
         "Something went wrong while deleting the your task, please try again later."
