@@ -65,8 +65,11 @@ export const globalSlice = createSlice({
     },
     replaceColumnLocal: (state, action) => {
       const { boardId, column, prevColumn } = action.payload;
-      const newColumn = column?.data?.column;
-      const prevColumnId = prevColumn.column._id;
+      const newColumn = column;
+      const prevColumnId = prevColumn._id;
+
+      console.log(newColumn);
+      console.log(prevColumnId);
 
       // Get active board
       const board = state.activeBoard;
