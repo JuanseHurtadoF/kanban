@@ -67,7 +67,7 @@ export const api: any = createApi({
       }),
       invalidatesTags: ["Board", "Task"],
     }),
-
+    
     // Subtasks
     toggleSubtask: build.mutation({
       query: ({ subtaskId }) => ({

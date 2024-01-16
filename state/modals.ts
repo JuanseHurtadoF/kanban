@@ -9,7 +9,6 @@ export const modalsSlice = createSlice({
   initialState,
   reducers: {
     toggleCardInfoModal: (state, action) => {
-      console.log("here");
       state.isCardInfoOpen = action.payload;
     },
   },

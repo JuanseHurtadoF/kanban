@@ -5,7 +5,7 @@ import Subtask from "@utils/models/Subtask";
 import Column from "@utils/models/Column";
 import { TaskData, Error } from "@types";
 
-type Data = TaskData | Error;
+type Data = TaskData | Error | any;
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,9 +13,14 @@ export default async function handler(
 ) {
   await connectDB(process.env.MONGODB_URL);
 
-  try {
-    const { title, description, subtasks, board, column, user } = req.body;
+  const { title, description, subtasks, board, column, user } = req.body;
 
+  // If there is no board, title, column or user, return an error
+  if (!board || !title || !column || !user) {
+    return res.status(500).json({ error: "Please enter all fields" });
+  }
+
+  try {
     const task = new Task({
       title,
       description,
@@ -43,7 +48,12 @@ export default async function handler(
 
     // Update the task with the new subtasks array
     // @ts-ignore
-    await Task.findByIdAndUpdate(taskId, { subtasks: subtaskIds });
+    const newTask = await Task.findByIdAndUpdate(taskId, {
+      subtasks: subtaskIds,
+    });
+    const savedTask = await newTask.save();
+
+    console.log(savedTask);
 
     // @ts-ignore
     const currentColumn = await Column.findByIdAndUpdate(
@@ -52,7 +62,11 @@ export default async function handler(
       { new: true }
     );
 
-    res.status(200).json({ ...task });
+    res.status(200).json({
+      success: true,
+      message: "Task added successfully",
+      task: savedTask,
+    });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

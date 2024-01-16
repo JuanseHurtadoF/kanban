@@ -13,8 +13,6 @@ export default async function handler(
   try {
     const { boardId, source, destination } = req.body;
 
-    console.log(source, destination);
-
     if (!boardId || !source || !destination) {
       return res.status(500).json({ error: "Missing body parameters" });
     }

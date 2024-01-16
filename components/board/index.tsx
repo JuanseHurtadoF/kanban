@@ -3,16 +3,13 @@ import styles from "./board.module.scss";
 import { Column, Loading, Icon, Input } from "@components";
 import { ColumnProps, BoardProps } from "@types";
 import { useSelector, useDispatch } from "react-redux";
-import { useAddColumnMutation, useAddTaskMutation } from "state/api";
-import { addColumnLocal, removeColumnLocal, replaceColumnLocal } from "state";
+import useAddColumn from "hooks/useAddColumn";
 
 const Board: FC<BoardProps> = ({ fullWidth }) => {
   const { allBoards, activeBoard, user } = useSelector(
     (state: any) => state.global
   );
-
-  const dispatch = useDispatch();
-  const [addColumn] = useAddColumnMutation();
+  const { addNewColumn } = useAddColumn();
   const [isColumnBeingAdded, setIsColumnBeingAdded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [columnName, setColumnName] = useState<string>("");
@@ -24,6 +21,8 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
 
   const handleStopCreatingColumn = () => {
     setIsColumnBeingAdded(false);
+    setColumnName("");
+    setError(false);
   };
 
   const handleError = (event: any) => {
@@ -42,47 +41,25 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
   };
 
   const handleColumnSubmit = async (e: any) => {
-    const id = `newColumn-${Date.now()}`;
-    const newColumn = {
-      boardId: activeBoard._id,
-      column: {
-        name: columnName,
-        tasks: [],
-        _id: id,
-      },
+    e.preventDefault();
+    if (columnName === "") {
+      setError(true);
+      return;
+    }
+
+    const newColumn: ColumnProps = {
+      name: columnName,
+      tasks: [],
+      _id: `newColumn-${Date.now()}`,
     };
 
-    e.preventDefault();
-    dispatch(addColumnLocal(newColumn));
-    setIsColumnBeingAdded(false);
-
-    try {
-      const result = await addColumn({
-        name: newColumn.column.name,
-        boardId: activeBoard._id,
-      });
-
-      if (result.error?.status === 500) {
-        dispatch(removeColumnLocal({ boardId: activeBoard._id, columnId: id }));
-        alert(
-          "Something went wrong while adding a column, please try again later."
-        );
-        return;
-      }
-      // replace local column with column from db
-      dispatch(
-        replaceColumnLocal({
-          boardId: activeBoard._id,
-          column: result,
-          prevColumn: newColumn,
-        })
-      );
-    } catch (error) {
-      console.error("Error adding board:", error);
-    }
+    // Handle column creation
+    handleStopCreatingColumn();
+    await addNewColumn({ boardId: activeBoard._id, column: newColumn });
   };
 
   useEffect(() => {
+    // Fix later
     // Assuming that allBoards is always an array (either empty or with items)
     setIsLoading(false);
   }, [allBoards]);

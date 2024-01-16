@@ -24,5 +24,6 @@ export { type TaskData } from "./board/task";
 export { type ColumnData } from "./board/column";
 
 // hooks
-export {type EditBoardNameProps} from "./hooks/editBoard";
-export {type RemoveColumnProps } from "./hooks/removeColumn";
+export { type EditBoardNameProps } from "./hooks/editBoard";
+export { type RemoveColumnProps } from "./hooks/removeColumn";
+export { type AddColumnProps } from "./hooks/addColumn";
