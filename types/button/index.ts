@@ -10,4 +10,5 @@ export type ButtonProps = {
     | "destructive";
   label: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
+  type?: "button" | "submit";
 };
