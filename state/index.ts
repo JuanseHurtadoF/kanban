@@ -68,9 +68,6 @@ export const globalSlice = createSlice({
       const newColumn = column;
       const prevColumnId = prevColumn._id;
 
-      console.log(newColumn);
-      console.log(prevColumnId);
-
       // Get active board
       const board = state.activeBoard;
       // find column with prevColumnId
@@ -90,7 +87,7 @@ export const globalSlice = createSlice({
       state.activeBoard.columns = newColumns;
     },
     addTaskLocal: (state, action) => {
-      const task = action.payload;
+      const { task } = action.payload;
       const { board, column } = task;
 
       const activeBoard = (state.activeBoard = state.allBoards.find(
@@ -118,6 +115,32 @@ export const globalSlice = createSlice({
         }
       });
     },
+    replaceTaskLocal: (state, action) => {
+      const { task, prevTask, columnId } = action.payload;
+      const newTask = task;
+      const prevTaskId = prevTask._id;
+
+      // Get active board
+      const board = state.activeBoard;
+
+      // Find column with prevTaskId
+      const column = board.columns.find(
+        (column: any) => column._id === columnId
+      );
+      const taskToReplace = column.tasks.find(
+        (task: any) => task._id === prevTaskId
+      )._id;
+      const newTasks = column.tasks.map((task: any) => {
+        if (task._id === taskToReplace) {
+          const taskWithNewId = { ...task, _id: newTask._id };
+          return taskWithNewId;
+        } else {
+          return task;
+        }
+      });
+      column.tasks = newTasks;
+    },
+
     setHighlightedCard: (state, action) => {
       const card = action.payload;
       state.highlightedCard = card;
@@ -126,8 +149,6 @@ export const globalSlice = createSlice({
     // Subtasks
     toggleSubtaskLocal: (state, action) => {
       const { subtaskId, cardId } = action.payload;
-
-      console.log(cardId);
 
       const subtasks = current(state.highlightedCard.subtasks);
       const updatedSubtasks = subtasks.map((st: subtask) => {
@@ -154,8 +175,6 @@ export const globalSlice = createSlice({
 
       // Update the subtasks of the task
       task.subtasks = updatedSubtasks;
-
-      console.log(current(state.activeBoard));
     },
 
     // Drag and Drop
@@ -199,6 +218,7 @@ export const {
   setHighlightedCard,
   addTaskLocal,
   removeTaskLocal,
+  replaceTaskLocal,
   moveTaskLocal,
   toggleSubtaskLocal,
 } = globalSlice.actions;

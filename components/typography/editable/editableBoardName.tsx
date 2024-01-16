@@ -27,7 +27,6 @@ const EditableBoardName: FC = () => {
     setIsEditing(!isEditing);
     if (action === "cancel") {
       setNewBoardName(boardName);
-      console.log("cancel");
     }
   };
 

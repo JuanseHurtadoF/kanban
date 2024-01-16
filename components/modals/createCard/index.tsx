@@ -1,19 +1,17 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "./createCard.module.scss";
 import { CreateCardProps } from "@types";
 import Heading from "@components/typography/headings";
 import { Button, Dropdown, Icon, Input } from "@components";
 import { subtask } from "@types";
-import { useAddTaskMutation } from "state/api";
 import { useSelector } from "react-redux";
-import { addTaskLocal, removeTaskLocal } from "state";
-import { useDispatch } from "react-redux";
+import useAddTask from "hooks/useAddTask";
 
 const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
-  // Get user and board info from global state
+  const { addNewTask } = useAddTask();
+
   const { user, activeBoard } = useSelector((state: any) => state.global);
 
-  // Define form, error and subtasks array
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -25,10 +23,6 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
   const [subtaskArray, setSubtaskArray] = useState<subtask[]>([
     { title: "", isCompleted: false },
   ]);
-
-  // Import mutations
-  const [addTask] = useAddTaskMutation();
-  const dispatch = useDispatch();
 
   const handleChange = (event: any) => {
     event.preventDefault();
@@ -94,35 +88,26 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
     const newArray: subtask[] = [...subtaskArray];
     const filteredArray = newArray.filter((subtask) => subtask.title !== "");
 
-    const id = `newBoard-${Date.now()}`;
-
     // create new task object
     const newTask = {
       title: form.title,
       description: form.description,
       board: boardId,
       column: form.columnId,
-      _id: id,
+      _id: `newBoard-${Date.now()}`,
       user: user,
       subtasks: filteredArray,
     };
 
-    dispatch(addTaskLocal({ ...newTask }));
+    // Close modal
     onClick(event);
-    try {
-      const result = await addTask(newTask);
-
-      if (result.error?.status === 500) {
-        dispatch(
-          removeTaskLocal({ boardId, columnId: form.columnId, taskId: id })
-        );
-        alert(
-          "Something went wrong while adding a Task, please try again later."
-        );
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    
+    // Use hook
+    const response = await addNewTask({
+      boardId,
+      columnId: form.columnId,
+      task: newTask,
+    });
   };
 
   return (
