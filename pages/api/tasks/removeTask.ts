@@ -13,6 +13,9 @@ export default async function handler(
   try {
     const { taskId, columnId } = req.body;
 
+    if (!taskId || !columnId)
+      return res.status(500).json({ error: "Missing taskId or columnId" });
+
     const task = await Task.findByIdAndDelete(taskId);
     // @ts-ignore
     const column = await Column.findByIdAndUpdate(

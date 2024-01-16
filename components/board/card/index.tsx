@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { CardProps } from "@types";
 import styles from "./card.module.scss";
-import { Heading, Text } from "@components";
+import { Button, Heading, Text } from "@components";
 import { useDispatch } from "react-redux";
 import { setHighlightedCard } from "state";
 import { toggleCardInfoModal } from "state/modals";

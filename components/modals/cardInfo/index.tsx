@@ -3,15 +3,17 @@ import { useSelector } from "react-redux";
 import { RootState } from "@types";
 import styles from "./cardInfo.module.scss";
 import { CardInfoProps, subtask } from "@types";
-import { CheckBox, Dropdown, Heading, Text } from "@components";
+import { Button, CheckBox, Dropdown, Heading, Text } from "@components";
 import { useToggleSubtaskMutation } from "state/api";
 import { toggleSubtaskLocal } from "state";
 import { useDispatch } from "react-redux";
+import useRemoveTask from "hooks/useRemoveTask";
 
 const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const { title, description, subtasks, _id } = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
+  const { deleteTask } = useRemoveTask();
 
   const { activeBoard } = useSelector((state: any) => state.global);
 
@@ -36,6 +38,15 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
     );
     toggleSubtask({
       subtaskId: item._id,
+    });
+  };
+
+  const handleDelete = (e: any) => {
+    onClick(e);
+    deleteTask({
+      columnId: highlightedCard.columnId,
+      taskId: highlightedCard._id,
+      prevTask: highlightedCard,
     });
   };
 
@@ -78,6 +89,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
             />
           </div>
         </div>
+        <Button label="Delete" variant="destructive" onClick={handleDelete} />
       </div>
     </div>
   );
