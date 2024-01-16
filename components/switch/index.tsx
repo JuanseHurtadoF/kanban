@@ -4,7 +4,7 @@ import styles from "./switch.module.scss";
 import { motion } from "framer-motion";
 
 const Switch: FC = () => {
-  const [theme, setTheme] = useState<string>("dark");
+  const [theme, setTheme] = useState<string>("light");
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme") || "light";
