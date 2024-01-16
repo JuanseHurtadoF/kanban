@@ -94,7 +94,6 @@ export const globalSlice = createSlice({
       const activeColumn = activeBoard.columns.find(
         (col) => col._id === columnId
       );
-
       activeColumn.tasks.push(task);
     },
     removeTaskLocal: (state, action) => {
