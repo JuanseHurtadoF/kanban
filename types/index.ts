@@ -27,3 +27,4 @@ export { type ColumnData } from "./board/column";
 export { type EditBoardNameProps } from "./hooks/editBoard";
 export { type RemoveColumnProps } from "./hooks/removeColumn";
 export { type AddColumnProps } from "./hooks/addColumn";
+export { type RemoveTaskProps } from "./hooks/removeTask";
