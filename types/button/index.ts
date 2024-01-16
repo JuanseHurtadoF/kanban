@@ -7,7 +7,8 @@ export type ButtonProps = {
     | "secondary"
     | "secondarySm"
     | "tertiary"
-    | "destructive";
+    | "destructive"
+    | "destructiveSm";
   label: string;
   onClick: MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit";

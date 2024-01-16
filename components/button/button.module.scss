@@ -68,6 +68,7 @@
   line-height: 2.3rem;
   width: 100%;
   border-radius: 0;
+  width: max-content;
 
   &:hover {
     text-decoration: underline;
@@ -85,5 +86,20 @@
 
   &:hover {
     background-color: var(--color-destructive-light);
+  }
+}
+
+.destructiveSm {
+  font-family: var(--font-primary);
+  color: var(--color-destructive);
+  background-color: transparent;
+  font-size: 1rem;
+  line-height: 2.3rem;
+  width: 100%;
+  border-radius: 0;
+  width: max-content;
+
+  &:hover {
+    text-decoration: underline;
   }
 }

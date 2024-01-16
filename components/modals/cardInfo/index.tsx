@@ -53,43 +53,51 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   return (
     <div onClick={onClick} className={styles.container}>
       <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
-        <div className={styles.textContainer}>
-          <Heading variant={2} title={title} />
-          <p className={styles.text}>{description}</p>
-        </div>
-        <div className={styles.subtasks}>
-          <div className={styles.subtasksTitle}>
-            <Text
-              variant="secondary"
-              text={`Subtasks (0 of ${subtasks?.length})`}
-            />
+        <div>
+          <div className={styles.textContainer}>
+            <Heading variant={2} title={title} />
+            <p className={styles.text}>{description}</p>
           </div>
-          {subtasks?.map((item) => {
-            return (
-              <CheckBox
-                title={item.title}
-                key={item.title}
-                isChecked={item.isCompleted}
-                onClick={() => handleSubtaskToggle(item)}
+          <div className={styles.subtasks}>
+            <div className={styles.subtasksTitle}>
+              <Text
+                variant="secondary"
+                text={`Subtasks (0 of ${subtasks?.length})`}
               />
-            );
-          })}
-        </div>
-        <div className={styles.status}>
-          <div className={styles.statusTitle}>
-            <Dropdown
-              title="Status"
-              options={activeBoard?.columns?.map((column: any) => {
-                return {
-                  name: column.name,
-                  id: column._id,
-                };
-              })}
-              onChange={(e) => console.log("Changing")}
-            />
+            </div>
+            {subtasks?.map((item) => {
+              return (
+                <CheckBox
+                  title={item.title}
+                  key={item.title}
+                  isChecked={item.isCompleted}
+                  onClick={() => handleSubtaskToggle(item)}
+                />
+              );
+            })}
+          </div>
+          <div className={styles.status}>
+            <div className={styles.statusTitle}>
+              <Dropdown
+                title="Status"
+                options={activeBoard?.columns?.map((column: any) => {
+                  return {
+                    name: column.name,
+                    id: column._id,
+                  };
+                })}
+                onChange={(e) => console.log("Changing")}
+              />
+            </div>
           </div>
         </div>
-        <Button label="Delete" variant="destructive" onClick={handleDelete} />
+        <div className={styles.delete}>
+          <Button
+            label="Delete Task"
+            variant="destructiveSm"
+            onClick={handleDelete}
+          />
+        </div>
       </div>
     </div>
   );
