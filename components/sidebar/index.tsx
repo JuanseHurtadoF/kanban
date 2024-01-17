@@ -13,7 +13,6 @@ import { useAddBoardMutation, useGetBoardsQuery } from "state/api";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   const { data } = useGetBoardsQuery();
-
   const { allBoards, user, activeBoard } = useSelector(
     (state: any) => state.global
   );
