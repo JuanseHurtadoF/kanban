@@ -1,5 +1,5 @@
 export type EditBoardNameProps = {
-  boardId: string;
+  boardId?: string;
   name: string;
   prevName: string;
 };

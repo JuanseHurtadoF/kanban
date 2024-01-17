@@ -17,4 +17,4 @@ export { default as CardInfo } from "./modals/cardInfo";
 export { default as CreateCard } from "./modals/createCard";
 export { default as DeleteBoard } from "./modals/deleteBoard";
 export { default as Loading } from "./loading";
-export { default as EditableBoardName } from "./typography/editable/boardName/editableBoardName";
+export { default as EditableHeading } from "./typography/editable/boardName/EditableHeading";

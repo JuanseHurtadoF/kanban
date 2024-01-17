@@ -1,16 +1,23 @@
 import React, { FC } from "react";
-import { Heading, Button, Icon, Text, EditableBoardName } from "@components";
+import { Button, Icon, Text, EditableHeading } from "@components";
 import styles from "./nav.module.scss";
 import { NavProps } from "@types";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import useEditBoardName from "hooks/useEditBoardName";
+
 
 const Nav: FC<NavProps> = ({ toggleNewCard, toggleDeleteModal }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const { activeBoard } = useSelector((state: any) => state.global);
+  const { updateBoardName } = useEditBoardName();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const changeBoardName = ({ name, prevName }) => {
+    updateBoardName({ name, prevName });
   };
 
   return (
@@ -19,7 +26,11 @@ const Nav: FC<NavProps> = ({ toggleNewCard, toggleDeleteModal }) => {
       className={styles.container}
     >
       <div className={styles.nameContainer}>
-        <EditableBoardName />
+        <EditableHeading
+          onEdit={changeBoardName}
+          variant={1}
+          title={activeBoard.name}
+        />
       </div>
       <div className={styles.actionsContainer}>
         <Button

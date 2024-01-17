@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@types";
 import styles from "./cardInfo.module.scss";
 import { CardInfoProps, subtask } from "@types";
-import { Button, CheckBox, Dropdown, Heading, Text } from "@components";
+import { Button, CheckBox, EditableHeading, Text } from "@components";
 import { useToggleSubtaskMutation } from "state/api";
 import { toggleSubtaskLocal } from "state";
 import { useDispatch } from "react-redux";
@@ -56,9 +56,17 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
       <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
         <div>
           <div className={styles.textContainer}>
-            <Heading variant={2} title={title} />
-            <textarea placeholder="Description..." className={styles.text}>
-              {description}
+            <EditableHeading
+              variant={2}
+              title={title}
+              onEdit={() => console.log("Editing")}
+            />
+            <textarea
+              defaultValue={description}
+              placeholder="Description..."
+              className={styles.text}
+            >
+              {/* {description} */}
             </textarea>
           </div>
           <div className={styles.subtasks}>

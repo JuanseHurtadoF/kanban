@@ -4,35 +4,35 @@ import { Button, Heading, Icon } from "@components";
 import styles from "./editableBoardName.module.scss";
 import useEditBoardName from "hooks/useEditBoardName";
 
-const EditableBoardName: FC = () => {
+const EditableCardName: FC = () => {
   const { boardName, boardId } = useSelector((state: any) => ({
     boardName: state.global.activeBoard.name,
     boardId: state.global.activeBoard._id,
   }));
 
-  const [newBoardName, setNewBoardName] = useState("");
+  const [newCardName, setNewCardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
   const { updateBoardName } = useEditBoardName();
 
   useEffect(() => {
-    setNewBoardName(boardName);
+    setNewCardName(boardName);
   }, [boardName]);
 
   const handleChange = (e: any) => {
-    setNewBoardName(e.target.value);
+    setNewCardName(e.target.value);
   };
 
   const toggleIsEditing = (e: any, action?: "cancel") => {
     setIsEditing(!isEditing);
     if (action === "cancel") {
-      setNewBoardName(boardName);
+        setNewCardName(boardName);
     }
   };
 
   const handleSaveEdit = async (e: any) => {
     // If name hasn't changed or is empty, don't make API call
-    if (newBoardName === boardName || newBoardName === "") {
+    if (newCardName === boardName || newCardName === "") {
       setIsEditing(false);
       return;
     }
@@ -41,7 +41,7 @@ const EditableBoardName: FC = () => {
     setIsEditing(false);
     const response = await updateBoardName({
       boardId,
-      name: newBoardName,
+      name: newCardName,
       prevName: boardName,
     });
   };
@@ -56,7 +56,7 @@ const EditableBoardName: FC = () => {
       {isEditing && (
         <input
           type="text"
-          value={newBoardName}
+          value={newCardName}
           onChange={handleChange}
           className={styles.input}
           autoFocus
@@ -88,4 +88,4 @@ const EditableBoardName: FC = () => {
   );
 };
 
-export default EditableBoardName;
+export default EditableCardName;
