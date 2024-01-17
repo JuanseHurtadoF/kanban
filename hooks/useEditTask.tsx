@@ -11,9 +11,7 @@ const useEditTask = () => {
   const taskId = useSelector((state: any) => state.global.highlightedCard._id);
 
   const updateTask = async ({ name, prevName }) => {
-
     dispatch(editTaskLocal({ newName: name }));
-
     const response = await editTask({
       title: name,
       taskId,
