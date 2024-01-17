@@ -17,7 +17,6 @@ const Card: FC<CardProps> = ({
   const dispatch = useDispatch();
 
   const openCardDetails = () => {
-    console.log(_id, columnId);
     const card: CardProps = {
       title,
       description,

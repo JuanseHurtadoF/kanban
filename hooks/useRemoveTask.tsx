@@ -22,7 +22,6 @@ const useRemoveTask = () => {
 
     // // Handle error
     if (response.error?.status === 500) {
-      console.log({ task: prevTask, columnId });
       dispatch(
         addTaskLocal({ task: prevTask, columnId })
       );

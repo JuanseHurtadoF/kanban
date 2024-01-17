@@ -8,24 +8,19 @@ import { useToggleSubtaskMutation } from "state/api";
 import { toggleSubtaskLocal } from "state";
 import { useDispatch } from "react-redux";
 import useRemoveTask from "hooks/useRemoveTask";
+import useEditTask from "hooks/useEditTask";
 
 const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
-  const { title, description, subtasks, _id } = useSelector(
+  const { title, description, subtasks, _id, columnId } = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
   const completedSubtasks = subtasks?.filter((item) => item.isCompleted);
   const { deleteTask } = useRemoveTask();
-
-  const { activeBoard } = useSelector((state: any) => state.global);
-
+  const { updateTask } = useEditTask();
   const dispatch = useDispatch();
 
   const highlightedCard = useSelector(
     (state: RootState) => state.global.highlightedCard
-  );
-
-  const currentBoardId = useSelector(
-    (state: any) => state.global.activeBoard._id
   );
 
   const [toggleSubtask] = useToggleSubtaskMutation();
@@ -34,7 +29,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
     dispatch(
       toggleSubtaskLocal({
         subtaskId: item._id,
-        cardId: highlightedCard._id,
+        cardId: _id,
       })
     );
     toggleSubtask({
@@ -45,10 +40,18 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const handleDelete = (e: any) => {
     onClick(e);
     deleteTask({
-      columnId: highlightedCard.columnId,
-      taskId: highlightedCard._id,
+      columnId,
+      taskId: _id,
       prevTask: highlightedCard,
     });
+  };
+
+  // const handleTaskChange = async (name, prevName) => {
+  //   const response = await updateTask(name, prevName);
+  // };
+
+  const changeTaskName = ({ name, prevName }) => {
+    updateTask({ name, prevName });
   };
 
   return (
@@ -59,15 +62,13 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
             <EditableHeading
               variant={2}
               title={title}
-              onEdit={() => console.log("Editing")}
+              onEdit={changeTaskName}
             />
             <textarea
               defaultValue={description}
               placeholder="Description..."
               className={styles.text}
-            >
-              {/* {description} */}
-            </textarea>
+            ></textarea>
           </div>
           <div className={styles.subtasks}>
             <div className={styles.subtasksTitle}>

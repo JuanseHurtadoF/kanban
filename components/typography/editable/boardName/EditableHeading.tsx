@@ -17,6 +17,7 @@ const EditableHeading: FC<EditableHeadingProps> = ({
   const [newTitle, setNewTitle] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
+  // Sets new title when title prop changes
   useEffect(() => {
     setNewTitle(title);
   }, [title]);
@@ -44,7 +45,7 @@ const EditableHeading: FC<EditableHeadingProps> = ({
     const response = await onEdit({ name: newTitle, prevName: title });
   };
 
-  const handleBlur = (e: any) => {
+  const handleKeyDown = (e: any) => {
     if (e.key === "Enter") {
       handleSaveEdit(e);
     }
@@ -65,7 +66,7 @@ const EditableHeading: FC<EditableHeadingProps> = ({
           className={styles.input}
           autoFocus
           onBlur={handleSaveEdit}
-          onKeyDown={handleBlur}
+          onKeyDown={handleKeyDown}
           data-variant={variant}
         ></input>
       )}
