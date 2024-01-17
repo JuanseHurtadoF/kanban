@@ -56,7 +56,9 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
         <div>
           <div className={styles.textContainer}>
             <Heading variant={2} title={title} />
-            <p className={styles.text}>{description}</p>
+            <textarea placeholder="Description..." className={styles.text}>
+              {description}
+            </textarea>
           </div>
           <div className={styles.subtasks}>
             <div className={styles.subtasksTitle}>
@@ -76,7 +78,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
               );
             })}
           </div>
-          <div className={styles.status}>
+          {/* <div className={styles.status}>
             <div className={styles.statusTitle}>
               <Dropdown
                 title="Status"
@@ -89,7 +91,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
                 onChange={(e) => console.log("Changing")}
               />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className={styles.delete}>
           <Button
