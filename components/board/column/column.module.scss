@@ -1,59 +1,7 @@
 .container {
   max-width: 25rem;
   min-width: 25rem;
-
-  .titleContainer {
-    padding: 0.6rem;
-    transition: all 0.2s;
-    border-radius: 0.6rem;
-
-    display: flex;
-    justify-content: space-between;
-
-    &:hover {
-      background-color: var(--color-bg-secondary);
-    }
-    margin-bottom: 1rem;
-
-    .label {
-      height: 1.4rem;
-      width: 1.4rem;
-      border-radius: 50%;
-      background-color: #49c4e5;
-      margin-right: 0.6rem;
-    }
-    display: flex;
-    align-items: center;
-
-    .title {
-      display: flex;
-    }
-
-    .iconContainer {
-      display: grid;
-      place-items: center;
-      border-radius: 0.6rem;
-      padding: 0.2rem;
-
-      cursor: pointer;
-      opacity: 0;
-      pointer-events: none;
-      background-color: var(--color-bg-primary);
-
-      transition: all 0.2s;
-
-      &:hover {
-        scale: 1.05;
-      }
-    }
-
-    &:hover {
-      .iconContainer {
-        opacity: 1;
-        pointer-events: all;
-      }
-    }
-  }
+  min-height: calc(100vh - 8rem);
 
   .cardsContainer {
     list-style: none; /* Fallback for older browsers */
@@ -62,8 +10,7 @@
     min-height: 8rem;
 
     border-radius: 8px;
-    padding: 0.4rem;
-    padding-bottom: 0;
+    padding-bottom: 0.4rem;
 
     transition: all 0.1s ease-in;
 
@@ -73,7 +20,61 @@
     }
 
     > * {
-      margin-bottom: 0.4rem;
+      margin-top: 0.4rem;
+      margin-inline: 0.4rem;
+    }
+  }
+}
+
+.titleContainer {
+  padding: 0.6rem;
+  transition: all 0.2s;
+  border-radius: 0.6rem;
+
+  display: flex;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: var(--color-bg-secondary);
+  }
+  margin-bottom: 1rem;
+
+  .label {
+    height: 1.4rem;
+    width: 1.4rem;
+    border-radius: 50%;
+    background-color: #49c4e5;
+    margin-right: 0.6rem;
+  }
+  display: flex;
+  align-items: center;
+
+  .title {
+    display: flex;
+  }
+
+  .iconContainer {
+    display: grid;
+    place-items: center;
+    border-radius: 0.6rem;
+    padding: 0.2rem;
+
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    background-color: var(--color-bg-primary);
+
+    transition: all 0.2s;
+
+    &:hover {
+      scale: 1.05;
+    }
+  }
+
+  &:hover {
+    .iconContainer {
+      opacity: 1;
+      pointer-events: all;
     }
   }
 }

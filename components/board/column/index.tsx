@@ -27,11 +27,7 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
     <Droppable droppableId={_id} type="cards">
       {(provided) => {
         return (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className={styles.container}
-          >
+          <div>
             <div className={styles.titleContainer}>
               <div className={styles.title}>
                 <div className={styles.label}></div>
@@ -46,41 +42,48 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
               </div>
             </div>
             <div
-              className={
-                isCardDragging
-                  ? `${styles.cardsContainer} ${styles.cardsContainerDragging}`
-                  : `${styles.cardsContainer}`
-              }
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className={styles.container}
             >
-              {tasks?.map((card: any, index) => {
-                return (
-                  <Draggable
-                    index={index}
-                    draggableId={card?._id}
-                    key={card?._id}
-                  >
-                    {(provided) => {
-                      return (
-                        <div
-                          {...provided.dragHandleProps}
-                          {...provided.draggableProps}
-                          ref={provided.innerRef}
-                        >
-                          <Card
-                            title={card?.title}
-                            subtasks={card?.subtasks}
-                            description={card?.description}
-                            status={card?.status}
-                            _id={card?._id}
-                            columnId={_id}
-                          />
-                        </div>
-                      );
-                    }}
-                  </Draggable>
-                );
-              })}
-              {provided.placeholder}
+              <div
+                className={
+                  isCardDragging
+                    ? `${styles.cardsContainer} ${styles.cardsContainerDragging}`
+                    : `${styles.cardsContainer}`
+                }
+              >
+                {tasks?.map((card: any, index) => {
+                  return (
+                    <Draggable
+                      index={index}
+                      draggableId={card?._id}
+                      key={card?._id}
+                    >
+                      {(provided) => {
+                        return (
+                          <div
+                            {...provided.dragHandleProps}
+                            {...provided.draggableProps}
+                            ref={provided.innerRef}
+                            className={styles.card}
+                          >
+                            <Card
+                              title={card?.title}
+                              subtasks={card?.subtasks}
+                              description={card?.description}
+                              status={card?.status}
+                              _id={card?._id}
+                              columnId={_id}
+                            />
+                          </div>
+                        );
+                      }}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </div>
             </div>
           </div>
         );
