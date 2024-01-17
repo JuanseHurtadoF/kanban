@@ -13,6 +13,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const { title, description, subtasks, _id } = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
+  const completedSubtasks = subtasks?.filter((item) => item.isCompleted);
   const { deleteTask } = useRemoveTask();
 
   const { activeBoard } = useSelector((state: any) => state.global);
@@ -64,7 +65,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
             <div className={styles.subtasksTitle}>
               <Text
                 variant="secondary"
-                text={`Subtasks (0 of ${subtasks?.length})`}
+                text={`Subtasks (${completedSubtasks.length} of ${subtasks?.length})`}
               />
             </div>
             {subtasks?.map((item) => {
