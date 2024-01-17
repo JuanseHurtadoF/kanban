@@ -22,6 +22,7 @@ export { type EditBoardProps } from "./modals";
 export { type Error } from "./error";
 export { type TaskData } from "./board/task";
 export { type ColumnData } from "./board/column";
+export { type EditableHeadingProps } from "./typography/editable/editableHeading";
 
 // hooks
 export { type EditBoardNameProps } from "./hooks/editBoard";

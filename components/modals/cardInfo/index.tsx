@@ -3,28 +3,24 @@ import { useSelector } from "react-redux";
 import { RootState } from "@types";
 import styles from "./cardInfo.module.scss";
 import { CardInfoProps, subtask } from "@types";
-import { Button, CheckBox, Dropdown, Heading, Text } from "@components";
+import { Button, CheckBox, EditableHeading, Text } from "@components";
 import { useToggleSubtaskMutation } from "state/api";
 import { toggleSubtaskLocal } from "state";
 import { useDispatch } from "react-redux";
 import useRemoveTask from "hooks/useRemoveTask";
+import useEditTask from "hooks/useEditTask";
 
 const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
-  const { title, description, subtasks, _id } = useSelector(
+  const { title, description, subtasks, _id, columnId } = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
+  const completedSubtasks = subtasks?.filter((item) => item.isCompleted);
   const { deleteTask } = useRemoveTask();
-
-  const { activeBoard } = useSelector((state: any) => state.global);
-
+  const { updateTask } = useEditTask();
   const dispatch = useDispatch();
 
   const highlightedCard = useSelector(
     (state: RootState) => state.global.highlightedCard
-  );
-
-  const currentBoardId = useSelector(
-    (state: any) => state.global.activeBoard._id
   );
 
   const [toggleSubtask] = useToggleSubtaskMutation();
@@ -33,7 +29,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
     dispatch(
       toggleSubtaskLocal({
         subtaskId: item._id,
-        cardId: highlightedCard._id,
+        cardId: _id,
       })
     );
     toggleSubtask({
@@ -44,10 +40,18 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const handleDelete = (e: any) => {
     onClick(e);
     deleteTask({
-      columnId: highlightedCard.columnId,
-      taskId: highlightedCard._id,
+      columnId,
+      taskId: _id,
       prevTask: highlightedCard,
     });
+  };
+
+  // const handleTaskChange = async (name, prevName) => {
+  //   const response = await updateTask(name, prevName);
+  // };
+
+  const changeTaskName = ({ name, prevName }) => {
+    updateTask({ name, prevName });
   };
 
   return (
@@ -55,14 +59,22 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
       <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
         <div>
           <div className={styles.textContainer}>
-            <Heading variant={2} title={title} />
-            <p className={styles.text}>{description}</p>
+            <EditableHeading
+              variant={2}
+              title={title}
+              onEdit={changeTaskName}
+            />
+            <textarea
+              defaultValue={description}
+              placeholder="Description..."
+              className={styles.text}
+            ></textarea>
           </div>
           <div className={styles.subtasks}>
             <div className={styles.subtasksTitle}>
               <Text
                 variant="secondary"
-                text={`Subtasks (0 of ${subtasks?.length})`}
+                text={`Subtasks (${completedSubtasks.length} of ${subtasks?.length})`}
               />
             </div>
             {subtasks?.map((item) => {
@@ -76,7 +88,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
               );
             })}
           </div>
-          <div className={styles.status}>
+          {/* <div className={styles.status}>
             <div className={styles.statusTitle}>
               <Dropdown
                 title="Status"
@@ -89,7 +101,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
                 onChange={(e) => console.log("Changing")}
               />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className={styles.delete}>
           <Button

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./sidebar.module.scss";
-import { Heading, Text, Icon, Switch, Logo, Input, EditableBoardName } from "@components";
+import { Heading, Text, Icon, Switch, Logo, Input } from "@components";
 import { SidebarProps } from "@types";
 import {
   setBoards,

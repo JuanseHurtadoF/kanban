@@ -138,10 +138,37 @@ export const globalSlice = createSlice({
       });
       column.tasks = newTasks;
     },
-
     setHighlightedCard: (state, action) => {
       const card = action.payload;
       state.highlightedCard = card;
+    },
+    editTaskLocal: (state, action) => {
+      const { newName } = action.payload;
+      const boardId = state.activeBoard._id;
+      const columnId = state.highlightedCard.columnId;
+
+      state.highlightedCard.title = newName;
+
+      const column = state.activeBoard.columns.find(
+        (column: any) => column._id === columnId
+      );
+
+      if (column) {
+        column.tasks = column.tasks.map((task: any) => {
+          if (task._id === state.highlightedCard._id) {
+            task.title = newName;
+          }
+          return task;
+        });
+      }
+
+      state.allBoards = state.allBoards.map((currentBoard: any) => {
+        if (currentBoard._id === boardId) {
+          return state.activeBoard;
+        } else {
+          return currentBoard;
+        }
+      });
     },
 
     // Subtasks
@@ -216,6 +243,7 @@ export const {
   setHighlightedCard,
   addTaskLocal,
   removeTaskLocal,
+  editTaskLocal,
   replaceTaskLocal,
   moveTaskLocal,
   toggleSubtaskLocal,

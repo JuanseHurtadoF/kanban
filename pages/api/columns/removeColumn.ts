@@ -31,7 +31,6 @@ export default async function handler(
     // @ts-ignore
     const column = await Column.findById(columnId);
     if (!column) {
-      console.log("HERE");
       return res
         .status(404)
         .json({ success: false, message: "Column not found" });
