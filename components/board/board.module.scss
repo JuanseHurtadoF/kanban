@@ -25,12 +25,12 @@
     min-height: 80vh;
     max-width: 28rem;
     min-width: 25rem;
-    background: var(--color-bg-gradient);
+    background: var(--color-bg-secondary);
     max-width: 28rem;
     border-radius: 8px;
 
     &:hover {
-      background: var(--color-bg-gradient-hover);
+      background: var(--color-bg-tertiary);
     }
     .text {
       font-family: var(--font-primary);
