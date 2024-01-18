@@ -50,9 +50,6 @@ export default async function handler(
       const savedSource = await sourceColumn.save();
       const savedDestination = await destinationColumn.save();
     }
-    // if same, then reoder the tasks in the column
-    // if different, then remove the task from the source column and add it to the destination column in the correct index
-
     res.status(200).json({ message: "test" });
   } catch (error: any) {
     res.status(500).json({ error: error.message });

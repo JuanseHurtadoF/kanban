@@ -94,6 +94,13 @@ export const api: any = createApi({
         body: { boardId, source, destination },
       }),
     }),
+    reorderColumn: build.mutation({
+      query: ({ columnId, source, destination }) => ({
+        url: "columns/reorderColumn",
+        method: "PUT",
+        body: { columnId, source, destination },
+      }),
+    }),
   }),
 });
 
@@ -109,4 +116,5 @@ export const {
   useEditTaskMutation,
   useToggleSubtaskMutation,
   useReorderTaskMutation,
+  useReorderColumnMutation,
 } = api;
