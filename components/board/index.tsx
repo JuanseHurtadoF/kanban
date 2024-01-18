@@ -4,16 +4,27 @@ import { Column, Loading, Icon, Input } from "@components";
 import { ColumnProps, BoardProps } from "@types";
 import { useSelector, useDispatch } from "react-redux";
 import useAddColumn from "hooks/useAddColumn";
+import { useGetBoardsQuery } from "state/api";
+import { setBoards } from "state";
 
 const Board: FC<BoardProps> = ({ fullWidth }) => {
   const { allBoards, activeBoard, user } = useSelector(
     (state: any) => state.global
   );
+
+  const dispatch = useDispatch();
+
+  const { data, isLoading } = useGetBoardsQuery();
+
   const { addNewColumn } = useAddColumn();
   const [isColumnBeingAdded, setIsColumnBeingAdded] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [columnName, setColumnName] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!data) return;
+    dispatch(setBoards(data?.boards));
+  }, [data]);
 
   const toggleAddColumn = () => {
     setIsColumnBeingAdded(true);
@@ -57,12 +68,6 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
     handleStopCreatingColumn();
     await addNewColumn({ boardId: activeBoard._id, column: newColumn });
   };
-
-  useEffect(() => {
-    // Fix later
-    // Assuming that allBoards is always an array (either empty or with items)
-    setIsLoading(false);
-  }, [allBoards]);
 
   return (
     <div

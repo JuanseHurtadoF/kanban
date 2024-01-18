@@ -9,10 +9,9 @@ import {
   addBoardLocal,
   removeBoardLocal,
 } from "state";
-import { useAddBoardMutation, useGetBoardsQuery } from "state/api";
+import { useAddBoardMutation } from "state/api";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
-  const { data } = useGetBoardsQuery();
   const { allBoards, user, activeBoard } = useSelector(
     (state: any) => state.global
   );
@@ -24,13 +23,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
 
   // State management configuration
   const dispatch = useDispatch();
-  const [addBoard] = useAddBoardMutation();
-
-  // Set boards in global state
-  useEffect(() => {
-    if (!data) return;
-    dispatch(setBoards(data?.boards));
-  }, [data]);
+  const [addBoard] = useAddBoardMutation();  
 
   // Functionality for adding a board
   const handleChange = (event: any) => {
@@ -95,7 +88,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
           <div className={styles.title}>
             <Heading
               variant={4}
-              title={`ALL BOARDS (${!data ? "0" : allBoards?.length})`}
+              title={`ALL BOARDS (${allBoards?.length})`}
             />
           </div>
 
