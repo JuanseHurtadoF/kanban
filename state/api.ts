@@ -22,7 +22,7 @@ export const api: any = createApi({
     removeBoard: build.mutation({
       query: ({ boardId }) => ({
         url: "boards/removeBoard",
-        method: "POST",
+        method: "DELETE",
         body: { boardId },
       }),
       invalidatesTags: ["Board"],
@@ -30,7 +30,7 @@ export const api: any = createApi({
     changeBoardName: build.mutation({
       query: ({ name, boardId }) => ({
         url: "boards/changeBoardName",
-        method: "POST",
+        method: "PUT",
         body: { name, boardId },
       }),
       invalidatesTags: ["Board"],
@@ -62,7 +62,7 @@ export const api: any = createApi({
     removeTask: build.mutation({
       query: ({ columnId, taskId }) => ({
         url: "tasks/removeTask",
-        method: "POST",
+        method: "DELETE",
         body: { columnId, taskId },
       }),
       invalidatesTags: ["Board", "Task"],
@@ -80,7 +80,7 @@ export const api: any = createApi({
     toggleSubtask: build.mutation({
       query: ({ subtaskId }) => ({
         url: "subtasks/toggleSubtask",
-        method: "POST",
+        method: "PUT",
         body: { subtaskId },
       }),
       invalidatesTags: ["Board", "Task", "Subtask"],
@@ -90,7 +90,7 @@ export const api: any = createApi({
     reorderTask: build.mutation({
       query: ({ boardId, source, destination }) => ({
         url: "tasks/reorderTask",
-        method: "POST",
+        method: "PUT",
         body: { boardId, source, destination },
       }),
     }),

@@ -19,7 +19,7 @@ export default async function handler(
     await connectDB(process.env.MONGODB_URL);
     const { name, boardId } = req.body;
 
-    if (req.method !== "POST") {
+    if (req.method !== "PUT") {
       return res.status(400).json({ success: "false" });
     }
 
