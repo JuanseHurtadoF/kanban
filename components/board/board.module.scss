@@ -2,6 +2,7 @@
   overflow: scroll;
   height: 100vh;
   width: calc(100vw - 250px);
+  display: flex;
 
   &FullWidth {
     width: 100vw;
@@ -12,7 +13,7 @@
     min-height: 100vh;
     display: flex;
     padding: 2rem;
-    padding-bottom: 24rem;
+    // padding-bottom: 24rem;
     > div {
       margin-right: 1.2rem;
     }
@@ -51,6 +52,7 @@
     align-items: flex-start;
     max-width: 28rem;
     min-width: 25rem;
+    margin-top: 2rem;
     .createColumnInput {
       display: grid;
       grid-template-columns: auto 16px;

@@ -12,6 +12,7 @@ export const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
+    // ******** BOARDS ******** //
     setBoards: (state, action) => {
       const boards = action.payload;
       state.allBoards = boards;
@@ -42,6 +43,8 @@ export const globalSlice = createSlice({
       board.name = name;
       state.activeBoard = board;
     },
+
+    // ******** COLUMNS ******** //
     addColumnLocal: (state, action) => {
       const { boardId, column } = action.payload;
       const board = state.allBoards.find((board: any) => board._id === boardId);
@@ -86,6 +89,8 @@ export const globalSlice = createSlice({
 
       state.activeBoard.columns = newColumns;
     },
+
+    // ******** TASKS ******** //
     addTaskLocal: (state, action) => {
       const { task, columnId } = action.payload;
 
@@ -171,7 +176,7 @@ export const globalSlice = createSlice({
       });
     },
 
-    // Subtasks
+    // ******** SUBTASKS ******** //
     toggleSubtaskLocal: (state, action) => {
       const { subtaskId, cardId } = action.payload;
 
@@ -202,7 +207,7 @@ export const globalSlice = createSlice({
       task.subtasks = updatedSubtasks;
     },
 
-    // Drag and Drop
+    // ******** DRAG & DROP ******** //
     moveTaskLocal: (state, action) => {
       const { boardId, columnId, taskId, source, destination } = action.payload;
       const board = state.allBoards.find((board: any) => board._id === boardId);
@@ -228,6 +233,18 @@ export const globalSlice = createSlice({
         }
       });
     },
+    moveColumnLocal: (state, action) => {
+      const boardId = state.activeBoard._id;
+      const { source, destination, columnId } = action.payload;
+      let board = state.activeBoard;
+
+      const columnToMove = board.columns.find(
+        (column: any) => column._id === columnId
+      );
+      board.columns = board.columns.filter((col) => col._id !== columnId);
+      board.columns.splice(destination.index, 0, columnToMove);
+      state.activeBoard = board;
+    },
   },
 });
 
@@ -246,6 +263,7 @@ export const {
   editTaskLocal,
   replaceTaskLocal,
   moveTaskLocal,
+  moveColumnLocal,
   toggleSubtaskLocal,
 } = globalSlice.actions;
 export default globalSlice.reducer;

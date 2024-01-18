@@ -6,11 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import useAddColumn from "hooks/useAddColumn";
 import { useGetBoardsQuery } from "state/api";
 import { setBoards } from "state";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const Board: FC<BoardProps> = ({ fullWidth }) => {
-  const { allBoards, activeBoard, user } = useSelector(
-    (state: any) => state.global
-  );
+  const { activeBoard } = useSelector((state: any) => state.global);
 
   const dispatch = useDispatch();
 
@@ -20,6 +19,7 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
   const [isColumnBeingAdded, setIsColumnBeingAdded] = useState<boolean>(false);
   const [columnName, setColumnName] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
+  const droppableId = activeBoard?._id || "fallback-board-id";
 
   useEffect(() => {
     if (!data) return;
@@ -82,38 +82,72 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
           <Loading />
         </div>
       ) : (
-        <div className={styles.board}>
-          {activeBoard?.columns?.map(({ name, tasks, _id }: ColumnProps) => {
-            return <Column _id={_id} key={_id} name={name} tasks={tasks} />;
-          })}
-          {isColumnBeingAdded ? (
-            <div className={styles.createColumnInputContainer}>
-              <div className={styles.createColumnInput}>
-                <form onSubmit={(e) => handleColumnSubmit(e)}>
-                  <Input
-                    placeholder="Column Name"
-                    onChange={handleChange}
-                    error={error}
-                    focused={true}
-                  />
-                </form>
-                <div
-                  onClick={handleStopCreatingColumn}
-                  className={styles.delete}
-                >
-                  <Icon variant="close" height={14} width={14} />
-                </div>
+        <Droppable
+          direction="horizontal"
+          droppableId={droppableId}
+          type="columns"
+        >
+          {(provided) => {
+            return (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className={styles.board}
+              >
+                {activeBoard?.columns?.map(
+                  ({ name, tasks, _id }: ColumnProps, index) => {
+                    return (
+                      <Draggable index={index} draggableId={_id} key={_id}>
+                        {(provided) => {
+                          return (
+                            <div
+                              {...provided.dragHandleProps}
+                              {...provided.draggableProps}
+                              ref={provided.innerRef}
+                            >
+                              <Column
+                                _id={_id}
+                                key={_id}
+                                name={name}
+                                tasks={tasks}
+                              />
+                            </div>
+                          );
+                        }}
+                      </Draggable>
+                    );
+                  }
+                )}
+                {provided.placeholder}
+              </div>
+            );
+          }}
+        </Droppable>
+      )}
+      <div>
+        {isColumnBeingAdded ? (
+          <div className={styles.createColumnInputContainer}>
+            <div className={styles.createColumnInput}>
+              <form onSubmit={(e) => handleColumnSubmit(e)}>
+                <Input
+                  placeholder="Column Name"
+                  onChange={handleChange}
+                  error={error}
+                  focused={true}
+                />
+              </form>
+              <div onClick={handleStopCreatingColumn} className={styles.delete}>
+                <Icon variant="close" height={14} width={14} />
               </div>
             </div>
-          ) : (
-            <div onClick={toggleAddColumn} className={styles.newColumn}>
-              <p className={styles.text}>+ New Column</p>
-            </div>
-          )}
-
-          <div className={styles.empty}></div>
-        </div>
-      )}
+          </div>
+        ) : (
+          <div onClick={toggleAddColumn} className={styles.newColumn}>
+            <p className={styles.text}>+ New Column</p>
+          </div>
+        )}
+        <div className={styles.empty}></div>
+      </div>
     </div>
   );
 };

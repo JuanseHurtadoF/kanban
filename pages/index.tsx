@@ -6,11 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { moveTaskLocal } from "state";
 import { useReorderTaskMutation } from "state/api";
 import { isCardDragging } from "state/dragAndDrop";
+import useReorderColumns from "hooks/useReorderColumns";
 
 export default function Home() {
   const dispatch = useDispatch();
   const [reorderTask] = useReorderTaskMutation({});
   const { _id } = useSelector((state: any) => state.global.activeBoard) || {};
+
+  const { handleReorderColumn } = useReorderColumns();
 
   const onDragStart = () => {
     dispatch(isCardDragging(true));
@@ -36,9 +39,14 @@ export default function Home() {
 
     // If user drops the draggable in a different droppable area
     if (type === "cards") {
-      dispatch(isCardDragging(false));
       reorderTasks(destination, source, draggableId);
     }
+
+    if (type === "columns") {
+      handleReorderColumn(destination, source, draggableId);
+    }
+
+    dispatch(isCardDragging(false));
   };
 
   const reorderTasks = async (destination, source, draggableId) => {
