@@ -109,6 +109,7 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
                               {...provided.dragHandleProps}
                               {...provided.draggableProps}
                               ref={provided.innerRef}
+                              className={styles.columnContainer}
                             >
                               <Column
                                 _id={_id}

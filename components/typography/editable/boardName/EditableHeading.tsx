@@ -11,7 +11,7 @@ const EditableHeading: FC<EditableHeadingProps> = ({
   onEdit,
 }) => {
   const { boardId } = useSelector((state: any) => ({
-    boardId: state.global.activeBoard._id,
+    boardId: state.global.activeBoard?._id,
   }));
 
   const [newTitle, setNewTitle] = useState("");

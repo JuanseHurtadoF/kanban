@@ -29,7 +29,7 @@ const Nav: FC<NavProps> = ({ toggleNewCard, toggleDeleteModal }) => {
         <EditableHeading
           onEdit={changeBoardName}
           variant={1}
-          title={activeBoard.name}
+          title={activeBoard?.name}
         />
       </div>
       <div className={styles.actionsContainer}>

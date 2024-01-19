@@ -5,7 +5,7 @@ import { useReorderColumnMutation } from "state/api";
 const useReorderColumns = () => {
   const dispatch = useDispatch();
   const [reorderColumn] = useReorderColumnMutation();
-  const { _id } = useSelector((state: any) => state.global.activeBoard);
+  const { _id } = useSelector((state: any) => state.global.activeBoard) ?? {};
 
   const handleReorderColumn = async (destination, source, draggableId) => {
     dispatch(
