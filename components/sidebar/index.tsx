@@ -10,6 +10,7 @@ import {
   removeBoardLocal,
 } from "state";
 import { useAddBoardMutation } from "state/api";
+import { ObjectId } from "bson";
 
 const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   const { allBoards, user, activeBoard } = useSelector(
@@ -23,7 +24,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
 
   // State management configuration
   const dispatch = useDispatch();
-  const [addBoard] = useAddBoardMutation();  
+  const [addBoard] = useAddBoardMutation();
 
   // Functionality for adding a board
   const handleChange = (event: any) => {
@@ -51,20 +52,24 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
   const handleNewBoard = async (event: any) => {
     event.preventDefault();
 
-    const id = `newBoard-${Date.now()}`;
+    const objectId = new ObjectId();
+    const newBoardId = objectId.toString();
+
     const newBoard = {
       name: boardName,
       userId: user,
       columns: [],
-      _id: id,
+      _id: newBoardId,
     };
+
     dispatch(addBoardLocal(newBoard));
     setIsBoardBeingAdded(false);
     handleStopCreatingBoard(event);
     try {
+      console.log("now", newBoard);
       const result = await addBoard(newBoard);
       if (result.error?.status === 500) {
-        dispatch(removeBoardLocal(id));
+        dispatch(removeBoardLocal(newBoardId));
         alert(
           "Something went wrong while adding a board, please try again later."
         );
@@ -86,10 +91,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
         </div>
         <div className={styles.boardsContainer}>
           <div className={styles.title}>
-            <Heading
-              variant={4}
-              title={`ALL BOARDS (${allBoards?.length})`}
-            />
+            <Heading variant={4} title={`ALL BOARDS (${allBoards?.length})`} />
           </div>
 
           <div className={styles.boards}>

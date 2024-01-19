@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useAddColumnMutation } from "state/api";
 import { AddColumnProps } from "@types";
 import { addColumnLocal, removeColumnLocal, replaceColumnLocal } from "state";
+import { ObjectId } from "bson";
 
 const useAddColumn = () => {
   const [error, setError] = useState(null);
@@ -11,18 +12,23 @@ const useAddColumn = () => {
 
   const dispatch = useDispatch();
 
-  const addNewColumn = async ({ boardId, column }: AddColumnProps) => {
+  const addNewColumn = async ({ column, boardId }: AddColumnProps) => {
+    const objectId = new ObjectId();
+    const newColumnId = objectId.toString();
+
+    const newColumn = { ...column, _id: newColumnId };
+
     // Add in local state
-    dispatch(addColumnLocal({ boardId, column }));
+    dispatch(addColumnLocal({ boardId, column: newColumn }));
 
     // Add in DB
-    const response = await addColumn({ boardId, name: column.name });
+    const response = await addColumn({ boardId, column: newColumn });
     if (response?.error?.status === 500) {
       setError(response.error.status);
       alert(
         "Something went wrong while adding the column. Please try again later"
       );
-      dispatch(removeColumnLocal({ boardId, columnId: column._id }));
+      dispatch(removeColumnLocal({ boardId, columnId: newColumnId }));
       return;
     }
 
@@ -31,7 +37,7 @@ const useAddColumn = () => {
       replaceColumnLocal({
         boardId,
         column: response.data.column,
-        prevColumn: column,
+        prevColumn: newColumn,
       })
     );
 

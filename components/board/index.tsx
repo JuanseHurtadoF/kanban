@@ -96,8 +96,13 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
               >
                 {activeBoard?.columns?.map(
                   ({ name, tasks, _id }: ColumnProps, index) => {
+                    const draggableId = _id.toString();
                     return (
-                      <Draggable index={index} draggableId={_id} key={_id}>
+                      <Draggable
+                        index={index}
+                        draggableId={draggableId}
+                        key={draggableId}
+                      >
                         {(provided) => {
                           return (
                             <div
@@ -107,7 +112,7 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
                             >
                               <Column
                                 _id={_id}
-                                key={_id}
+                                key={draggableId}
                                 name={name}
                                 tasks={tasks}
                               />

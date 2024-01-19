@@ -93,6 +93,7 @@ export const globalSlice = createSlice({
     // ******** TASKS ******** //
     addTaskLocal: (state, action) => {
       const { task, columnId } = action.payload;
+      console.log(task);
 
       const activeBoard = state.activeBoard;
 

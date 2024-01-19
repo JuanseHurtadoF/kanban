@@ -13,7 +13,7 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
     (state: any) => state.dragAndDrop.isCardDragging
   );
   const boardId = useSelector((state: any) => state.global.activeBoard._id);
-
+  const droppableId = _id.toString();
   const { deleteColumn } = useRemoveColumn();
 
   const handleDeleteColumn: any = ({
@@ -24,7 +24,7 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
   };
 
   return (
-    <Droppable droppableId={_id} type="cards">
+    <Droppable droppableId={droppableId} type="cards">
       {(provided) => {
         return (
           <div>
