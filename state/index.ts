@@ -28,7 +28,9 @@ export const globalSlice = createSlice({
     },
     addBoardLocal: (state, action) => {
       const newBoard = action.payload;
+      console.log(newBoard)
       state.allBoards.push(newBoard);
+
     },
     removeBoardLocal: (state, action) => {
       const boardId = action.payload;

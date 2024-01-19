@@ -12,10 +12,10 @@ export const api: any = createApi({
       providesTags: ["Board"],
     }),
     addBoard: build.mutation({
-      query: ({ name, userId, columns }) => ({
+      query: ({ name, userId, columns, _id }) => ({
         url: "boards/addBoard",
         method: "POST",
-        body: { name, userId },
+        body: { name, userId, _id },
       }),
       invalidatesTags: ["Board"],
     }),

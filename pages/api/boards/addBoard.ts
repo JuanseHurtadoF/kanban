@@ -12,10 +12,12 @@ export default async function handler(
   await connectDB(process.env.MONGODB_URL);
 
   try {
-    const { name, userId, columns } = req.body;
+    const { name, userId, columns, _id } = req.body;
+
+    console.log(_id);
 
     // Create board
-    const board = new Board({ name, columns, user: userId });
+    const board = new Board({ _id, name, columns, user: userId });
     const result = await board.save();
 
     // Add board to user
