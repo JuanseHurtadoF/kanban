@@ -37,6 +37,8 @@ export default async function handler(
     const [removed] = columns.splice(source.index, 1);
     columns.splice(destination.index, 0, removed);
     const saved = await board.save();
+
+    return res.status(200).json({ success: true, column: saved });
   } catch (error: any) {
     return res.status(500).json({ success: false, message: error.message });
   }

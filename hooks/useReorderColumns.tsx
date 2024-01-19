@@ -15,8 +15,6 @@ const useReorderColumns = () => {
         columnId: draggableId,
       })
     );
-
-    console.log({ columnId: draggableId, destination, source });
     reorderColumn({ columnId: draggableId, source, destination });
   };
 

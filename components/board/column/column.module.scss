@@ -1,7 +1,6 @@
 .container {
   max-width: 25rem;
   min-width: 25rem;
-  min-height: calc(100vh - 8rem);
 
   .cardsContainer {
     list-style: none; /* Fallback for older browsers */
@@ -12,7 +11,7 @@
     border-radius: 8px;
     padding-bottom: 0.4rem;
 
-    transition: all 0.1s ease-in;
+    transition: all 0.1s ease-out;
 
     &Dragging {
       transition: all 0.1s ease-in;

@@ -244,6 +244,14 @@ export const globalSlice = createSlice({
       board.columns = board.columns.filter((col) => col._id !== columnId);
       board.columns.splice(destination.index, 0, columnToMove);
       state.activeBoard = board;
+
+      state.allBoards = state.allBoards.map((currentBoard: any) => {
+        if (currentBoard._id === boardId) {
+          return board;
+        } else {
+          return currentBoard;
+        }
+      });
     },
   },
 });
