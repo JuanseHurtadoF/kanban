@@ -5,7 +5,7 @@ import { ObjectId } from "mongoose";
 export type ColumnProps = {
   name: string;
   tasks: CardProps[];
-  _id: ObjectId | string;
+  _id: string | ObjectId;
 };
 
 // back

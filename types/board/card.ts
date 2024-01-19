@@ -6,6 +6,6 @@ export type CardProps = {
   description?: string;
   status?: string;
   subtasks: subtask[];
-  _id?: ObjectId;
-  columnId?: ObjectId | string;
+  _id: string;
+  columnId?: string | ObjectId;
 };
