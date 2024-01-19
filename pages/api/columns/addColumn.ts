@@ -16,15 +16,19 @@ export default async function handler(
   await connectDB(process.env.MONGODB_URL);
 
   try {
-    const { name, boardId } = req.body;
+    const { column, boardId } = req.body;
 
-    if (!name || !boardId) {
+    if (!column || !boardId) {
       return res.status(500).json({ success: false });
     }
 
     // Create column
 
-    const newColumn = new Column({ name, boardId });
+    const newColumn = new Column({
+      name: column.name,
+      boardId,
+      _id: column._id,
+    });
     const saved = await newColumn.save();
 
     // Push column to columns array in Board

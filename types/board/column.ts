@@ -1,14 +1,12 @@
 import { CardProps } from "@types";
 import { ObjectId } from "mongoose";
 
-
 // front
 export type ColumnProps = {
   name: string;
   tasks: CardProps[];
-  _id: string;
+  _id: ObjectId | string;
 };
-
 
 // back
 export type ColumnData = {

@@ -36,10 +36,10 @@ export const api: any = createApi({
       invalidatesTags: ["Board"],
     }),
     addColumn: build.mutation({
-      query: ({ name, boardId }) => ({
+      query: ({ column, boardId }) => ({
         url: "columns/addColumn",
         method: "POST",
-        body: { name, boardId },
+        body: { column, boardId },
       }),
       invalidatesTags: ["Board"],
     }),
