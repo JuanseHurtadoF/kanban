@@ -7,7 +7,7 @@ import { useChangeBoardNameMutation } from "state/api";
 
 const useEditBoardName = () => {
   const { boardId } = useSelector((state: any) => ({
-    boardId: state.global.activeBoard._id,
+    boardId: state.global.activeBoard?._id,
   }));
 
   const [error, setError] = useState(null);

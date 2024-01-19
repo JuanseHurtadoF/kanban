@@ -1,7 +1,9 @@
 .container {
+  display: flex;
   overflow: scroll;
   width: calc(100vw - 250px);
-  display: flex;
+  overflow: scroll;
+  height: calc(100vh - 7.4rem);
 
   &FullWidth {
     width: 100vw;
@@ -9,7 +11,7 @@
 
   .board {
     position: relative;
-    min-height: 100vh;
+    // min-height: 100vh;
     display: flex;
     padding: 2rem;
     // padding-bottom: 24rem;
@@ -65,7 +67,7 @@
     }
   }
   .empty {
-    min-height: 80vh;
+    // min-height: 80vh;
     max-width: 20rem;
     min-width: 20rem;
   }

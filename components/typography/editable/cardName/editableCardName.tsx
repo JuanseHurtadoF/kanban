@@ -7,7 +7,7 @@ import useEditBoardName from "hooks/useEditBoardName";
 const EditableCardName: FC = () => {
   const { boardName, boardId } = useSelector((state: any) => ({
     boardName: state.global.activeBoard.name,
-    boardId: state.global.activeBoard._id,
+    boardId: state.global.activeBoard?._id,
   }));
 
   const [newCardName, setNewCardName] = useState("");
