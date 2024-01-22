@@ -17,6 +17,8 @@ const Layout: FC = () => {
     (state: any) => state.modals.isCardInfoOpen
   );
 
+  const columns = useSelector((state: any) => state.global.activeBoard.columns);
+
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
   const [isTaskCreationOpen, setIsTaskCreationOpen] = useState<boolean>(false);
   const [isDeleteBoardOpen, setIsDeleteBoardOpen] = useState<boolean>(false);
@@ -38,6 +40,10 @@ const Layout: FC = () => {
   };
 
   const toggleNewCard = () => {
+    if (columns.length <= 0) {
+      alert("You can't add a task if you don't have any columns");
+      return;
+    }
     setIsTaskCreationOpen(!isTaskCreationOpen);
   };
 
