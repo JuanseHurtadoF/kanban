@@ -19,6 +19,8 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const { updateTask } = useEditTask();
   const dispatch = useDispatch();
 
+  console.log({ title, description, subtasks, _id, columnId });
+
   const highlightedCard = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
