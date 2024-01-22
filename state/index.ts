@@ -179,30 +179,37 @@ export const globalSlice = createSlice({
       const { subtaskId } = action.payload;
 
       const subtasks = state.highlightedCard.subtasks;
-      const updatedSubtasks = subtasks.map((st: subtask) => {
-        if (subtaskId === st._id)
-          return { ...st, isCompleted: !st.isCompleted };
-        else return st;
+      const updatedSubtasks = subtasks.map((subtask: subtask) => {
+        if (subtaskId === subtask._id)
+          return { ...subtask, isCompleted: !subtask.isCompleted };
+        else return subtask;
       });
-
       // Update subtasks of highlighted card
       state.highlightedCard.subtasks = updatedSubtasks;
 
-      // Get active board
-      const board = state.activeBoard;
-
-      // Find the column that matches with columnId of the highlighted card
-      const column = board.columns.find(
-        (column: any) => column._id === state.highlightedCard.columnId
+      // Find the column and task in the active board
+      const column = state.activeBoard.columns.find(
+        (column) => column._id === state.highlightedCard.columnId
       );
 
-      // Find the task that matches the id of the highlighted card
-      let task = column.tasks.find(
-        (task: any) => task._id === state.highlightedCard._id
-      );
+      if (column) {
+        const taskIndex = column.tasks.findIndex(
+          (task) => task._id === state.highlightedCard._id
+        );
+        if (taskIndex !== -1) {
+          // Update the subtasks in the found task
+          column.tasks[taskIndex] = {
+            ...column.tasks[taskIndex],
+            subtasks: updatedSubtasks,
+          };
 
-      // Update the subtasks of the task
-      task = { ...task, subtasks: updatedSubtasks };
+          // Create new copies of columns and activeBoard for immutable update
+          const updatedColumns = state.activeBoard.columns.map((c, index) =>
+            index === column._id ? { ...column, tasks: [...column.tasks] } : c
+          );
+          state.activeBoard = { ...state.activeBoard, columns: updatedColumns };
+        }
+      }
     },
 
     // ******** DRAG & DROP ******** //
