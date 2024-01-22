@@ -3,12 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./sidebar.module.scss";
 import { Heading, Text, Icon, Switch, Logo, Input } from "@components";
 import { SidebarProps } from "@types";
-import {
-  setBoards,
-  setActiveBoard,
-  addBoardLocal,
-  removeBoardLocal,
-} from "state";
+import { setActiveBoard, addBoardLocal, removeBoardLocal } from "state";
 import { useAddBoardMutation } from "state/api";
 import { ObjectId } from "bson";
 
@@ -64,6 +59,7 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
 
     dispatch(addBoardLocal(newBoard));
     setIsBoardBeingAdded(false);
+    changeActiveBoard(newBoardId);
     handleStopCreatingBoard(event);
     try {
       console.log("now", newBoard);
