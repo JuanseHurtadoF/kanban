@@ -16,7 +16,14 @@ const useAddTask = () => {
     const objectId = new ObjectId();
     const newTaskId = objectId.toString();
 
-    const newTask = { ...task, _id: newTaskId };
+    const subtasksWithId = task.subtasks.map((item) => {
+      return {
+        ...item,
+        _id: new ObjectId().toString(),
+      };
+    });
+
+    const newTask = { ...task, _id: newTaskId, subtasks: subtasksWithId };
 
     // Add in local state
     dispatch(addTaskLocal({ task: newTask, columnId }));

@@ -40,6 +40,7 @@ export default async function handler(
           title: subtasks[i].title,
           isCompleted: subtasks[i].isCompleted,
           taskId: taskId, // Set the taskId to the ID of the task you just created
+          _id: subtasks[i]._id,
         });
         const savedSubtask = await subtask.save(); // Save the subtask to the database
         subtaskIds.push(savedSubtask._id); // Push the ObjectId of the saved subtask

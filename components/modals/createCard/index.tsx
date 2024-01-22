@@ -62,7 +62,6 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
 
   const addSubtask = (event: any) => {
     event.preventDefault();
-
     event.stopPropagation();
     setSubtaskArray([...subtaskArray, { title: "", isCompleted: false }]);
   };
@@ -96,7 +95,6 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
       description: form.description,
       board: boardId,
       column: form.columnId,
-      _id: `newBoard-${Date.now()}`,
       user: user,
       subtasks: filteredArray,
     };

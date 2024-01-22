@@ -42,8 +42,6 @@ export default async function handler(
       propertiesToUpdate["subtasks"] = subtaskIds;
     }
 
-    console.log(subtaskIds);
-
     // @ts-ignore
     const result = await Task.findByIdAndUpdate(taskId, propertiesToUpdate, {
       new: true,
