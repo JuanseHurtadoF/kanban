@@ -181,7 +181,7 @@ export const globalSlice = createSlice({
     toggleSubtaskLocal: (state, action) => {
       const { subtaskId, cardId } = action.payload;
 
-      const subtasks = current(state.highlightedCard.subtasks);
+      const subtasks = state.highlightedCard.subtasks;
       const updatedSubtasks = subtasks.map((st: subtask) => {
         if (subtaskId === st._id)
           return { ...st, isCompleted: !st.isCompleted };

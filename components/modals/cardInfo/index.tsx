@@ -19,6 +19,8 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const { updateTask } = useEditTask();
   const dispatch = useDispatch();
 
+  console.log({ title, description, subtasks, _id, columnId });
+
   const highlightedCard = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
@@ -81,7 +83,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
               return (
                 <CheckBox
                   title={item.title}
-                  key={item.title}
+                  key={item.title} // change to id
                   isChecked={item.isCompleted}
                   onClick={() => handleSubtaskToggle(item)}
                 />
