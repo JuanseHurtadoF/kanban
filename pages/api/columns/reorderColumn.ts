@@ -20,8 +20,6 @@ export default async function handler(
     const { columnId, source, destination } = req.body;
     const boardId = source.droppableId;
 
-    console.log(boardId);
-
     if (!columnId || !source || !destination) {
       console.log("Missing body parameters");
       return res.status(500).json({ message: "Missing body parameters" });
@@ -29,11 +27,7 @@ export default async function handler(
 
     // @ts-ignore
     const board = await Board.findById(boardId);
-
-    console.log(board);
-
     const columns = board.columns;
-    console.log(columns);
     const [removed] = columns.splice(source.index, 1);
     columns.splice(destination.index, 0, removed);
     const saved = await board.save();

@@ -20,7 +20,6 @@ export default async function handler(
     const { columnId, boardId } = req.body;
     // Handle missing information
     if (!columnId || !boardId) {
-      console.log("error is here");
       return res.status(500).json({
         success: false,
         message: "columnId and boardId are required fields",

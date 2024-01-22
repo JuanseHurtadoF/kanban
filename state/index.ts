@@ -93,10 +93,7 @@ export const globalSlice = createSlice({
     // ******** TASKS ******** //
     addTaskLocal: (state, action) => {
       const { task, columnId } = action.payload;
-      console.log(task);
-
       const activeBoard = state.activeBoard;
-
       const activeColumn = activeBoard.columns.find(
         (col) => col._id === columnId
       );
@@ -179,7 +176,7 @@ export const globalSlice = createSlice({
 
     // ******** SUBTASKS ******** //
     toggleSubtaskLocal: (state, action) => {
-      const { subtaskId, cardId } = action.payload;
+      const { subtaskId } = action.payload;
 
       const subtasks = state.highlightedCard.subtasks;
       const updatedSubtasks = subtasks.map((st: subtask) => {
@@ -200,12 +197,12 @@ export const globalSlice = createSlice({
       );
 
       // Find the task that matches the id of the highlighted card
-      const task = column.tasks.find(
+      let task = column.tasks.find(
         (task: any) => task._id === state.highlightedCard._id
       );
 
       // Update the subtasks of the task
-      task.subtasks = updatedSubtasks;
+      task = { ...task, subtasks: updatedSubtasks };
     },
 
     // ******** DRAG & DROP ******** //
