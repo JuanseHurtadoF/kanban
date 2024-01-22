@@ -54,8 +54,6 @@ export default async function handler(
     });
     const savedTask = await newTask.save();
 
-    console.log(savedTask);
-
     // @ts-ignore
     const currentColumn = await Column.findByIdAndUpdate(
       column,

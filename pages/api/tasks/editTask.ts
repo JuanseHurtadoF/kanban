@@ -30,7 +30,6 @@ export default async function handler(
 
     if (subtasks && subtasks.length > 0) {
       for (let i = 0; i < subtasks.length; i++) {
-        console.log(subtasks[i]);
         const subtask = new Subtask({
           title: subtasks[i].title,
           isCompleted: subtasks[i].isCompleted,

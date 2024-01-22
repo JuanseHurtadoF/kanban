@@ -80,10 +80,11 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
               />
             </div>
             {subtasks?.map((item) => {
+              const _id = item._id.toString();
               return (
                 <CheckBox
                   title={item.title}
-                  key={item.title} // change to id
+                  key={_id}
                   isChecked={item.isCompleted}
                   onClick={() => handleSubtaskToggle(item)}
                 />
