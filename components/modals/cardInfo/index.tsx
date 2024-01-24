@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@types";
 import styles from "./cardInfo.module.scss";
@@ -14,12 +14,11 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const { title, description, subtasks, _id, columnId } = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
+  const [newDescription, setNewDescription] = useState("");
   const completedSubtasks = subtasks?.filter((item) => item.isCompleted);
   const { deleteTask } = useRemoveTask();
   const { updateTask } = useEditTask();
   const dispatch = useDispatch();
-
-  console.log({ title, description, subtasks, _id, columnId });
 
   const highlightedCard = useSelector(
     (state: RootState) => state.global.highlightedCard
@@ -48,12 +47,13 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
     });
   };
 
-  // const handleTaskChange = async (name, prevName) => {
-  //   const response = await updateTask(name, prevName);
-  // };
+  const handleDescriptionChange = (e: any) => {
+    e.preventDefault();
+    setNewDescription(e.target.value);
+  };
 
-  const changeTaskName = ({ name, prevName }) => {
-    updateTask({ name, prevName });
+  const editTask: any = ({ name, prevName }) => {
+    updateTask({ name, prevName, newDescription });
   };
 
   return (
@@ -61,15 +61,13 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
       <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
         <div>
           <div className={styles.textContainer}>
-            <EditableHeading
-              variant={2}
-              title={title}
-              onEdit={changeTaskName}
-            />
+            <EditableHeading variant={2} title={title} onEdit={editTask} />
             <textarea
               defaultValue={description}
               placeholder="Description..."
               className={styles.text}
+              onChange={handleDescriptionChange}
+              onBlur={editTask}
             ></textarea>
           </div>
           <div className={styles.subtasks}>

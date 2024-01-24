@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { CardProps, subtask } from "@types";
 
 const initialState: any = {
@@ -146,20 +146,30 @@ export const globalSlice = createSlice({
       state.highlightedCard = card;
     },
     editTaskLocal: (state, action) => {
-      const { newName } = action.payload;
+      const { newName, newDescription } = action.payload;
       const boardId = state.activeBoard._id;
       const columnId = state.highlightedCard.columnId;
 
-      state.highlightedCard.title = newName;
+      if (newName) state.highlightedCard.title = newName;
+      if (newDescription) state.highlightedCard.description = newDescription;
 
       const column = state.activeBoard.columns.find(
         (column: any) => column._id === columnId
       );
 
-      if (column) {
+      if (column && newName) {
         column.tasks = column.tasks.map((task: any) => {
           if (task._id === state.highlightedCard._id) {
             task.title = newName;
+          }
+          return task;
+        });
+      }
+
+      if (column && newDescription) {
+        column.tasks = column.tasks.map((task: any) => {
+          if (task._id === state.highlightedCard._id) {
+            task.description = newDescription;
           }
           return task;
         });
