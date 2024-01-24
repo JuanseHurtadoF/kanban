@@ -4,17 +4,18 @@ import { useEditTaskMutation } from "state/api";
 import { editTaskLocal } from "state";
 
 const useEditTask = () => {
-  const boardId = useSelector((state: any) => state.global.activeBoard._id);
   const [result, setResult] = useState(null);
   const dispatch = useDispatch();
   const [editTask] = useEditTaskMutation();
   const taskId = useSelector((state: any) => state.global.highlightedCard._id);
 
-  const updateTask = async ({ name, prevName }) => {
-    dispatch(editTaskLocal({ newName: name }));
+  const updateTask = async ({ name, prevName, newDescription }) => {
+    console.log(name, newDescription);
+    dispatch(editTaskLocal({ newName: name, newDescription }));
     const response = await editTask({
       title: name,
       taskId,
+      description: newDescription,
     });
   };
 
