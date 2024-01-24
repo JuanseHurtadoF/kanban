@@ -17,7 +17,7 @@ const Layout: FC = () => {
     (state: any) => state.modals.isCardInfoOpen
   );
 
-  const columns = useSelector((state: any) => state.global.activeBoard.columns);
+  const columns = useSelector((state: any) => state.global.activeBoard?.columns);
 
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(true);
   const [isTaskCreationOpen, setIsTaskCreationOpen] = useState<boolean>(false);
