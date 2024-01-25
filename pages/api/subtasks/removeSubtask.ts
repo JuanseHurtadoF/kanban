@@ -2,13 +2,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 import connectDB from "@utils/connectDB.js";
 import Subtask from "@utils/models/Subtask";
 import Column from "@utils/models/Column";
+import Task from "@utils/models/Task";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "DELETE") {
-    const { subtaskId } = req.body;
+    const { subtaskId, taskId } = req.body;
     try {
       // Connect to MongoDB
       await connectDB(process.env.MONGODB_URL);
@@ -16,11 +17,12 @@ export default async function handler(
       const subtask = await Subtask.findByIdAndDelete(subtaskId);
 
       // @ts-ignore
-      //   await Column.findByIdAndUpdate(
-      //     taskId,
-      //     { $pull: { subtasks: subtaskId } },
-      //     { new: true }
-      //   );
+      await Task.findByIdAndUpdate(
+        taskId,
+        { $pull: { subtasks: subtaskId } },
+        { new: true }
+      );
+
       res.status(200).json({ message: "Subtask removed successfully" });
     } catch (error) {
       console.error(error);

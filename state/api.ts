@@ -85,6 +85,14 @@ export const api: any = createApi({
       }),
       invalidatesTags: ["Board", "Task", "Subtask"],
     }),
+    removeSubtasks: build.mutation({
+      query: ({ subtaskId, taskId }) => ({
+        url: "subtasks/removeSubtask",
+        method: "DELETE",
+        body: { subtaskId, taskId },
+      }),
+      invalidatesTags: ["Board", "Task", "Subtask"],
+    }),
 
     // drag and drop
     reorderTask: build.mutation({
@@ -115,6 +123,7 @@ export const {
   useRemoveTaskMutation,
   useEditTaskMutation,
   useToggleSubtaskMutation,
+  useRemoveSubtasksMutation,
   useReorderTaskMutation,
   useReorderColumnMutation,
 } = api;

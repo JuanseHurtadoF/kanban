@@ -83,6 +83,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
                 <CheckBox
                   title={item.title}
                   key={_id}
+                  _id={_id}
                   isChecked={item.isCompleted}
                   onClick={() => handleSubtaskToggle(item)}
                 />

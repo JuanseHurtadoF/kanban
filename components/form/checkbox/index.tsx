@@ -2,8 +2,17 @@ import React, { FC } from "react";
 import styles from "./checkbox.module.scss";
 import { CheckBoxProps } from "@types";
 import Icon from "@components/icons";
+import useSubtaskActions from "hooks/useSubtaskActions";
 
-const CheckBox: FC<CheckBoxProps> = ({ title, isChecked, onClick }) => {
+const CheckBox: FC<CheckBoxProps> = ({ _id, title, isChecked, onClick }) => {
+  const { deleteSubtask } = useSubtaskActions();
+
+  const handleDeleteSubtask = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    deleteSubtask({ subtaskId: _id });
+  };
+
   const handleCheck = (e: any) => {
     e.preventDefault();
     onClick(e);
@@ -49,7 +58,7 @@ const CheckBox: FC<CheckBoxProps> = ({ title, isChecked, onClick }) => {
         <div className={styles.icon}>
           <Icon height={16} width={16} variant="edit" />
         </div>
-        <div className={styles.icon}>
+        <div onClick={handleDeleteSubtask} className={styles.icon}>
           <Icon height={16} width={16} variant="delete" />
         </div>
       </div>

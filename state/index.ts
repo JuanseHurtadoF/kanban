@@ -221,6 +221,37 @@ export const globalSlice = createSlice({
         }
       }
     },
+    removeSubtaskLocal: (state, action) => {
+      const { subtaskId } = action.payload;
+
+      const subtasks = state.highlightedCard.subtasks;
+      const updatedSubtasks = subtasks.filter(
+        (subtask: subtask) => subtaskId !== subtask._id
+      );
+      state.highlightedCard.subtasks = updatedSubtasks;
+
+      const column = state.activeBoard.columns.find(
+        (column) => column._id === state.highlightedCard.columnId
+      );
+
+      // find task to update
+      const taskIndex = column.tasks.findIndex(
+        (task) => task._id === state.highlightedCard._id
+      );
+      if (taskIndex !== -1) {
+        // Update the subtasks in the found task
+        column.tasks[taskIndex] = {
+          ...column.tasks[taskIndex],
+          subtasks: updatedSubtasks,
+        };
+
+        // Create new copies of columns and activeBoard for immutable update
+        const updatedColumns = state.activeBoard.columns.map((c, index) =>
+          index === column._id ? { ...column, tasks: [...column.tasks] } : c
+        );
+        state.activeBoard = { ...state.activeBoard, columns: updatedColumns };
+      }
+    },
 
     // ******** DRAG & DROP ******** //
     moveTaskLocal: (state, action) => {
@@ -288,5 +319,6 @@ export const {
   moveTaskLocal,
   moveColumnLocal,
   toggleSubtaskLocal,
+  removeSubtaskLocal,
 } = globalSlice.actions;
 export default globalSlice.reducer;
