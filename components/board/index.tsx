@@ -27,6 +27,10 @@ const Board: FC<BoardProps> = ({ fullWidth }) => {
   }, [data]);
 
   const toggleAddColumn = () => {
+    if (!activeBoard) {
+      alert("Please add a board first");
+      return;
+    }
     setIsColumnBeingAdded(true);
   };
 

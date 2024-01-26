@@ -130,7 +130,11 @@ const Sidebar: FC<SidebarProps> = ({ toggleSidebar }) => {
             )}
             <div
               onClick={() => setIsBoardBeingAdded(true)}
-              className={styles.board}
+              className={
+                activeBoard || isBoardBeingAdded
+                  ? `${styles.board}`
+                  : `${styles.board} ${styles.boardActive}`
+              }
             >
               + Create New Board
             </div>
