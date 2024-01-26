@@ -22,6 +22,7 @@ export default async function handler(
   try {
     // @ts-ignore
     const prevSubtask = await Subtask.findById(subtaskId);
+
     const changeTo = !prevSubtask.isCompleted;
     // @ts-ignore
     const subtask = await Subtask.findByIdAndUpdate(

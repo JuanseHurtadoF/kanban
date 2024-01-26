@@ -50,6 +50,7 @@ export default async function handler(
       { $pull: { columns: columnId } },
       { new: true }
     );
+    
 
     return res
       .status(200)
