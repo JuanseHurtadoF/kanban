@@ -85,11 +85,27 @@ export const api: any = createApi({
       }),
       invalidatesTags: ["Board", "Task", "Subtask"],
     }),
+    addSubtask: build.mutation({
+      query: ({ taskId, subtaskId, subtaskTitle }) => ({
+        url: "subtasks/addSubtask",
+        method: "POST",
+        body: { taskId, subtaskId, subtaskTitle },
+      }),
+      invalidatesTags: ["Board", "Task", "Subtask"],
+    }),
     removeSubtasks: build.mutation({
       query: ({ subtaskId, taskId }) => ({
         url: "subtasks/removeSubtask",
         method: "DELETE",
         body: { subtaskId, taskId },
+      }),
+      invalidatesTags: ["Board", "Task", "Subtask"],
+    }),
+    editSubtask: build.mutation({
+      query: ({ subtaskId, newTitle }) => ({
+        url: "subtasks/editSubtask",
+        method: "PUT",
+        body: { subtaskId, newTitle },
       }),
       invalidatesTags: ["Board", "Task", "Subtask"],
     }),
@@ -123,7 +139,9 @@ export const {
   useRemoveTaskMutation,
   useEditTaskMutation,
   useToggleSubtaskMutation,
+  useAddSubtaskMutation,
   useRemoveSubtasksMutation,
+  useEditSubtaskMutation,
   useReorderTaskMutation,
   useReorderColumnMutation,
 } = api;

@@ -221,6 +221,36 @@ export const globalSlice = createSlice({
         }
       }
     },
+    addSubtaskLocal: (state, action) => {
+      const { subtaskId, title } = action.payload;
+      state.highlightedCard.subtasks.push({
+        _id: subtaskId,
+        title,
+        isCompleted: false,
+      });
+
+      const column = state.activeBoard.columns.find(
+        (column) => column._id === state.highlightedCard.columnId
+      );
+
+      // find task to update
+      const taskIndex = column.tasks.findIndex(
+        (task) => task._id === state.highlightedCard._id
+      );
+      if (taskIndex !== -1) {
+        // Update the subtasks in the found task
+        column.tasks[taskIndex] = {
+          ...column.tasks[taskIndex],
+          subtasks: state.highlightedCard.subtasks,
+        };
+
+        // Create new copies of columns and activeBoard for immutable update
+        const updatedColumns = state.activeBoard.columns.map((c, index) =>
+          index === column._id ? { ...column, tasks: [...column.tasks] } : c
+        );
+        state.activeBoard = { ...state.activeBoard, columns: updatedColumns };
+      }
+    },
     removeSubtaskLocal: (state, action) => {
       const { subtaskId } = action.payload;
 
@@ -235,6 +265,37 @@ export const globalSlice = createSlice({
       );
 
       // find task to update
+      const taskIndex = column.tasks.findIndex(
+        (task) => task._id === state.highlightedCard._id
+      );
+      if (taskIndex !== -1) {
+        // Update the subtasks in the found task
+        column.tasks[taskIndex] = {
+          ...column.tasks[taskIndex],
+          subtasks: updatedSubtasks,
+        };
+
+        // Create new copies of columns and activeBoard for immutable update
+        const updatedColumns = state.activeBoard.columns.map((c, index) =>
+          index === column._id ? { ...column, tasks: [...column.tasks] } : c
+        );
+        state.activeBoard = { ...state.activeBoard, columns: updatedColumns };
+      }
+    },
+    editSubtaskLocal: (state, action) => {
+      const { subtaskId, newTitle } = action.payload;
+      console.log("hey");
+
+      // Update subtask in highlighted card
+      const updatedSubtasks = state.highlightedCard.subtasks.map((subtask) =>
+        subtask._id === subtaskId ? { ...subtask, title: newTitle } : subtask
+      );
+      state.highlightedCard.subtasks = updatedSubtasks;
+
+      // Update subtask in task
+      const column = state.activeBoard.columns.find(
+        (column) => column._id === state.highlightedCard.columnId
+      );
       const taskIndex = column.tasks.findIndex(
         (task) => task._id === state.highlightedCard._id
       );
@@ -319,6 +380,8 @@ export const {
   moveTaskLocal,
   moveColumnLocal,
   toggleSubtaskLocal,
+  addSubtaskLocal,
   removeSubtaskLocal,
+  editSubtaskLocal,
 } = globalSlice.actions;
 export default globalSlice.reducer;

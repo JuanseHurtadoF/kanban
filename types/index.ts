@@ -23,6 +23,7 @@ export { type Error } from "./error";
 export { type TaskData } from "./board/task";
 export { type ColumnData } from "./board/column";
 export { type EditableHeadingProps } from "./typography/editable/editableHeading";
+export { type AddCheckBoxProps } from "./form/addCheckbox";
 
 // hooks
 export { type EditBoardNameProps } from "./hooks/editBoard";
