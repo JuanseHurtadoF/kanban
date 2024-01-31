@@ -21,8 +21,32 @@
 
     .infoContainer {
       display: grid;
-      gap: 1.6rem;
       margin-bottom: 2rem;
+
+      label {
+        display: flex;
+        align-items: center;
+        width: max-content;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        border-radius: 0.2rem;
+        font-family: var(--font-primary);
+        color: var(--color-btn-secondary-label);
+        padding: 0.2rem;
+        // transition: all 0.2s;
+        margin-top: 0.4rem;
+        margin-bottom: 0.4rem;
+
+        &:hover {
+          scale: 1.05;
+          background: var(--color-button-secondary-bg);
+        }
+      }
+
+      .input {
+        display: none; // Hide the actual file input
+      }
 
       .text {
         font-family: var(--font-primary);
@@ -51,6 +75,7 @@
         overflow: hidden;
         max-height: 200px;
         border-radius: 0.6rem;
+        margin-bottom: 0.8rem;
         .img {
           width: 100%;
           border-radius: 0.6rem;
@@ -60,11 +85,10 @@
 
     .subtasks {
       display: grid;
-      gap: 0.6rem;
       margin-bottom: 3rem;
 
       &Title {
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.4rem;
       }
     }
 

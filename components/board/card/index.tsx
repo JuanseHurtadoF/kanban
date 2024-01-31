@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { FC, useEffect } from "react";
 import { CardProps } from "@types";
 import styles from "./card.module.scss";
-import { Button, Heading, Icon, Text } from "@components";
+import { Heading, Icon, Text } from "@components";
 import { useDispatch } from "react-redux";
 import { setHighlightedCard } from "state";
 import { toggleCardInfoModal } from "state/modals";
@@ -39,7 +40,7 @@ const Card: FC<CardProps> = ({
     <div onClick={openCardDetails} className={styles.container}>
       {imageUrl && (
         <div className={styles.imgContainer}>
-          <img className={styles.img} src={imageUrl}></img>
+          <img alt="Card Image" className={styles.img} src={imageUrl}></img>
         </div>
       )}
       <Heading title={title} variant={3} />

@@ -15,7 +15,8 @@ export type iconProps = {
     | "close"
     | "delete"
     | "edit"
-    | "subtask";
+    | "subtask"
+    | "image";
   fill?: Color;
   height?: number;
   width?: number;

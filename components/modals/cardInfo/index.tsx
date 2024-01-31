@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@types";
 import styles from "./cardInfo.module.scss";
 import { CardInfoProps, subtask } from "@types";
-import { Button, CheckBox, EditableHeading, Text } from "@components";
+import { Button, CheckBox, EditableHeading, Icon, Text } from "@components";
 import { useToggleSubtaskMutation } from "state/api";
 import { toggleSubtaskLocal } from "state";
 import { useDispatch } from "react-redux";
@@ -96,7 +96,16 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
               </div>
             )}
             <EditableHeading variant={2} title={title} onEdit={editTask} />
-            <input onChange={handleFile} type="file"></input>
+            <input
+              className={styles.input}
+              onChange={handleFile}
+              type="file"
+              accept="image/*"
+              id="file-upload"
+            ></input>
+            <label className={styles.uploadButton} htmlFor="file-upload">
+              <Icon height={20} width={20} variant="image" />
+            </label>
             <textarea
               defaultValue={description}
               placeholder="Description..."
