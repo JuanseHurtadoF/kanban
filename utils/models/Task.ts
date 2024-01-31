@@ -34,6 +34,16 @@ const TaskSchema = new mongoose.Schema(
         ref: "Subtask",
       },
     ],
+    imageUrl: {
+      type: String,
+      min: 2,
+      max: 200,
+    },
+    imageId: {
+      type: String,
+      min: 2,
+      max: 100,
+    },
   },
   { timestamps: true }
 );

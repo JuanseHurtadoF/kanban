@@ -1,26 +1,28 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@types";
 import styles from "./cardInfo.module.scss";
 import { CardInfoProps, subtask } from "@types";
-import { Button, CheckBox, EditableHeading, Text } from "@components";
+import { Button, CheckBox, EditableHeading, Icon, Text } from "@components";
 import { useToggleSubtaskMutation } from "state/api";
 import { toggleSubtaskLocal } from "state";
 import { useDispatch } from "react-redux";
 import useRemoveTask from "hooks/useRemoveTask";
 import useEditTask from "hooks/useEditTask";
+import useAddImage from "hooks/useAddImage";
 import { AddCheckbox } from "@components";
 
 const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
-  const { title, description, subtasks, _id, columnId } = useSelector(
-    (state: RootState) => state.global.highlightedCard
-  );
+  const { title, description, subtasks, _id, columnId, imageUrl, imageId } =
+    useSelector((state: RootState) => state.global.highlightedCard);
   const [newDescription, setNewDescription] = useState("");
   const [isSubtaskBeingAdded, setIsSubtaskBeingAdded] =
     useState<boolean>(false);
   const completedSubtasks = subtasks?.filter((item) => item.isCompleted);
   const { deleteTask } = useRemoveTask();
   const { updateTask } = useEditTask();
+  const { addImage } = useAddImage();
   const dispatch = useDispatch();
 
   const highlightedCard = useSelector(
@@ -67,12 +69,43 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
     setIsSubtaskBeingAdded(false);
   };
 
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const url = reader.result;
+        addImage({ file, imageUrl: url }); // Pass both file and url to the hook
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div onClick={onClick} className={styles.container}>
       <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
         <div>
-          <div className={styles.textContainer}>
+          <div className={styles.infoContainer}>
+            {imageUrl && (
+              <div className={styles.imgContainer}>
+                <img
+                  alt="Card Image"
+                  className={styles.img}
+                  src={imageUrl}
+                ></img>
+              </div>
+            )}
             <EditableHeading variant={2} title={title} onEdit={editTask} />
+            <input
+              className={styles.input}
+              onChange={handleFile}
+              type="file"
+              accept="image/*"
+              id="file-upload"
+            ></input>
+            <label className={styles.uploadButton} htmlFor="file-upload">
+              <Icon height={20} width={20} variant="image" />
+            </label>
             <textarea
               defaultValue={description}
               placeholder="Description..."
@@ -82,12 +115,11 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
             ></textarea>
           </div>
           <div className={styles.subtasks}>
-            <div className={styles.subtasksTitle}>
-              <Text
-                variant="secondary"
-                text={`Subtasks (${completedSubtasks.length} of ${subtasks?.length})`}
-              />
-            </div>
+            {subtasks.length > 0 && (
+              <div className={styles.subtasksTitle}>
+                <Text variant="secondary" text={`Subtasks:`} />
+              </div>
+            )}
             {subtasks?.map((item) => {
               const _id = item?._id?.toString();
               return (

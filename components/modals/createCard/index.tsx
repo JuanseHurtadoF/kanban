@@ -103,7 +103,7 @@ const CreateCard: FC<CreateCardProps> = ({ onClick }) => {
     onClick(event);
 
     // Use hook
-    const response = await addNewTask({
+    await addNewTask({
       boardId,
       columnId: form.columnId,
       task: newTask,
