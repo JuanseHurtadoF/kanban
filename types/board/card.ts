@@ -7,5 +7,6 @@ export type CardProps = {
   status?: string;
   subtasks: subtask[];
   _id: string;
+  image?: string;
   columnId?: string | ObjectId;
 };

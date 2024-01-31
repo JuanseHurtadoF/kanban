@@ -13,6 +13,7 @@ const Card: FC<CardProps> = ({
   status,
   _id,
   columnId,
+  image,
 }) => {
   const dispatch = useDispatch();
 
@@ -24,6 +25,7 @@ const Card: FC<CardProps> = ({
       status,
       _id,
       columnId,
+      image,
     };
     dispatch(setHighlightedCard(card));
     dispatch(toggleCardInfoModal(true));
@@ -33,9 +35,11 @@ const Card: FC<CardProps> = ({
 
   return (
     <div onClick={openCardDetails} className={styles.container}>
-      <div className={styles.imgContainer}>
-        <img className={styles.img} src="/image-test.png"></img>
-      </div>
+      {image && (
+        <div className={styles.imgContainer}>
+          <img className={styles.img} src={image}></img>
+        </div>
+      )}
       <Heading title={title} variant={3} />
       {subtasks?.length > 0 && (
         <div className={styles.subtaskContainer}>

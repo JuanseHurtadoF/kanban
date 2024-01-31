@@ -14,13 +14,12 @@ import useAddImage from "hooks/useAddImage";
 import { AddCheckbox } from "@components";
 
 const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
-  const { title, description, subtasks, _id, columnId } = useSelector(
+  const { title, description, subtasks, _id, columnId, image } = useSelector(
     (state: RootState) => state.global.highlightedCard
   );
   const [newDescription, setNewDescription] = useState("");
   const [isSubtaskBeingAdded, setIsSubtaskBeingAdded] =
     useState<boolean>(false);
-  const [image, setImage] = useState<string | null>(null);
   const completedSubtasks = subtasks?.filter((item) => item.isCompleted);
   const { deleteTask } = useRemoveTask();
   const { updateTask } = useEditTask();
@@ -74,17 +73,6 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const handleFile = (e: any) => {
     const file = e.target.files[0];
     addImage(file);
-
-    // set image to the uploaded image
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImage(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleRemoveImage = () => {
-    setImage(null);
   };
 
   return (

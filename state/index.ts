@@ -183,6 +183,13 @@ export const globalSlice = createSlice({
         }
       });
     },
+    addImageLocal: (state, action) => {
+      const { taskId, url } = action.payload;
+      const boardId = state.activeBoard._id;
+      const columnId = state.highlightedCard.columnId;
+
+      // add logic
+    },
 
     // ******** SUBTASKS ******** //
     toggleSubtaskLocal: (state, action) => {

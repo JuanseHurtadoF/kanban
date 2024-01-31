@@ -75,6 +75,7 @@ const Column: FC<ColumnProps> = ({ name, tasks, _id }) => {
                               status={card?.status}
                               _id={card?._id}
                               columnId={_id}
+                              image={card?.image}
                             />
                           </div>
                         );
