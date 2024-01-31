@@ -14,9 +14,8 @@ import useAddImage from "hooks/useAddImage";
 import { AddCheckbox } from "@components";
 
 const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
-  const { title, description, subtasks, _id, columnId, image } = useSelector(
-    (state: RootState) => state.global.highlightedCard
-  );
+  const { title, description, subtasks, _id, columnId, imageUrl, imageId } =
+    useSelector((state: RootState) => state.global.highlightedCard);
   const [newDescription, setNewDescription] = useState("");
   const [isSubtaskBeingAdded, setIsSubtaskBeingAdded] =
     useState<boolean>(false);
@@ -70,9 +69,16 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
     setIsSubtaskBeingAdded(false);
   };
 
-  const handleFile = (e: any) => {
+  const handleFile = (e) => {
     const file = e.target.files[0];
-    addImage(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const url = reader.result;
+        addImage({ file, imageUrl: url }); // Pass both file and url to the hook
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -80,9 +86,13 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
       <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
         <div>
           <div className={styles.infoContainer}>
-            {image && (
+            {imageUrl && (
               <div className={styles.imgContainer}>
-                <img alt="Card Image" className={styles.img} src={image}></img>
+                <img
+                  alt="Card Image"
+                  className={styles.img}
+                  src={imageUrl}
+                ></img>
               </div>
             )}
             <EditableHeading variant={2} title={title} onEdit={editTask} />
@@ -96,9 +106,11 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
             ></textarea>
           </div>
           <div className={styles.subtasks}>
-            <div className={styles.subtasksTitle}>
-              <Text variant="secondary" text={`Subtasks:`} />
-            </div>
+            {subtasks.length > 0 && (
+              <div className={styles.subtasksTitle}>
+                <Text variant="secondary" text={`Subtasks:`} />
+              </div>
+            )}
             {subtasks?.map((item) => {
               const _id = item?._id?.toString();
               return (

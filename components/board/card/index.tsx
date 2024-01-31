@@ -13,7 +13,8 @@ const Card: FC<CardProps> = ({
   status,
   _id,
   columnId,
-  image,
+  imageId,
+  imageUrl,
 }) => {
   const dispatch = useDispatch();
 
@@ -25,7 +26,8 @@ const Card: FC<CardProps> = ({
       status,
       _id,
       columnId,
-      image,
+      imageId,
+      imageUrl,
     };
     dispatch(setHighlightedCard(card));
     dispatch(toggleCardInfoModal(true));
@@ -35,9 +37,9 @@ const Card: FC<CardProps> = ({
 
   return (
     <div onClick={openCardDetails} className={styles.container}>
-      {image && (
+      {imageUrl && (
         <div className={styles.imgContainer}>
-          <img className={styles.img} src={image}></img>
+          <img className={styles.img} src={imageUrl}></img>
         </div>
       )}
       <Heading title={title} variant={3} />

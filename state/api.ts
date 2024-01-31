@@ -52,10 +52,28 @@ export const api: any = createApi({
       invalidatesTags: ["Board"],
     }),
     addTask: build.mutation({
-      query: ({ title, description, board, column, subtasks, user }) => ({
+      query: ({
+        title,
+        description,
+        board,
+        column,
+        subtasks,
+        user,
+        imageUrl,
+        imageId,
+      }) => ({
         url: "tasks/addTask",
         method: "POST",
-        body: { title, description, board, column, subtasks, user },
+        body: {
+          title,
+          description,
+          board,
+          column,
+          subtasks,
+          user,
+          imageUrl,
+          imageId,
+        },
       }),
       invalidatesTags: ["Board", "Task"],
     }),
@@ -68,10 +86,10 @@ export const api: any = createApi({
       invalidatesTags: ["Board", "Task"],
     }),
     editTask: build.mutation({
-      query: ({ taskId, title, description, subtasks }) => ({
+      query: ({ taskId, title, description, subtasks, imageUrl, imageId }) => ({
         url: "tasks/editTask",
         method: "PUT",
-        body: { taskId, title, description, subtasks },
+        body: { taskId, title, description, subtasks, imageUrl, imageId },
       }),
       invalidatesTags: ["Board", "Task"],
     }),

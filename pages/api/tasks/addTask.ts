@@ -13,12 +13,25 @@ export default async function handler(
 ) {
   await connectDB(process.env.MONGODB_URL);
 
-  const { title, description, subtasks, board, column, user } = req.body;
+  const {
+    title,
+    description,
+    subtasks,
+    board,
+    column,
+    user,
+    imageUrl,
+    imageId,
+  } = req.body;
+
+  console.log(imageId, imageUrl)
 
   // If there is no board, title, column or user, return an error
   if (!board || !title || !column || !user) {
     return res.status(500).json({ error: "Please enter all fields" });
   }
+
+  console.log("req.body 2: ", req.body);
 
   try {
     const task = new Task({
@@ -28,7 +41,10 @@ export default async function handler(
       board,
       column,
       user,
+      imageUrl,
+      imageId,
     });
+    console.log("task: ", task);
     const result = await task.save();
 
     const taskId = result._id;

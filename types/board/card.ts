@@ -9,4 +9,6 @@ export type CardProps = {
   _id: string;
   image?: string;
   columnId?: string | ObjectId;
+  imageUrl?: string | null;
+  imageId?: string | null;
 };

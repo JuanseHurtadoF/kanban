@@ -14,10 +14,12 @@ export default async function handler(
     if (req.method !== "PUT")
       return res.status(500).json({ error: "Wrong request method" });
 
-    const { taskId, title, description, subtasks } = req.body;
+    const { taskId, title, description, subtasks, imageId, imageUrl } =
+      req.body;
+    console.log(taskId);
 
     if (!taskId) return res.status(500).json({ error: "Missing taskId" });
-    if (!title && !description && !subtasks)
+    if (!title && !description && !subtasks && !imageUrl)
       return res
         .status(500)
         .json({ error: "Got task ID but no properties to update" });
@@ -25,6 +27,8 @@ export default async function handler(
     const propertiesToUpdate = {};
     if (title) propertiesToUpdate["title"] = title;
     if (description) propertiesToUpdate["description"] = description;
+    if (imageId) propertiesToUpdate["imageId"] = imageId;
+    if (imageUrl) propertiesToUpdate["imageUrl"] = imageUrl;
 
     const subtaskIds = [];
 
@@ -40,12 +44,11 @@ export default async function handler(
       }
       propertiesToUpdate["subtasks"] = subtaskIds;
     }
-
     // @ts-ignore
     const result = await Task.findByIdAndUpdate(taskId, propertiesToUpdate, {
       new: true,
     });
-    const savedResult = await result.save();
+    // const savedResult = await result.save();
 
     res.status(200).json({ message: `Task successfully Edited` });
   } catch (error: any) {

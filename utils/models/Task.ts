@@ -34,14 +34,15 @@ const TaskSchema = new mongoose.Schema(
         ref: "Subtask",
       },
     ],
-    image: {
-      type: Object,
-      url: {
-        type: String,
-      },
-      id: {
-        type: String,
-      },
+    imageUrl: {
+      type: String,
+      min: 2,
+      max: 200,
+    },
+    imageId: {
+      type: String,
+      min: 2,
+      max: 100,
     },
   },
   { timestamps: true }

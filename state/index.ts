@@ -184,11 +184,24 @@ export const globalSlice = createSlice({
       });
     },
     addImageLocal: (state, action) => {
-      const { taskId, url } = action.payload;
+      const { imageUrl } = action.payload;
       const boardId = state.activeBoard._id;
-      const columnId = state.highlightedCard.columnId;
+      const { columnId, _id } = state.highlightedCard;
 
-      // add logic
+      state.highlightedCard.imageUrl = imageUrl;
+      state.activeBoard.columns = state.activeBoard.columns.map(
+        (column: any) => {
+          if (column._id === columnId) {
+            column.tasks = column.tasks.map((task: any) => {
+              if (task._id === _id) {
+                task.imageUrl = imageUrl;
+              }
+              return task;
+            });
+          }
+          return column;
+        }
+      );
     },
 
     // ******** SUBTASKS ******** //
@@ -383,6 +396,7 @@ export const {
   addTaskLocal,
   removeTaskLocal,
   editTaskLocal,
+  addImageLocal,
   replaceTaskLocal,
   moveTaskLocal,
   moveColumnLocal,
