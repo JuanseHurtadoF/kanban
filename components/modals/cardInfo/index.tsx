@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@types";
@@ -9,6 +10,7 @@ import { toggleSubtaskLocal } from "state";
 import { useDispatch } from "react-redux";
 import useRemoveTask from "hooks/useRemoveTask";
 import useEditTask from "hooks/useEditTask";
+import useAddImage from "hooks/useAddImage";
 import { AddCheckbox } from "@components";
 
 const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
@@ -18,9 +20,11 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
   const [newDescription, setNewDescription] = useState("");
   const [isSubtaskBeingAdded, setIsSubtaskBeingAdded] =
     useState<boolean>(false);
+  const [image, setImage] = useState<string | null>(null);
   const completedSubtasks = subtasks?.filter((item) => item.isCompleted);
   const { deleteTask } = useRemoveTask();
   const { updateTask } = useEditTask();
+  const { addImage } = useAddImage();
   const dispatch = useDispatch();
 
   const highlightedCard = useSelector(
@@ -67,12 +71,34 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
     setIsSubtaskBeingAdded(false);
   };
 
+  const handleFile = (e: any) => {
+    const file = e.target.files[0];
+    addImage(file);
+
+    // set image to the uploaded image
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImage(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveImage = () => {
+    setImage(null);
+  };
+
   return (
     <div onClick={onClick} className={styles.container}>
       <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
         <div>
-          <div className={styles.textContainer}>
+          <div className={styles.infoContainer}>
+            {image && (
+              <div className={styles.imgContainer}>
+                <img alt="Card Image" className={styles.img} src={image}></img>
+              </div>
+            )}
             <EditableHeading variant={2} title={title} onEdit={editTask} />
+            <input onChange={handleFile} type="file"></input>
             <textarea
               defaultValue={description}
               placeholder="Description..."
@@ -83,10 +109,7 @@ const CardInfo: FC<CardInfoProps> = ({ onClick }) => {
           </div>
           <div className={styles.subtasks}>
             <div className={styles.subtasksTitle}>
-              <Text
-                variant="secondary"
-                text={`Subtasks (${completedSubtasks.length} of ${subtasks?.length})`}
-              />
+              <Text variant="secondary" text={`Subtasks:`} />
             </div>
             {subtasks?.map((item) => {
               const _id = item?._id?.toString();

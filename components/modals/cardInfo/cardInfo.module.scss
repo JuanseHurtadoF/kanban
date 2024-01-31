@@ -19,7 +19,7 @@
       padding: 1.2rem;
     }
 
-    .textContainer {
+    .infoContainer {
       display: grid;
       gap: 1.6rem;
       margin-bottom: 2rem;
@@ -45,6 +45,17 @@
           background-color: var(--color-bg-secondary);
         }
       }
+
+      .imgContainer {
+        width: 100%;
+        overflow: hidden;
+        max-height: 200px;
+        border-radius: 0.6rem;
+        .img {
+          width: 100%;
+          border-radius: 0.6rem;
+        }
+      }
     }
 
     .subtasks {
@@ -53,7 +64,7 @@
       margin-bottom: 3rem;
 
       &Title {
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.2rem;
       }
     }
 

@@ -5,7 +5,17 @@ type HEX = `#${string}`;
 export type Color = RGB | RGBA | HEX;
 
 export type iconProps = {
-  variant: "board" | "light" | "dark" | "hide" | "open" | "options" | "close" | "delete" | "edit";
+  variant:
+    | "board"
+    | "light"
+    | "dark"
+    | "hide"
+    | "open"
+    | "options"
+    | "close"
+    | "delete"
+    | "edit"
+    | "subtask";
   fill?: Color;
   height?: number;
   width?: number;
