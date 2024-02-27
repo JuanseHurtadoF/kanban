@@ -7,6 +7,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { api } from "state/api";
 import dragAndDropReducer from "state/dragAndDrop";
 import modalsReducer from "state/modals";
+import connectDB from "@utils/connectDB";
 
 export default function App({ Component, pageProps }: AppProps) {
   const store = configureStore({
@@ -20,6 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
       getDefaultMiddleware().concat(api.middleware),
   });
   setupListeners(store.dispatch);
+  connectDB();
 
   return (
     <>

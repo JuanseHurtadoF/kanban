@@ -23,6 +23,7 @@
     "mongoose": "^7.0.3",
     "next": "13.2.4",
     "next-cloudinary": "^5.20.0",
+    "openai": "^4.28.0",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "18.2.0",

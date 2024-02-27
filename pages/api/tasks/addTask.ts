@@ -68,7 +68,7 @@ export default async function handler(
     const newTask = await Task.findByIdAndUpdate(taskId, {
       subtasks: subtaskIds,
     });
-    const savedTask = await newTask.save();
+    const savedTask = await newTask.save();    
 
     // @ts-ignore
     const currentColumn = await Column.findByIdAndUpdate(

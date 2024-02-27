@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const connectDB = async (url) => {
-  if (mongoose.connection.readyState >= 1) {
+  if (mongoose.connection?.readyState >= 1) {
     // If the connection is ready, return without reconnecting
     return;
   }
